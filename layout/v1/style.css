@@ -6,56 +6,67 @@
 html, body{
 	width: 100%;
 	height: 100%;
-	background-color: #dddddd;
-	font-family: Helvetica;
-}
-
-#header, #tabs, #cats, #content, #container{
-	width: 100%;
-	text-align: center;
+	background-color: #DDDDDD;
+	font-family: Verdana;
 }
 
 #container{
+	background-color: #F9CB9C;
 	width: 1024px;
+	min-height: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	min-height: 100%;
-	background-color: rgb(249, 203, 156);
+	text-align: center;
 	border: solid 1px black;
-	border-bottom: none;
 	border-top: none;
+	border-bottom: none;
 	position: relative;
+}
+
+#header, #tabs, #content, #footer{
+	width: 100%;
+	line-height: 25px;
 }
 
 #header{
 	height: 90px;
-	border-bottom: solid 2px black;
-	background-color: rgb(133, 32, 12);
-	line-height: 90px;
-	color: white;
-}
-
-#tabs, #cats{
-	height: 25px;
+	background-color: #85200C;
 	border-bottom: solid 1px black;
-	background-color: rgb(180, 95, 6);
-	line-height: 25px;
-	color: white;
+	line-height: 90px;
+	font-family: Gigi;
 }
 
-#cats{
-	border-bottom: solid 2px black;
+#header h1{
+	font-size: 45px;
+	/*color: rgb(255, 128, 64);*/
+	color: rgb(248, 213, 12);
 }
 
-#content{
+#tabs{
+	height: 50px;
+	background-color: #B45F0C;
+	border-bottom: solid 1px black;
 }
 
 #footer{
-	height: 25px;
-	line-height: 25px;
 	border-top: solid 1px black;
 	position: absolute;
 	bottom: 0px;
-	left: 0px;
-	width: 1024px;
+	height: 25px;
 }
+
+#left, #right{
+	float: right;
+}
+
+#left{
+	width: 150px;
+	background-color: #FFE599;
+	border-left: solid 1px black;
+	border-bottom: solid 1px black;
+	height: 500px;
+}
+
+#right{
+	width: 870px;
+}	
