@@ -1,0 +1,82 @@
+#overzichtcontainer.product{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	background-color: #FFE599;
+	border: solid 2px black;
+	width: 500px;
+	height: auto;
+	text-align: left;
+}
+
+#overzichtcontainer.contact{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	background-color: #FFE599;
+	border: solid 2px black;
+	width: 500px;
+	height: auto;
+	text-align: left;
+}
+#overzichtcontainer.mastercard{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	background-color: #FFE599;
+	border: solid 2px black;
+	width: 500px;
+	height: 200px;
+	text-align: left;
+}
+
+
+#overzichtcontainer p {
+	text-align: center;
+}
+
+#product{
+border-collapse:collapse;
+}
+
+#product th{
+text-align: left;
+padding-left: 2px;
+border: solid 1px black;
+}
+#product th.begin{
+border: 0;
+}
+
+#product td{
+height: 30px;
+width: 100px;
+padding-left: 2px;
+border-bottom: solid 1px black;
+}
+
+#product td.prijs{
+text-align: right;
+}
+#product td.leeg{
+border-bottom: 0;
+}
+
+#exp1{
+width: 40px;
+}
+#exp2{
+width: 60px;
+}
+#cvv{
+width: 50px;
+}
+td.input{
+text-align: right;
+}
+td.delete{
+text-align: center;
+}
+td.delete img{
+cursor: pointer;
+}
