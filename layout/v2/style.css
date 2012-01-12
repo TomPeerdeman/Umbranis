@@ -164,10 +164,10 @@ border-top: 0;
 
 /* pcgames pagina */
 #gameboxsmall{
-	margin: 20px;
+	margin: 10px;
 	background-color: #FFE599;
 	border: solid 2px black;
-	width: 150px;
+	width: 180px;
 	height: 190px;
 	text-align: center;
 }
