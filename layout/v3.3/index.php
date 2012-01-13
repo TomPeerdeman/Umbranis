@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="style/admin.css" type="text/css" />
 	<link rel="stylesheet" href="style/faq.css" type="text/css" />
 	<link rel="stylesheet" href="style/addcart.css" type="text/css" />
+	<link rel="stylesheet" href="style/accsettings.css" type="text/css" />
 </head>
 <body>
 	<div id="container">

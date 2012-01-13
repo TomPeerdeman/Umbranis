@@ -38,6 +38,7 @@
 
 #product{
 	border-collapse: collapse;
+	width: 85%;
 }
 
 #product, .contact table, .mastercard table{
