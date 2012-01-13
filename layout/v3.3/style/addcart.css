@@ -11,3 +11,7 @@
 .insidebox{
 	margin: 20px;
 }
+
+td{
+	vertical-align:top;
+}
