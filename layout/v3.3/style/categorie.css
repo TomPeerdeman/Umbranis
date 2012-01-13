@@ -1,0 +1,23 @@
+/* pcgames pagina */
+.small{
+	margin: 10px;
+	background-color: #FFE599;
+	border: solid 2px black;
+	width: 180px;
+	height: 190px;
+	text-align: center;
+}
+
+.category{
+	margin: 10px 300px 40px 40px;
+	background-color: #FFE599;
+	border: solid 2px black;
+	width: 180px;
+	height: 190px;
+	text-align: center;
+}
+
+.category a, .small a{
+	color: #000000;
+	text-decoration: none;
+}
