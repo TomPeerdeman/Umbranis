@@ -37,7 +37,12 @@
 }
 
 #product{
-	border-collapse:collapse;
+	border-collapse: collapse;
+}
+
+#product, .contact table, .mastercard table{
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #product th{
