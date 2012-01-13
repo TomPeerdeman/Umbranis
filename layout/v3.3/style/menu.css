@@ -56,8 +56,8 @@ ul ul a:link, ul ul a:visited{
 /* mouseover tekst */
 ul ul a:hover, ul ul a:active, ul a:hover, ul a:active{
 	font-weight: normal;
-	background-color: blue;
-	color: white;
+	background-color: #FA8072;
+	color: black;
 	cursor: pointer;
 }
 
