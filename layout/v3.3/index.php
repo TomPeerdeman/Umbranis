@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="style/login.css" type="text/css" />
 	<link rel="stylesheet" href="style/categorie.css" type="text/css" />
 	<link rel="stylesheet" href="style/contact.css" type="text/css" />
+	<link rel="stylesheet" href="style/bestel.css" type="text/css" />
 </head>
 <body>
 	<div id="container">
