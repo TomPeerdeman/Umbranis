@@ -1,0 +1,13 @@
+#addcart{
+	width: 200px;
+	height: 25px;
+}
+#productbox{
+	background-color: #FFE599;
+	margin: 20px;
+	border: solid 2px black;
+	text-align: left;
+}
+.insidebox{
+	margin: 20px;
+}
