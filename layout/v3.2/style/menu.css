@@ -1,0 +1,84 @@
+/* menu */
+#nav, #nav ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+
+}
+
+#nav  li ul ul {
+	margin: -1.6em 0 0 9em;
+}
+
+#nav li {
+	float: left;
+	width: 9em;
+}
+
+#nav li ul {
+	position: absolute;
+	width: 9em;
+	left: -999em;
+}
+
+#nav li:hover ul ul{
+	position: absolute;
+	left: -999em;
+}
+#nav li:hover ul, #nav li.ie_does_hover ul, #nav li li:hover ul, #nav li li.ie_does_hover ul {
+	left: auto;
+	background-position: 0 0;
+}
+
+#nav a {
+	display: block;
+	width: 9em;
+
+	text-decoration: none;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+}
+
+/*text faq, contact, etc*/
+ul a{
+	font-weight: bold;
+	color: black;
+	cursor: pointer;
+}
+
+/*dropdown tekst*/
+ul ul a:link, ul ul a:visited{
+	font-weight: normal;
+	color: black;
+	cursor: pointer;
+}
+
+/* mouseover tekst */
+ul ul a:hover, ul ul a:active, ul a:hover, ul a:active{
+	font-weight: normal;
+	background-color: blue;
+	color: white;
+	cursor: pointer;
+}
+
+/* box */
+ul li{
+	background-color: #B45F0C;
+	border : 1px solid black;
+}
+
+/* dropdown box */
+ul ul li{
+	background-color: #B45F0C;
+	border: 1px solid black;
+}
+
+/* IE only hack \*/
+* html ul li, * html ul ul li{
+	border-bottom: 3px solid #FFF;
+}
+
+* html ul ul li{
+	border-top: 0;
+}
+/* Einde IE only hack */ 
