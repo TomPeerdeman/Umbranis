@@ -59,6 +59,7 @@ html, body{
 }
 
 #topsales{
+	position: relative;
 	width: 155px;
 	background-color: #FFE599;
 	border-left: solid 1px black;
@@ -97,4 +98,11 @@ html, body{
 
 a{
 	text-decoration: underline;
+}
+
+#twitter{
+	position: absolute;
+	top:200px;
+	margin-left: 3px;
+	margin-right: 3px;
 }
