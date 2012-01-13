@@ -25,7 +25,7 @@
 					//als er geen ?p=.. is of er is geen pagina aangegeven dan home 
 					if(!isset($_GET['p']) || $_GET['p'] == ""){ 
 				?>
-				<?php include("home.html"); ?>
+				<h2>Home</h2>
 				<?php
 					}else{
 						//bestand laden wat achter ?p= staat
