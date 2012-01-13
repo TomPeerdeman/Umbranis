@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="style/addcart.css" type="text/css" />
 	<link rel="stylesheet" href="style/accsettings.css" type="text/css" />
 	<link rel="stylesheet" href="style/home.css" type="text/css" />
+	<script src="http://widgets.twimg.com/j/2/widget.js" type="text/javascript"></script>
 </head>
 <body>
 	<div id="container">
