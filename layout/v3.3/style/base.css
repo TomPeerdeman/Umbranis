@@ -58,22 +58,13 @@ html, body{
 	float: right;
 }
 
-#topsales{
-	position: relative;
-	width: 155px;
-	background-color: #FFE599;
-	border-left: solid 1px black;
-	border-bottom: solid 1px black;
-	height: 500px;
-}
-
 #contentclear{
 	clear: both;
 	height: 30px;
 }
 
 #maincontent{
-	width: 865px;
+	width: 850px;
 }
 
 #contentcontainer{
@@ -98,11 +89,4 @@ html, body{
 
 a{
 	text-decoration: underline;
-}
-
-#twitter{
-	position: absolute;
-	top:200px;
-	margin-left: 3px;
-	margin-right: 3px;
 }
