@@ -25,6 +25,10 @@ html, body{
 
 #header, #menu, #content, #footer{
 	width: 100%;
+	line-height: 20px;
+}
+
+#menu{
 	line-height: 25px;
 }
 

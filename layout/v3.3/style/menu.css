@@ -19,6 +19,7 @@
 	position: absolute;
 	width: 9em;
 	left: -999em;
+	z-index: 5;
 }
 
 #nav li:hover ul ul{
