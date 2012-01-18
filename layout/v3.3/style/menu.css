@@ -7,17 +7,17 @@
 }
 
 #nav  li ul ul {
-	margin: -1.6em 0 0 9em;
+	margin: -1.6em 0 0 140px;
 }
 
 #nav li {
 	float: left;
-	width: 9em;
+	width: 140px;
 }
 
 #nav li ul {
 	position: absolute;
-	width: 9em;
+	width: 140px;
 	left: -999em;
 	z-index: 5;
 }
@@ -33,8 +33,7 @@
 
 #nav a {
 	display: block;
-	width: 9em;
-
+	width: 140px;
 	text-decoration: none;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 1em;
