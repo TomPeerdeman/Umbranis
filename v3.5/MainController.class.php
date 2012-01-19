@@ -79,7 +79,8 @@
 <div id="content">
 <div id="topsales">
 <?php
-			include("base/top_sales.html");
+			$o = new TopsalesController();
+			$o->buildTopsales();
 ?>
 </div>
 <div id="maincontent">
@@ -96,12 +97,14 @@
 </div>
 <div id="loginbox">
 <?php
-			include("base/loginbox.html");
+			$o = new LoginboxController();
+			$o->buildLoginbox();
 ?>
 </div>
 <div id="footer">
 <?php
-			include("base/footer.html"); 
+			$o = new FooterController();
+			$o->buildFooter();
 ?>
 </div>
 </div>

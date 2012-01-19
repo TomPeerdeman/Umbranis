@@ -1,4 +1,10 @@
-<!--Meest verkocht/andere mensen kochten ook/meest gezocht-->
+<?php
+	//Dit bestand kan alleen vanuit de index aangeroepen worden
+	if(!defined("INDEX"))die("NO INDEX!");
+	
+	class TopsalesController{
+		public function buildTopsales(){
+?>
 <div id="topsalescontainer">
 	<strong>Meest verkocht</strong><br />
 	<table>
@@ -11,12 +17,10 @@
 		</tr>
 		<tr>
 			<td class="topitem"><a href="?p=productpagina.html">&euro;59,99</a></td>
-		</tr>
-		
+		</tr>		
 		<tr>
 			<td class="spacer" colspan="2"></td>
-		</tr>
-		
+		</tr>	
 		<tr>
 			<td rowspan="3" class="topnum"><a href="?p=productpagina.html">2</a></td>
 			<td class="topitem"><a href="?p=productpagina.html"><em>Games - pc</em></a></td>
@@ -26,12 +30,10 @@
 		</tr>
 		<tr>
 			<td class="topitem"><a href="?p=productpagina.html">&euro;49,99</a></td>
-		</tr>
-		
+		</tr>	
 		<tr>
 			<td class="spacer" colspan="2"></td>
-		</tr>
-		
+		</tr>	
 		<tr>
 			<td rowspan="3" class="topnum"><a href="?p=productpagina.html">3</a></td>
 			<td class="topitem"><a href="?p=productpagina.html"><em>Muziek - Jazz</em></a></td>
@@ -41,12 +43,10 @@
 		</tr>
 		<tr>
 			<td class="topitem"><a href="?p=productpagina.html">&euro;15,99</a></td>
-		</tr>
-		
+		</tr>	
 		<tr>
 			<td class="spacer" colspan="2"></td>
-		</tr>
-		
+		</tr>	
 		<tr>
 			<td rowspan="3" class="topnum"><a href="?p=productpagina.html">4</a></td>
 			<td class="topitem"><a href="?p=productpagina.html"><em>Muziek - Jazz</em></a></td>
@@ -56,12 +56,10 @@
 		</tr>
 		<tr>
 			<td class="topitem"><a href="?p=productpagina.html">&euro;15,99</a></td>
-		</tr>
-		
+		</tr>		
 		<tr>
 			<td class="spacer" colspan="2"></td>
-		</tr>
-		
+		</tr>	
 		<tr>
 			<td rowspan="3" class="topnum"><a href="?p=productpagina.html">5</a></td>
 			<td class="topitem"><a href="?p=productpagina.html"><em>Games - pc</em></a></td>
@@ -74,7 +72,6 @@
 		</tr>
 	</table>
 </div>
-
 <div id="twitter">
 	<script type="text/javascript">
 	new TWTR.Widget({
@@ -105,3 +102,7 @@
 	}).render().setUser('Umbranis').start();
 	</script>
 </div>
+<?php
+		}
+	}
+?>
