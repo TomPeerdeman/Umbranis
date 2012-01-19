@@ -32,13 +32,13 @@
 				foreach($category['subcats'] as $subcat){
 					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "\">" . $subcat['cat_name'] . "</a>";
 					echo "<ul>";
-					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "\">alle muziek</a></li>";
-					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "&amp;spec=new\">nieuwe muziek</a></li>";
+					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "\">alle " . lcfirst($category['cat_name']) . "</a></li>";
+					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "&amp;spec=new\">nieuwe " . lcfirst($category['cat_name']) . "</a></li>";
 					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "&amp;spec=action\">aanbiedingen</a></li>";
 					echo "</ul>";
 				}
 				echo "</ul>";
-				echo "</li>";	
+				echo "</li>";
 			}
 ?>
 	<li>
