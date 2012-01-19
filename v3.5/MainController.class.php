@@ -17,6 +17,10 @@
 			$page = ucfirst($page);
 			$page .= "Controller";
 			
+			if(!file_exists("pages/" . $page . ".class.php")){
+				die("404 - page not found (yet).");
+			}
+			
 			//Bestand laden
 			include("pages/" . $page . ".class.php");
 			
@@ -50,7 +54,6 @@
 </title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="style/base.css" type="text/css" />
-<link rel="stylesheet" href="style/menu.css" type="text/css" />
 <link rel="stylesheet" href="style/zoek.css" type="text/css" />
 <link rel="stylesheet" href="style/login.css" type="text/css" />
 <link rel="stylesheet" href="style/categorie.css" type="text/css" />
@@ -61,7 +64,6 @@
 <link rel="stylesheet" href="style/addcart.css" type="text/css" />
 <link rel="stylesheet" href="style/accsettings.css" type="text/css" />
 <link rel="stylesheet" href="style/home.css" type="text/css" />
-<link rel="stylesheet" href="style/topsales.css" type="text/css" />
 <script src="http://widgets.twimg.com/j/2/widget.js" type="text/javascript"></script>
 </head>
 <body>
@@ -69,7 +71,9 @@
 <div id="header"><h1>Umbranis webshop b&egrave;ta versie 3</h1></div>
 <div id="menu">
 <?php 
-			include("base/menu.html");
+			//menu bouwen
+			$o = new MenuController();
+			$o->buildMenu();
  ?>
 </div>		
 <div id="content">

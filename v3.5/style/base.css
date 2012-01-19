@@ -94,3 +94,143 @@ html, body{
 a{
 	text-decoration: underline;
 }
+
+#topsales{
+	position: relative;
+	width: 170px;
+	background-color: #FFE599;
+	border-left: solid 1px black;
+	border-bottom: solid 1px black;
+	height: auto;
+	padding-bottom: 290px;
+	text-align: left;
+}
+
+#topsalescontainer{
+	margin-left: 3px;
+	font-size: 12px;
+}
+
+#twitter{
+	position: absolute;
+	bottom: 3px;
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
+#topsalescontainer td{
+	line-height: 17px;
+}
+
+#topsalescontainer table{
+	border-collapse: collapse;
+}
+
+#topsalescontainer .topnum{
+	vertical-align: middle;
+	width: 20px;
+}
+
+#topsalescontainer .topnum a{
+	color: gray;
+	text-decoration: none;
+}
+
+#topsalescontainer .topitem{
+	border-left: solid 1px gray;
+	padding-left: 5px;
+}
+
+#topsalescontainer a{
+	color: black;
+	text-decoration: none;
+}
+
+#topsalescontainer .spacer{
+	height: 10px;
+}
+
+/* menu */
+#nav, #nav ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+
+}
+
+#nav  li ul ul {
+	margin: -1.6em 0 0 140px;
+}
+
+#nav li {
+	float: left;
+	width: 140px;
+}
+
+#nav li ul {
+	position: absolute;
+	width: 140px;
+	left: -999em;
+	z-index: 5;
+}
+
+#nav li:hover ul ul{
+	position: absolute;
+	left: -999em;
+}
+#nav li:hover ul, #nav li.ie_does_hover ul, #nav li li:hover ul, #nav li li.ie_does_hover ul {
+	left: auto;
+	background-position: 0 0;
+}
+
+#nav a {
+	display: block;
+	width: 140px;
+	text-decoration: none;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+}
+
+/*text faq, contact, etc*/
+ul a{
+	font-weight: bold;
+	color: black;
+	cursor: pointer;
+}
+
+/*dropdown tekst*/
+ul ul a:link, ul ul a:visited{
+	font-weight: normal;
+	color: black;
+	cursor: pointer;
+}
+
+/* mouseover tekst */
+ul ul a:hover, ul ul a:active, ul a:hover, ul a:active{
+	font-weight: normal;
+	background-color: #A64D00;
+	color: black;
+	cursor: pointer;
+}
+
+/* box */
+ul li{
+	background-color: #B45F0C;
+	border : 1px solid black;
+}
+
+/* dropdown box */
+ul ul li{
+	background-color: #B45F0C;
+	border: 1px solid black;
+}
+
+/* IE only hack \*/
+* html ul li, * html ul ul li{
+	border-bottom: 3px solid #FFF;
+}
+
+* html ul ul li{
+	border-top: 0;
+}
+/* Einde IE only hack */ 
