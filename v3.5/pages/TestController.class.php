@@ -7,7 +7,7 @@
 			echo "<p>Hello world!</p>";
 			$res = DB::$db->query("SELECT COUNT(*) AS num FROM categories WHERE parent_id != 0");
 			$row = $res->fetch();
-			echo "<p>Number of subcategories: " . $row['num'] . "</p>";
+			echo "<p>Number of subcategories: " . $row['num'] . "; query results: " . $res->rowCount() . "</p>";
 		}
 	}
 ?>

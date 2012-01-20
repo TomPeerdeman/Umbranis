@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.8
+-- version 3.2.4
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Jan 18, 2012 at 08:06 PM
--- Server version: 5.1.52
--- PHP Version: 5.3.3
+-- Machine: localhost
+-- Genereertijd: 20 Jan 2012 om 09:49
+-- Serverversie: 5.1.41
+-- PHP-Versie: 5.3.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -23,7 +22,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cart_products`
+-- Tabelstructuur voor tabel `cart_products`
 --
 
 CREATE TABLE IF NOT EXISTS `cart_products` (
@@ -33,10 +32,15 @@ CREATE TABLE IF NOT EXISTS `cart_products` (
   UNIQUE KEY `user_id` (`user_id`,`product_id`,`amount`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Gegevens worden uitgevoerd voor tabel `cart_products`
+--
+
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Tabelstructuur voor tabel `categories`
 --
 
 CREATE TABLE IF NOT EXISTS `categories` (
@@ -49,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
--- Dumping data for table `categories`
+-- Gegevens worden uitgevoerd voor tabel `categories`
 --
 
 INSERT INTO `categories` (`cat_id`, `parent_id`, `cat_name`, `image_path`) VALUES
@@ -76,7 +80,7 @@ INSERT INTO `categories` (`cat_id`, `parent_id`, `cat_name`, `image_path`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Tabelstructuur voor tabel `orders`
 --
 
 CREATE TABLE IF NOT EXISTS `orders` (
@@ -89,10 +93,15 @@ CREATE TABLE IF NOT EXISTS `orders` (
   PRIMARY KEY (`order_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+--
+-- Gegevens worden uitgevoerd voor tabel `orders`
+--
+
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_products`
+-- Tabelstructuur voor tabel `order_products`
 --
 
 CREATE TABLE IF NOT EXISTS `order_products` (
@@ -103,10 +112,15 @@ CREATE TABLE IF NOT EXISTS `order_products` (
   UNIQUE KEY `order_id` (`order_id`,`product_id`,`amount`,`price`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Gegevens worden uitgevoerd voor tabel `order_products`
+--
+
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Tabelstructuur voor tabel `products`
 --
 
 CREATE TABLE IF NOT EXISTS `products` (
@@ -128,19 +142,19 @@ CREATE TABLE IF NOT EXISTS `products` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `products`
+-- Gegevens worden uitgevoerd voor tabel `products`
 --
 
 INSERT INTO `products` (`product_id`, `cat_id`, `product_name`, `normal_price`, `price`, `stock`, `delivery_time`, `publisher`, `author`, `image_path`, `description`, `EAN-code`, `date`) VALUES
-(1, 3, 'The elder Scrolls: Skyrim', 49.99, 49.99, 10, 0, 'Bethesda Softworks', '', 'img/skyrim.png', '', '1234567891012', '2012-01-18 17:05:12'),
-(2, 3, 'Portal 2', 59.99, 59.99, 10, 2, 'Valve Corporation', '', 'img/portal.png', '', '1234567891013', '2012-01-18 17:05:12'),
-(3, 2, 'Birds of Fire', 15.99, 15.99, 10, 1, 'Sony music entertainment', 'Mahavishnu Orchestra', '', '', '4209714987224', '2012-01-18 18:37:07'),
-(4, 2, 'Unrecognizable screeches from a ', 15.99, 15.99, 10, 1, '', 'Ramses Ijff', '', '', '4209714987125', '2012-01-18 18:37:42');
+(1, 13, 'The elder Scrolls: Skyrim', 49.99, 49.99, 10, 0, 'Bethesda Softworks', '', 'img/skyrim.png', '', '1234567891012', '2012-01-18 18:04:48'),
+(2, 13, 'Portal 2', 59.99, 59.99, 10, 2, 'Valve Corporation', '', 'img/portal.png', '', '1234567891013', '2012-01-18 18:04:48'),
+(3, 5, 'Birds of Fire', 15.99, 15.99, 10, 1, 'Sony music entertainment', 'Mahavishnu Orchestra', '', '', '4209714987224', '2012-01-18 19:36:43'),
+(4, 5, 'Unrecognizable screeches from a ', 15.99, 15.99, 10, 1, '', 'Ramses Ijff', '', '', '4209714987125', '2012-01-18 19:37:18');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Tabelstructuur voor tabel `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -164,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `users`
+-- Gegevens worden uitgevoerd voor tabel `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `zipcode`, `city`, `street`, `house_number`, `firstname`, `lastname`, `gender`, `tel1`, `tel2`, `email`, `admin_rights`) VALUES

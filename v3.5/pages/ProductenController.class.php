@@ -5,20 +5,18 @@
 	class ProductenController extends BaseController{
 		public function buildPage(){
 			// x = categories.cat_id
-			$x=$_GET["cat"];
+			$x = DB::$db->quote($_GET["cat"]);
 			echo '<div id="contentcontainer">';	
-			$res = DB::$db->query("SELECT * FROM categories where cat_id = $x");
+			$res = DB::$db->query("SELECT * FROM categories where cat_id = " . $x);
 			while($row = $res->fetch()){
 				echo "<h2>";
 				echo $row['cat_name'];
 				echo "</h2>";
 			}
-			// todo: 100% werkende query ( dit maakt geen onderscheid tussen subcategorien)
+			
 			$res2 = DB::$db->query("SELECT products.image_path, product_name, price, product_id
 									FROM products
-									INNER JOIN categories 
-									ON products.cat_id = categories.parent_id
-									WHERE categories.cat_id = '$x'");
+									WHERE cat_id = " . $x);
 			$teller = 0;
 			echo "<table><tr>";
 			while($row = $res2->fetch())
