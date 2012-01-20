@@ -3,73 +3,42 @@
 	if(!defined("INDEX"))die("NO INDEX!");
 	
 	class TopsalesController{
+		private $topsales;
+	
+		public function __construct($page){
+			//todo: selecteren van producten die ook gekocht werden als er een productpagina geopend is.
+			$res = DB::$db->query("SELECT product_id, product_name, price, subcat.cat_name AS subcat_name, hoofdcat.cat_name AS hoofdcat_name
+				FROM products
+				JOIN categories AS subcat ON products.cat_id = subcat.cat_id
+				JOIN categories AS hoofdcat ON subcat.parent_id = hoofdcat.cat_id
+				LIMIT 5");
+			while($row = $res->fetch()){
+				$this->topsales[] = $row;
+			}
+		}
+	
 		public function buildTopsales(){
 ?>
 <div id="topsalescontainer">
 	<strong>Meest verkocht</strong><br />
 	<table>
-		<tr>
-			<td rowspan="3" class="topnum"><a href="?p=productpagina.html">1</a></td>
-			<td class="topitem"><a href="?p=productpagina.html"><em>Games - pc</em></a></td>
+<?php
+	for($i = 0; $i < 5; $i++){
+		echo '<tr>
+			<td rowspan="3" class="topnum"><a href="?p=product&id=' . $this->topsales[$i]['product_id'] . '">' . ($i + 1) . '</a></td>
+			<td class="topitem"><a href="?p=product&id=' . $this->topsales[$i]['product_id'] . '"><em>' . $this->topsales[$i]['hoofdcat_name'] . ' - ' . $this->topsales[$i]['subcat_name'] . '</em></a></td>
 		</tr>
 		<tr>
-			<td class="topitem"><a href="?p=productpagina.html">Skyrim PC-DVD</a></td>
+			<td class="topitem"><a href="?p=product&id=' . $this->topsales[$i]['product_id'] . '">' . $this->topsales[$i]['product_name'] . '</a></td>
 		</tr>
 		<tr>
-			<td class="topitem"><a href="?p=productpagina.html">&euro;59,99</a></td>
+			<td class="topitem"><a href="?p=product&id=' . $this->topsales[$i]['product_id'] . '">&euro;' . $this->topsales[$i]['price'] . '</a></td>
 		</tr>		
 		<tr>
 			<td class="spacer" colspan="2"></td>
-		</tr>	
-		<tr>
-			<td rowspan="3" class="topnum"><a href="?p=productpagina.html">2</a></td>
-			<td class="topitem"><a href="?p=productpagina.html"><em>Games - pc</em></a></td>
-		</tr>
-		<tr>
-			<td class="topitem"><a href="?p=productpagina.html">Portals 2 PC-DVD</a></td>
-		</tr>
-		<tr>
-			<td class="topitem"><a href="?p=productpagina.html">&euro;49,99</a></td>
-		</tr>	
-		<tr>
-			<td class="spacer" colspan="2"></td>
-		</tr>	
-		<tr>
-			<td rowspan="3" class="topnum"><a href="?p=productpagina.html">3</a></td>
-			<td class="topitem"><a href="?p=productpagina.html"><em>Muziek - Jazz</em></a></td>
-		</tr>
-		<tr>
-			<td class="topitem"><a href="?p=productpagina.html">Birds of Fire</a></td>
-		</tr>
-		<tr>
-			<td class="topitem"><a href="?p=productpagina.html">&euro;15,99</a></td>
-		</tr>	
-		<tr>
-			<td class="spacer" colspan="2"></td>
-		</tr>	
-		<tr>
-			<td rowspan="3" class="topnum"><a href="?p=productpagina.html">4</a></td>
-			<td class="topitem"><a href="?p=productpagina.html"><em>Muziek - Jazz</em></a></td>
-		</tr>
-		<tr>
-			<td class="topitem"><a href="?p=productpagina.html">Unrecognizable screeches from a saxophone</a></td>
-		</tr>
-		<tr>
-			<td class="topitem"><a href="?p=productpagina.html">&euro;15,99</a></td>
-		</tr>		
-		<tr>
-			<td class="spacer" colspan="2"></td>
-		</tr>	
-		<tr>
-			<td rowspan="3" class="topnum"><a href="?p=productpagina.html">5</a></td>
-			<td class="topitem"><a href="?p=productpagina.html"><em>Games - pc</em></a></td>
-		</tr>
-		<tr>
-			<td class="topitem"><a href="?p=productpagina.html">Portals 2 PC-DVD</a></td>
-		</tr>
-		<tr>
-			<td class="topitem"><a href="?p=productpagina.html">&euro;49,99</a></td>
-		</tr>
+		</tr>';
+	}
+?>
 	</table>
 </div>
 <div id="twitter">

@@ -4,28 +4,29 @@
 	
 	class MainController{
 		private $controller;
+		private $page;
 	
 		public function __construct(){	
 			//Bijbehorende controller zoeken, als geen pagina aangegeven is dan de home gebruiken
 			if(!isset($_GET['p']) || empty($_GET['p']) || $_GET['p'] == "home"){
-				$page = "home";
+				$this->page = "home";
 			}else{
-				$page = $_GET['p'];
+				$this->page = $_GET['p'];
 			}
 			
 			//Pagina naam wijzigen van naam naar NaamController
-			$page = ucfirst($page);
-			$page .= "Controller";
+			$this->page = ucfirst($this->page);
+			$this->page .= "Controller";
 			
-			if(!file_exists("pages/" . $page . ".class.php")){
+			if(!file_exists("pages/" . $this->page . ".class.php")){
 				die("404 - page not found (yet).");
 			}
 			
 			//Bestand laden
-			include("pages/" . $page . ".class.php");
+			include("pages/" . $this->page . ".class.php");
 			
 			//Controller aanmaken
-			$this->controller = new $page();
+			$this->controller = new $this->page();
 			
 			//Kijken of er een formulier gepost is zo ja, afhandelen laten door de controller
 			if($this->formPosted()){
@@ -79,7 +80,7 @@
 <div id="content">
 <div id="topsales">
 <?php
-			$o = new TopsalesController();
+			$o = new TopsalesController($this->page);
 			$o->buildTopsales();
 ?>
 </div>
