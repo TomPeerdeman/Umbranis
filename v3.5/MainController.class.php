@@ -17,13 +17,19 @@
 			//Pagina naam wijzigen van naam naar NaamController
 			$this->page = ucfirst($this->page);
 			$this->page .= "Controller";
+			$url = "pages/";
+			$arr = explode("/", $this->page);
+			if(count($arr) == 2 && $arr[0] == "Admin"){
+				$this->page = ucfirst($arr[1]);
+				$url = "pages/admin/";
+			}
 			
-			if(!file_exists("pages/" . $this->page . ".class.php")){
-				die("404 - page not found (yet).");
+			if(!file_exists($url . $this->page . ".class.php")){
+				die("404 - page not found (yet).<br />" . $this->page);
 			}
 			
 			//Bestand laden
-			include("pages/" . $this->page . ".class.php");
+			include($url . $this->page . ".class.php");
 			
 			//Controller aanmaken
 			$this->controller = new $this->page();

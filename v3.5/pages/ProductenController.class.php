@@ -13,10 +13,29 @@
 				echo $row['cat_name'];
 				echo "</h2>";
 			}
-			
-			$res2 = DB::$db->query("SELECT products.image_path, product_name, price, product_id
+			// nieuwe producten van de afgelopen  maand, lijkt me niet dat je 
+			// dingen van een jaar oud hier wilt zien
+			if (isset($_GET['spec']) && $_GET['spec'] == 'new'){
+				$res2 = DB::$db->query("SELECT products.image_path, product_name, price, product_id, normal_price
 									FROM products
-									WHERE cat_id = " . $x);
+									WHERE cat_id = " . $x ."
+									AND date >= DATE_SUB(CURDATE(),INTERVAL 1 MONTH)");
+				echo "<br /><br /><table style=\"margin-left:auto;margin-right:auto \" ><tr><th>Nieuw in de winkel:</th></tr></table>";
+			}
+
+			elseif (isset($_GET['spec']) && $_GET['spec'] == 'action'){
+				$res2 = DB::$db->query("SELECT products.image_path, product_name, price, product_id, normal_price
+									FROM products
+									WHERE cat_id = " . $x ."
+									AND price < normal_price ");
+				echo "<br /><br /><table style=\"margin-left:auto;margin-right:auto \" ><tr><th>Aanbiedingen:</th></tr></table>";
+			}
+			else{
+				$res2 = DB::$db->query("SELECT products.image_path, product_name, price, product_id, normal_price
+									FROM products
+									WHERE cat_id = " . $x ."
+									ORDER BY product_name");
+			}
 			$teller = 0;
 			echo "<table><tr>";
 			while($row = $res2->fetch())
@@ -33,9 +52,16 @@
 								</td>
 								<td>
 									CD-DVD<br />
-									<br />
 									<br />";
-									echo "&euro;" . $this->price($row['price']);
+									 //oude prijs in rood + doorstrepen en nieuwe prijs in groen
+									if ($row['price'] < $row['normal_price'] && isset($_GET['spec']) && $_GET['spec'] == 'action'){ 
+										echo "<span style=\"color: red;\" ><s>&euro;" . $this->price($row['normal_price']) . "</s></span>";
+										echo "<br /><span style=\"color: green;\" > &euro;" . $this->price($row['price']) . "</span>";
+									}
+									
+									 else {
+										echo "<br />&euro;" . $this->price($row['price']);
+									 }
 								echo "</td>
 							</tr>
 							<tr>
