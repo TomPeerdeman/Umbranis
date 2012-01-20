@@ -32,7 +32,8 @@
 		$url = $_POST['url'];
 		$url = "img/" . $url;
 		if(file_exists($url)){
-			createThumb($url, "img_out/" . $_POST['url'], 170, 150);
+			createThumb($url, "img_out/thumb/" . $_POST['url'], 170, 150);
+			createThumb($url, "img_out/" . $_POST['url'], 250, 250);
 			echo "OK!";
 		}else{
 			echo "File doesn't exists";
