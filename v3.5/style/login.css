@@ -29,8 +29,8 @@
 	margin-top: 20px;
 	background-color: #FFE599;
 	border: solid 2px black;
-	width: 500px;
-	height: 450px;
+	width: 540px;
+	min-height: 430px;
 	text-align: left;
 }
 
