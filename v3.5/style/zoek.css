@@ -4,7 +4,7 @@
 	margin-top: 20px;
 	background-color: #FFE599;
 	border: solid 2px black;
-	width: 500px;
+	width: 700px;
 	height: 150px;
 	text-align: left;
 }
@@ -22,3 +22,20 @@
 	margin-right: auto;
 }
 
+#resultcontainer{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	background-color: #FFE599;
+	border: solid 2px black;
+	width: 700px;
+	text-align: left;
+	padding-left:20px
+}
+
+#resultcontainer p{
+	text-align: center;
+}
+#resultcontainer p a{
+	text-decoration: none;
+}
