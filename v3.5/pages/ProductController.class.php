@@ -47,7 +47,7 @@
 										</tr>
 										<tr>
 											<td class="uneven">Prijs (incl. BTW)</td>
-											<td class="uneven">&euro;' . $row['price'] . '</td>
+											<td class="uneven">&euro;' . $this->price($row['price']) . '</td>
 										</tr>
 									</table>
 								</div>

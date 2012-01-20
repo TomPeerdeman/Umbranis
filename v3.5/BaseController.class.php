@@ -12,5 +12,9 @@
 	
 		public function buildPage(){
 		}
+		
+		public function price($double){
+			return number_format($double, 2, ',', '.');
+		}
 	}
 ?>

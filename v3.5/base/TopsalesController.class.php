@@ -23,6 +23,7 @@
 	<strong>Meest verkocht</strong><br />
 	<table>
 <?php
+	$base = new BaseController();
 	for($i = 0; $i < 5; $i++){
 		echo '<tr>
 			<td rowspan="3" class="topnum"><a href="?p=product&id=' . $this->topsales[$i]['product_id'] . '">' . ($i + 1) . '</a></td>
@@ -32,7 +33,7 @@
 			<td class="topitem"><a href="?p=product&id=' . $this->topsales[$i]['product_id'] . '">' . $this->topsales[$i]['product_name'] . '</a></td>
 		</tr>
 		<tr>
-			<td class="topitem"><a href="?p=product&id=' . $this->topsales[$i]['product_id'] . '">&euro;' . $this->topsales[$i]['price'] . '</a></td>
+			<td class="topitem"><a href="?p=product&id=' . $this->topsales[$i]['product_id'] . '">&euro;' . $base->price($this->topsales[$i]['price']) . '</a></td>
 		</tr>		
 		<tr>
 			<td class="spacer" colspan="2"></td>

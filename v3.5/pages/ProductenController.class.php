@@ -36,7 +36,7 @@
 									CD-DVD<br />
 									<br />
 									<br />";
-									echo "&euro;" . $row['price'];
+									echo "&euro;" . $this->price($row['price']);
 								echo "</td>
 							</tr>
 							<tr>
