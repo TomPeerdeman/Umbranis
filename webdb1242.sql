@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 20 Jan 2012 om 13:59
+-- Genereertijd: 20 Jan 2012 om 16:44
 -- Serverversie: 5.1.41
 -- PHP-Versie: 5.3.1
 
@@ -61,21 +61,21 @@ INSERT INTO `categories` (`cat_id`, `parent_id`, `cat_name`, `image_path`) VALUE
 (2, 0, 'Films', ''),
 (3, 0, 'Games', ''),
 (4, 0, 'Boeken', ''),
-(5, 1, 'Jazz', 'img/muziek.png'),
-(6, 1, 'Blues', 'img/muziek.png'),
-(7, 1, 'Disco', 'img/muziek.png'),
-(8, 1, 'Death Metal', 'img/muziek.png'),
-(9, 2, 'Horror', 'img/film.png'),
-(10, 2, 'Actie', 'img/film.png'),
-(11, 2, 'Alternative', 'img/film.png'),
-(12, 2, 'Scifi', 'img/film.png'),
-(13, 3, 'Pc', 'img/pc.png'),
-(14, 3, 'Xbox 360', ''),
-(15, 3, 'PS3', ''),
-(16, 3, 'Wii', ''),
-(17, 4, 'Suspense', 'img/boek.png'),
-(18, 4, 'Roman', 'img/boek.png'),
-(19, 4, 'Non-fiction', 'img/boek.png');
+(5, 1, 'Jazz', 'muziek.png'),
+(6, 1, 'Blues', 'muziek.png'),
+(7, 1, 'Disco', 'muziek.png'),
+(8, 1, 'Death Metal', 'muziek.png'),
+(9, 2, 'Horror', 'film.png'),
+(10, 2, 'Actie', 'film.png'),
+(11, 2, 'Alternative', 'film.png'),
+(12, 2, 'Scifi', 'film.png'),
+(13, 3, 'Pc', 'pc.png'),
+(14, 3, 'Xbox 360', 'test.png'),
+(15, 3, 'PS3', 'test.png'),
+(16, 3, 'Wii', 'test.png'),
+(17, 4, 'Suspense', 'boek.png'),
+(18, 4, 'Roman', 'boek.png'),
+(19, 4, 'Non-fiction', 'boek.png');
 
 -- --------------------------------------------------------
 
@@ -146,11 +146,11 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`product_id`, `cat_id`, `product_name`, `normal_price`, `price`, `stock`, `delivery_time`, `publisher`, `author`, `image_path`, `description`, `EAN-code`, `date`) VALUES
-(1, 13, 'The elder Scrolls: Skyrim', 49.99, 49.99, 10, 0, 'Bethesda Softworks', '', 'img/skyrim.png', '', '1234567891012', '2012-01-18 18:04:48'),
-(2, 13, 'Portal 2', 59.99, 59.99, 10, 2, 'Valve Corporation', '', 'img/portal.png', '', '1234567891013', '2012-01-18 18:04:48'),
+(1, 13, 'The elder Scrolls: Skyrim', 49.99, 49.99, 10, 0, 'Bethesda Softworks', '', 'skyrim.png', '', '1234567891012', '2012-01-18 18:04:48'),
+(2, 13, 'Portal 2', 59.99, 59.99, 10, 2, 'Valve Corporation', '', 'portal.png', '', '1234567891013', '2012-01-18 18:04:48'),
 (3, 5, 'Birds of Fire', 15.99, 15.99, 10, 1, 'Sony music entertainment', 'Mahavishnu Orchestra', '', '', '4209714987224', '2012-01-18 19:36:43'),
 (4, 5, 'Unrecognizable screeches from a ', 15.99, 15.99, 10, 1, '', 'Ramses Ijff', '', '', '4209714987125', '2012-01-18 19:37:18'),
-(5, 9, 'Final destination 5', 22.99, 22.99, 0, 15, 'Warner Home Video', 'Steven Quale', 'img/final_destination_5.png', '', '5051888087602', '2012-01-20 13:48:10');
+(5, 9, 'Final destination 5', 22.99, 22.99, 0, 15, 'Warner Home Video', 'Steven Quale', 'final_destination_5.png', '', '5051888087602', '2012-01-20 13:48:10');
 
 -- --------------------------------------------------------
 
