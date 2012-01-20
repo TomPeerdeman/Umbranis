@@ -21,15 +21,14 @@
 			echo "<table><tr>";
 			while($row = $res2->fetch())
 			{
-				$imgPath = $row['image_path'];
 				echo "<td>
 					<div class='small'>
 						<table width='240px'>
 							<tr>
-								<td>";
+								<td style=\"width: 170px; height: 150px;\">";
 								
 								echo "<a href=\"?p=product&amp;id=" . $row['product_id'] . "\">";
-								echo "<img src= '$imgPath' alt='generic' width='170px' height='150px' align='left' />
+								echo "<img src= '" . $row['image_path'] . "' alt='" . $row['product_name'] . "' style=\"max-width: 170px; max-height: 150px; margin-left: auto; margin-right: auto;\" />
 									</a>
 								</td>
 								<td>
