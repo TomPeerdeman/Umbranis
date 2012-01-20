@@ -5,7 +5,7 @@
 	class ProductController extends BaseController{
 		public function buildPage(){
 			//get product id
-			$x=$_GET["id"];
+			$x= DB::$db->quote($_GET["id"]);
 			echo '<div id="contentcontainer">';
 			$res = DB::$db->query("SELECT * FROM products where product_id = $x");
 			while($row = $res->fetch()){
