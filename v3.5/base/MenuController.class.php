@@ -27,7 +27,7 @@
 <?php
 			foreach($this->cats as $category){
 				echo "<li>";
-				echo "<a href=\"?p=categorie.php&amp;cat=" . $category['cat_id'] . "\">" . $category['cat_name'] . "</a>";
+				echo "<a href=\"?p=categorie&amp;cat=" . $category['cat_id'] . "\">" . $category['cat_name'] . "</a>";
 				echo "<ul>";
 				foreach($category['subcats'] as $subcat){
 					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "\">" . $subcat['cat_name'] . "</a>";
