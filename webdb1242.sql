@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 20 Jan 2012 om 16:44
+-- Genereertijd: 20 Jan 2012 om 20:47
 -- Serverversie: 5.1.41
 -- PHP-Versie: 5.3.1
 
@@ -86,17 +86,19 @@ INSERT INTO `categories` (`cat_id`, `parent_id`, `cat_name`, `image_path`) VALUE
 CREATE TABLE IF NOT EXISTS `orders` (
   `order_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
-  `delivery_status` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `payment_status` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `total_price` int(10) unsigned NOT NULL,
+  `delivery_status` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `payment_status` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `total_price` double unsigned NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel `orders`
 --
 
+INSERT INTO `orders` (`order_id`, `user_id`, `delivery_status`, `payment_status`, `total_price`, `date`) VALUES
+(2, 6, 0, 0, 114.95, '2012-01-20 19:37:31');
 
 -- --------------------------------------------------------
 
@@ -116,6 +118,8 @@ CREATE TABLE IF NOT EXISTS `order_products` (
 -- Gegevens worden uitgevoerd voor tabel `order_products`
 --
 
+INSERT INTO `order_products` (`order_id`, `product_id`, `price`, `amount`) VALUES
+(2, 5, 12.99, 5);
 
 -- --------------------------------------------------------
 
@@ -149,7 +153,7 @@ INSERT INTO `products` (`product_id`, `cat_id`, `product_name`, `normal_price`, 
 (1, 13, 'The elder Scrolls: Skyrim', 49.99, 49.99, 10, 0, 'Bethesda Softworks', '', 'skyrim.png', '', '1234567891012', '2012-01-18 18:04:48'),
 (2, 13, 'Portal 2', 59.99, 59.99, 10, 2, 'Valve Corporation', '', 'portal.png', '', '1234567891013', '2012-01-18 18:04:48'),
 (3, 5, 'Birds of Fire', 15.99, 15.99, 10, 1, 'Sony music entertainment', 'Mahavishnu Orchestra', '', '', '4209714987224', '2012-01-18 19:36:43'),
-(4, 5, 'Unrecognizable screeches from a ', 15.99, 15.99, 10, 1, '', 'Ramses Ijff', '', '', '4209714987125', '2012-01-18 19:37:18'),
+(4, 5, 'Unrecognizable screeches from a ', 15.99, 10.99, 10, 1, '', 'Ramses Ijff', '', '', '4209714987125', '2012-01-18 19:37:18'),
 (5, 9, 'Final destination 5', 22.99, 22.99, 0, 15, 'Warner Home Video', 'Steven Quale', 'final_destination_5.png', '', '5051888087602', '2012-01-20 13:48:10');
 
 -- --------------------------------------------------------
@@ -161,7 +165,7 @@ INSERT INTO `products` (`product_id`, `cat_id`, `product_name`, `normal_price`, 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(32) NOT NULL,
-  `password` varchar(32) NOT NULL,
+  `password` varchar(32) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `zipcode` char(6) NOT NULL,
   `city` varchar(32) NOT NULL,
   `street` varchar(32) NOT NULL,
@@ -188,7 +192,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `zipcode`, `city`, `street`, 
 (3, 'pietpiraat12', 'piraatpiet21', '1782LK', 'Den Helder', 'Tuinstraat', '59', 'Piet', 'Pieterson', 'm', '06573919395', '', 'pietpiraat@yahoo.com', 0),
 (4, 'kim', 'kimrulez', '6235AS', 'weekveelwaar stad', 'middelofnowhere', '67', 'Kimberly', 'de Vries', 'f', '10602358', '', 'kimberly543@hotmail.com', 0),
 (5, 'jan', 'twaalfeneenhalf', '2973HJ', 'Maaskantje', 'Koekwousstraat', '92', 'Jan', 'Jannssen', 'm', '0237598274', '', 'j.jannssen@hotmail.com', 0),
-(6, 'tom', 'geheim', '0000AA', 'geen', 'geen', '0', 'tom', 'peerdeman', 'm', '0000000000', '', 'nogwat4@gmail.com', 1);
+(6, 'tom', 'geheim', '0000AA', 'geen', 'geen', '0', 'Tom', 'Peerdeman', 'm', '0000000000', '', 'nogwat4@gmail.com', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
