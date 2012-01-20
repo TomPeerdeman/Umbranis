@@ -35,7 +35,7 @@
 					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "\">alle " . lcfirst($category['cat_name']) . "</a></li>";
 					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "&amp;spec=new\">nieuwe " . lcfirst($category['cat_name']) . "</a></li>";
 					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "&amp;spec=action\">aanbiedingen</a></li>";
-					echo "</ul>";
+					echo "</ul></li>";
 				}
 				echo "</ul>";
 				echo "</li>";

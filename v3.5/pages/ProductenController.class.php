@@ -28,7 +28,7 @@
 								<td style=\"width: 170px; height: 150px;\">";
 								
 								echo "<a href=\"?p=product&amp;id=" . $row['product_id'] . "\">";
-								echo "<img src= '" . $row['image_path'] . "' alt='" . $row['product_name'] . "' style=\"max-width: 170px; max-height: 150px; margin-left: auto; margin-right: auto;\" />
+								echo "<img src= 'img/thumbs/" . $row['image_path'] . "' alt='" . $row['product_name'] . "' style=\"max-width: 170px; max-height: 150px; margin-left: auto; margin-right: auto;\" />
 									</a>
 								</td>
 								<td>

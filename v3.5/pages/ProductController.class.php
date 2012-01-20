@@ -1,8 +1,6 @@
 <?php
 	//Dit bestand kan alleen vanuit de index aangeroepen worden
 	if(!defined("INDEX"))die("NO INDEX!");
-
-
 	
 	class ProductController extends BaseController{
 		public function buildPage(){
@@ -54,7 +52,7 @@
 							</div>
 						</div>
 						<div id="picturecontainer">
-							<img src=' . $row['image_path'] . ' alt=img/test.png />
+							<img src="img/' . $row['image_path'] . '" alt="' . $row['product_name'] . '" />
 						</div>
 						<div id="descriptioncontainer">
 							<strong>' . $row['product_name'] . '</strong><br />
