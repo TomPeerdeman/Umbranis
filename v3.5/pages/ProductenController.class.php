@@ -11,6 +11,8 @@
 			while($row = $res->fetch()){
 				echo "<h2>";
 				echo $row['cat_name'];
+				$catName = $row['cat_name'];
+				$parent = $row['parent_id'];
 				echo "</h2>";
 			}
 			// nieuwe producten van de afgelopen  maand, lijkt me niet dat je 
@@ -21,6 +23,7 @@
 									WHERE cat_id = " . $x ."
 									AND date >= DATE_SUB(CURDATE(),INTERVAL 1 MONTH)");
 				echo "<br /><br /><table style=\"margin-left:auto;margin-right:auto \" ><tr><th>Nieuw in de winkel:</th></tr></table>";
+				$subcat="nieuw (in de afgelopen maand).";
 			}
 
 			elseif (isset($_GET['spec']) && $_GET['spec'] == 'action'){
@@ -29,6 +32,7 @@
 									WHERE cat_id = " . $x ."
 									AND price < normal_price ");
 				echo "<br /><br /><table style=\"margin-left:auto;margin-right:auto \" ><tr><th>Aanbiedingen:</th></tr></table>";
+				$subcat="aanbiedingen.";
 			}
 			else{
 				$res2 = DB::$db->query("SELECT products.image_path, product_name, price, product_id, normal_price
@@ -54,7 +58,7 @@
 									CD-DVD<br />
 									<br />";
 									 //oude prijs in rood + doorstrepen en nieuwe prijs in groen
-									if ($row['price'] < $row['normal_price'] && isset($_GET['spec']) && $_GET['spec'] == 'action'){ 
+									if ($row['price'] < $row['normal_price']){ 
 										echo "<span style=\"color: red;\" ><s>&euro;" . $this->price($row['normal_price']) . "</s></span>";
 										echo "<br /><span style=\"color: green;\" > &euro;" . $this->price($row['price']) . "</span>";
 									}
@@ -80,6 +84,18 @@
 					echo "</tr><tr>";
 				}
 				echo "</tr></table>";
+				//melding als er niets in de database is
+				if ($teller==0){
+					$res = DB::$db->query("SELECT cat_name FROM categories where cat_id = " . $parent);
+					while($row = $res->fetch()){
+						$parentName = $row['cat_name'];
+					}
+				echo "<p style=\"text-align:center\" ><br /><br />
+				Niets gevonden in de database onder ". $parentName . " -> " . $catName;
+					if (isset($_GET['spec'])){
+						echo " -> ". $subcat . "</p>";
+					}
+				}
 			echo "</div>";
 		
 		}

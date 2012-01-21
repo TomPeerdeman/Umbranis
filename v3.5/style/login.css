@@ -6,7 +6,7 @@
 	background-color: #FFE599;
 	border: solid 2px black;
 	width: 500px;
-	height: 200px;
+	min-height: 200px;
 	text-align: left;
 }
 
