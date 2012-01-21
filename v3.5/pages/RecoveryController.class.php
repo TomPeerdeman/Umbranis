@@ -68,7 +68,7 @@
 		<?php 
 		if($this->posted){
 			if(count($this->errors) > 0){
-				echo "<p><span style=\"color: red;\">De inlog procedure kon niet worden voltooid:<br />";
+				echo "<p><span style=\"color: red;\">Het wachtwoord herstel process kon niet worden voltooid:<br />";
 				foreach($this->errors as $error){
 					echo $error . "<br />";
 				}
