@@ -79,7 +79,6 @@
 				echo "Uw aanvraag voor een nieuw wachtwoord is ontvangen<br />";
 				echo "Uw nieuw wachtwoord is: " . $_SESSION['password']. "<br / ><br />";
 				echo "<strong>Belangrijk: vergeet niet om uw wachtwoord te wijzigen!</strong><br /><br />";
-				echo "ik snap redirect niet dus ga maar handmatig ergens anders naartoe.<br /><br />";
 				echo "<a href=\"?p=home\">home</a></p>";
 			}
 		}
