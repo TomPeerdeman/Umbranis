@@ -14,7 +14,7 @@
 		}
 		if(isset($_SESSION['rechten']) && $_SESSION['rechten'] == "admin")
 			echo '<a href="?p=admin/bestellingen">Admin</a>&nbsp;';
-		if(isset($_SESSION['rechten']) && $_SESSION['rechten'] == "klant"){
+		if(isset($_SESSION['rechten']) && ($_SESSION['rechten'] == "klant" || $_SESSION['rechten'] == "admin")){
 			echo '<a href="?p=accsettings">account</a>&nbsp;';
 			echo '<a href="?p=winkelwagen">Winkelwagen</a>&nbsp;';
 		}
