@@ -5,6 +5,7 @@
 	include("MainController.class.php");
 	include("BaseController.class.php");
 	include("DB.class.php");
+	include("UserController.class.php");
 	
 	//basis layout controllers
 	include("base/LoginboxController.class.php");

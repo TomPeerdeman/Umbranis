@@ -105,7 +105,7 @@
 <div id="loginbox">
 <?php
 			$o = new LoginboxController();
-			$o->buildLoginbox();
+			$o->buildLoginbox($this->controller->user);
 ?>
 </div>
 <div id="footer">

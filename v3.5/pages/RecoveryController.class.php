@@ -27,33 +27,32 @@
 										
 				// dit bericht is overbodig als 1 van de velden niet is ingevuld
 				if(($res->rowCount() != 1)) {
-					$this->errors[] = "onjuist username/email combinatie";
+					$this->errors[] = "Onjuiste username/email combinatie";
 				}else{
 					$row = $res->fetch();
 					
-					include("PasswordGenerator.class.php");
-					$passgen = new PasswordGenerator();
-					$salt = $passgen->getRandomSalt();
-					$passhash = $passgen->getPasswordHash("welkom", $salt);
-				
-					DB::$db->query("UPDATE users SET password='" . $passhash . "', password_salt='" . $salt . "' 
-						WHERE username='" . $row['username']. "'
-						LIMIT 1");
+					if($row['login_tries'] > 5){
+						$this->errors[] = "Dit account is geband!";
+					}else{	
+						include("PasswordGenerator.class.php");
+						$passgen = new PasswordGenerator();
+						$salt = $passgen->getRandomSalt();
+						$passhash = $passgen->getPasswordHash("welkom", $salt);
 					
-					$_SESSION['username']= $row['username'];
-					$this->newpass = "welkom";
-					
-					if($row['admin_rights'] == 1){
-						$_SESSION['rechten'] = "admin";
-					}else{
-						$_SESSION['rechten']= "klant";
-					}
-					$this->showform = false;
-					//
-					//TODO: doe iets
-					//mail nieuwe dingen ofzo
-					//
-					
+						DB::$db->query("UPDATE users SET password='" . $passhash . "', password_salt='" . $salt . "', login_tries = 0 
+							WHERE username='" . $row['username']. "'
+							LIMIT 1");
+						
+						$_SESSION['username']= $row['username'];
+						$this->newpass = "welkom";
+						
+						$this->user->login($row['username'], true);
+						$this->showform = false;
+						//
+						//TODO: doe iets
+						//mail nieuwe dingen ofzo
+						//
+					}	
 				}
 			}
 			$this->posted = true;
@@ -75,7 +74,7 @@
 				echo "</span></p>";
 				echo "<br />";
 			}else{
-				echo "<p>Hello, " .$_SESSION['username']. "<br />";
+				echo "<p>Hello, " .$this->user->username. "<br />";
 				echo "Uw aanvraag voor een nieuw wachtwoord is ontvangen<br />";
 				echo "Uw nieuw wachtwoord is: " . $this->newpass. "<br / ><br />";
 				echo "<strong>Belangrijk: vergeet niet om uw wachtwoord te wijzigen!</strong><br /><br />";

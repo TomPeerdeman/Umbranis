@@ -2,11 +2,9 @@
 	//Dit bestand kan alleen vanuit de index aangeroepen worden
 	if(!defined("INDEX"))die("NO INDEX!");
 	
-	//eindig sessie
-	session_unset();
-	
 	class LogoutController extends BaseController{
 		public function buildPage(){
+			$this->user->logout();
 		
 ?>
 <div id="contentcontainer">

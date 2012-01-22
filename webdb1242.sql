@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 22 Jan 2012 om 16:20
+-- Genereertijd: 22 Jan 2012 om 17:48
 -- Serverversie: 5.1.41
 -- PHP-Versie: 5.3.1
 
@@ -178,6 +178,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `tel2` varchar(16) NOT NULL,
   `email` varchar(32) NOT NULL,
   `admin_rights` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `last_action` int(10) unsigned NOT NULL DEFAULT '0',
+  `login_tries` smallint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
@@ -187,13 +189,13 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Gegevens worden uitgevoerd voor tabel `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `password_salt`, `zipcode`, `city`, `street`, `house_number`, `firstname`, `lastname`, `gender`, `tel1`, `tel2`, `email`, `admin_rights`) VALUES
-(1, 'admin', '55ff8afe762c9f26b91f8a535d718257c18774fcf34126a8bf8356a472dc82b2400f3e75083a9494bb73707a6444f0185af18a1d14cad1430edfa6a7f4dcb527', '5Lk>dU@~', '1234AB', 'Amsterdam', 'Science Park', '904', 'Ad', 'Min', 'm', '1234567890', '', 'umbranis@hotmail.com', 1),
-(2, 'rene', 'blablabla', '', '4321BA', 'Amsterdam', 'gaatjeniksaanstraat', '321', 'René', 'Aparicio', 'm', '0987654321', '', 'rene66613@gmail.com', 0),
-(3, 'pietpiraat12', 'piraatpiet21', '', '1782LK', 'Den Helder', 'Tuinstraat', '59', 'Piet', 'Pieterson', 'm', '06573919395', '', 'pietpiraat@yahoo.com', 0),
-(4, 'kim', 'kimrulez', '', '6235AS', 'weekveelwaar stad', 'middelofnowhere', '67', 'Kimberly', 'de Vries', 'f', '10602358', '', 'kimberly543@hotmail.com', 0),
-(5, 'jan', 'twaalfeneenhalf', '', '2973HJ', 'Maaskantje', 'Koekwousstraat', '92', 'Jan', 'Jannssen', 'm', '0237598274', '', 'j.jannssen@hotmail.com', 0),
-(6, 'tom', '579c0c5840079a82ea35beb6d0547a49ef1d568492f9210098f47271d86968cc42bbc9ecc04c99f2adbc3051d3441bbb5953b52b46c00c67f2b1facf25f5336f', 'Ts9-68OG49(%q(soMm', '0000AA', 'Gaatjeniksaan', 'Gaatjenogminderaan', '0b', 'Tom', 'Peerdeman', 'M', '06-00000000', '', 'nogwat4@gmail.com', 1);
+INSERT INTO `users` (`id`, `username`, `password`, `password_salt`, `zipcode`, `city`, `street`, `house_number`, `firstname`, `lastname`, `gender`, `tel1`, `tel2`, `email`, `admin_rights`, `last_action`, `login_tries`) VALUES
+(1, 'admin', '094296a1102ec1a5c9582cad1eec599c636475f2f4df7a64e6f6c8bb7f998cffed72e21143cced447a7cdc3240a876ceac2889eca92a8d064235cffc18cab0d4', 'YVKrTy&YHQ3sH|ry:V', '1234AB', 'Amsterdam', 'Science Park', '904', 'Ad', 'Min', 'M', '1234567890', '', 'umbranis@hotmail.com', 1, 0, 0),
+(2, 'rene', 'blablabla', '', '4321BA', 'Amsterdam', 'gaatjeniksaanstraat', '321', 'René', 'Aparicio', 'M', '0987654321', '', 'rene66613@gmail.com', 0, 0, 0),
+(3, 'pietpiraat12', 'piraatpiet21', '', '1782LK', 'Den Helder', 'Tuinstraat', '59', 'Piet', 'Pieterson', 'M', '06573919395', '', 'pietpiraat@yahoo.com', 0, 0, 0),
+(4, 'kim', 'kimrulez', '', '6235AS', 'weekveelwaar stad', 'middelofnowhere', '67', 'Kimberly', 'de Vries', 'F', '10602358', '', 'kimberly543@hotmail.com', 0, 0, 0),
+(5, 'jan', 'be3d7f6c9652d6cb8e029cc712ee7eb5d8dfeee202713c1e480d4e39b6a68bf3cee6009a7e812f9871b6a7c03c5cb3dab11cf9b5f8341e785e8fde23e86989d5', '\\%$jvG+~k|j/Sz7(_"9HL;hV', '2973HJ', 'Maaskantje', 'Koekwousstraat', '92', 'Jan', 'Jannssen', 'M', '0237598274', '', 'jj@hotmail.com', 0, 0, 0),
+(6, 'tom', '579c0c5840079a82ea35beb6d0547a49ef1d568492f9210098f47271d86968cc42bbc9ecc04c99f2adbc3051d3441bbb5953b52b46c00c67f2b1facf25f5336f', 'Ts9-68OG49(%q(soMm', '0000AA', 'Gaatjeniksaan', 'Gaatjenogminderaan', '0b', 'Tom', 'Peerdeman', 'M', '06-00000000', '', 'nogwat4@gmail.com', 1, 0, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

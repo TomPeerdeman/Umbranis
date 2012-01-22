@@ -21,35 +21,43 @@
 			
 			// dit bericht is overbodig als 1 van de velden niet is ingevuld
 			if($this->check){
-				$res = DB::$db->query("SELECT username, password, password_salt, admin_rights
+				$res = DB::$db->query("SELECT username, password, password_salt, admin_rights, last_action, login_tries
 					FROM users
 					WHERE username=" . DB::$db->quote($_POST['username']) . "
 					LIMIT 1");
 				
 				//Geen gebruiker met die username
 				if(($res->rowCount() != 1)) {
-					$this->errors[] = "onjuist username/wachtwoord combinatie";
+					$this->errors[] = "Onjuiste username/wachtwoord combinatie. Nog 5 Pogingen";
 				}
 				
 				$row = $res->fetch();
-				include("PasswordGenerator.class.php");
-				$passgen = new PasswordGenerator();
-				$passhash = $passgen->getPasswordHash($_POST['password'], $row['password_salt']);
+				if($row['last_action'] > 0){
+					$this->errors[] = "Deze gebruiker is al ingelogd!";
+				}
 				
-				//Onjuist wachtwoord ingevoerd 
-				if($passhash != $row['password']) {
-					$this->errors[] = "onjuist username/wachtwoord combinatie (2)";
+				if($row['login_tries'] ==5){
+					$this->errors[] = "Dit account is gelocked! Vraag een nieuw paswoord aan.";
+				}else if($row['login_tries'] > 5){
+					$this->errors[] = "Dit account is geband!";
+				}else{	
+					include("PasswordGenerator.class.php");
+					$passgen = new PasswordGenerator();
+					$passhash = $passgen->getPasswordHash($_POST['password'], $row['password_salt']);
+					
+					//Onjuist wachtwoord ingevoerd 
+					if($passhash != $row['password']) {
+						$this->errors[] = "Onjuiste username/wachtwoord combinatie. Nog " . (4 - $row['login_tries']) . " Pogingen.";
+						DB::$db->query("UPDATE users SET login_tries = login_tries + 1 WHERE username='" . $row['username'] . "' LIMIT 1");
+					}
 				}
 				
 				if(count($this->errors) == 0){
+					DB::$db->query("UPDATE users SET login_tries = 0 WHERE username='" . $row['username'] . "' LIMIT 1");
 					//gegevens worden opgeslagen zodat je later content kan laten zien op 
 					//basis van checks op deze gegevens
 					$_SESSION['username'] = $row['username'];
-					
-					if($row['admin_rights'] == 1)
-						$_SESSION['rechten'] = "admin";
-					else
-						$_SESSION['rechten']= "klant";
+					$this->user->login($row['username'], true);
 					$this->showform = false;
 				}
 			}
@@ -73,7 +81,7 @@
 				echo "</span></p>";
 				echo "<br />";
 			}else{
-				echo "<p>Hallo, " .$_SESSION['username']. ".<br />";
+				echo "<p>Hallo, " .$this->user->username. ".<br />";
 				echo "Je bent succesvol ingelogd!<br /><br />";
 				echo "U wordt automatisch doorgestuurd na 5 seconden gebeurt dit niet klik dan <a href=\"?p=home\">hier</a>.</p>";
 				echo "<meta http-equiv=\"refresh\" content=\"5;url=?p=home\" />";
