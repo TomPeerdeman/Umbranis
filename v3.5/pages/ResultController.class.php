@@ -19,15 +19,55 @@
 				$cat_check = 'off';
 			}
 			$x = $_POST['zoekwoord'];
+			echo '<div id="contentcontainer">
+					<div id="resultcontainer">
+						<br />
+						<form action="?p=result" method="post">
+							<table>
+								<tr>
+									<td>
+										Zoekterm: 
+									</td>
+									<td>	
+										<input type="text" name="zoekwoord" maxlength="50" />
+									</td>
+									<td width = "30px">
+										&nbsp;
+									</td>
+									<td>
+										Producten<br />
+										Categorie&euml;n
+									</td>
+									<td align = left>
+										<input type="checkbox" name="products" /><br />
+										<input type="checkbox" name="categories" />
+									</td>
+								</tr>
+								<tr>
+									<td colspan ="3" >
+										&nbsp;
+									</td>
+									<td colspan ="2" align = center>
+										<input id="submit" type="submit" name="submit" value="Zoek" />
+									</td>
+								</tr>
+							</table>
+						</form><br />';
 			if (!$x){
-				echo '<div id="contentcontainer">
-							<div id="resultcontainer">
-							<br /><p>Er is geen zoekterm ingevuld.</p>
-								<br />
-							</div>
-						</div>';
+				echo '<p>Er is geen zoekterm ingevuld.</p>
+							<br />';
+				if ($product_check == 'on' || $cat_check == 'on'){
+					echo '</div>
+					</div>';
+				}
 			}
-			else{
+			if ($product_check == 'off' && $cat_check == 'off'){
+				echo '<p>Er is niks aangevinkt.</p>
+							<br />
+						</div>
+					</div>';
+			}
+			if ($x != '' && ($product_check == 'on' || $cat_check == 'on')){
 				if($product_check == 'on'){
 					$res = DB::$db->query("SELECT * FROM products WHERE product_name LIKE '%".$x."%' OR publisher LIKE '%".$x."%' OR author LIKE '%".$x."%'");
 					$num_res = $res->rowCount();
@@ -43,9 +83,6 @@
 					$num_res2 = 0;
 				}
 			$num_total = $num_res + $num_res2;
-			echo '<div id="contentcontainer">
-					<div id="resultcontainer">
-					<br />';
 			if($num_total == 0){
 				echo '<p>Er zijn helaas geen zoekresultaten gevonden</p><br />';
 			}
