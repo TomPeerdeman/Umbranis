@@ -7,6 +7,7 @@
 		private $posted = false;
 		private $check = true;
 		private $showform = true;
+		private $newpass;
 		
 		public function handleForm(){
 			if(!isset($_POST['username']) || empty($_POST['username'])){
@@ -19,46 +20,45 @@
 				$this->check = false;
 			}
 			
-			$res = DB::$db->query("SELECT * FROM users 
-			WHERE username=" . DB::$db->quote($_POST['username'])  
-			. "AND email=" . DB::$db->quote($_POST['email']) ."");
-									
-			// dit bericht is overbodig als 1 van de velden niet is ingevuld
-			if(($res->rowCount() == 0) && $this->check) {
-				$this->errors[] = "onjuist username/email combinatie";
-			}
-			if($res->rowCount() == 1){
-				while($row = $res->fetch()){
-				$rechten = $row['admin_rights'];
+			if($this->check){
+				$res = DB::$db->query("SELECT * FROM users 
+				WHERE username=" . DB::$db->quote($_POST['username'])  
+				. "AND email=" . DB::$db->quote($_POST['email']) ." LIMIT 1");
+										
+				// dit bericht is overbodig als 1 van de velden niet is ingevuld
+				if(($res->rowCount() != 1)) {
+					$this->errors[] = "onjuist username/email combinatie";
+				}else{
+					$row = $res->fetch();
+					
+					include("PasswordGenerator.class.php");
+					$passgen = new PasswordGenerator();
+					$salt = $passgen->getRandomSalt();
+					$passhash = $passgen->getPasswordHash("welkom", $salt);
+				
+					DB::$db->query("UPDATE users SET password='" . $passhash . "', password_salt='" . $salt . "' 
+						WHERE username='" . $row['username']. "'
+						LIMIT 1");
+					
+					$_SESSION['username']= $row['username'];
+					$this->newpass = "welkom";
+					
+					if($row['admin_rights'] == 1){
+						$_SESSION['rechten'] = "admin";
+					}else{
+						$_SESSION['rechten']= "klant";
+					}
+					$this->showform = false;
+					//
+					//TODO: doe iets
+					//mail nieuwe dingen ofzo
+					//
+					
 				}
-			}
-
-			if(count($this->errors) == 0){
-				DB::$db->query("UPDATE users SET password=\"welkom\" 
-				WHERE username=" . DB::$db->quote($_POST['username']). " LIMIT 1");
-				$_SESSION['username']=$_POST['username'];
-				$_SESSION['password']="welkom";
-				if($rechten == 1){
-					$_SESSION['rechten'] = "admin";
-				}
-				if($rechten == 0){
-					$_SESSION['rechten']= "klant";
-				}
-				$this->showform = false;
-				//
-				//TODO: doe iets
-				//mail nieuwe dingen ofzo
-				//
 			}
 			$this->posted = true;
 		}
 		
-		//geen idee wat dit doet, maar ik zag het bij tom's registratie :P
-		private function valueLoad($item){
-		if($this->posted && count($this->errors) == 0){
-			return;
-			}
-		}
 		public function buildPage(){
 ?>
 <div id="contentcontainer">
@@ -77,9 +77,10 @@
 			}else{
 				echo "<p>Hello, " .$_SESSION['username']. "<br />";
 				echo "Uw aanvraag voor een nieuw wachtwoord is ontvangen<br />";
-				echo "Uw nieuw wachtwoord is: " . $_SESSION['password']. "<br / ><br />";
+				echo "Uw nieuw wachtwoord is: " . $this->newpass. "<br / ><br />";
 				echo "<strong>Belangrijk: vergeet niet om uw wachtwoord te wijzigen!</strong><br /><br />";
-				echo "<a href=\"?p=home\">home</a></p>";
+				echo "U wordt automatisch doorgestuurd na 5 seconden gebeurt dit niet klik dan <a href=\"?p=home\">hier</a>.</p>";
+				echo "<meta http-equiv=\"refresh\" content=\"5;url=?p=home\" />";
 			}
 		}
 		//wist niet precies hoe redirect ging dus heb ik ipv daarvan heb ik

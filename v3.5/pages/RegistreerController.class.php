@@ -61,10 +61,15 @@
 			}	
 			
 			if(count($this->errors) == 0){
-				DB::$db->query("INSERT INTO users (username, password, firstname, lastname, gender, zipcode, city, street, house_number, tel1, tel2, email)
+				include("PasswordGenerator.class.php");
+				$passgen = new PasswordGenerator();
+				$salt = $passgen->getRandomSalt();
+				
+				DB::$db->query("INSERT INTO users (username, password, password_salt, firstname, lastname, gender, zipcode, city, street, house_number, tel1, tel2, email)
 					VALUES (
 						" . $this->escape('username') . ", 
-						" . $this->escape('pass1') . ",
+						'" . $passgen->getPasswordHash($_POST['pass1'], $salt) . "',
+						'" . $salt . "',
 						" . $this->escape('name') . ",
 						" . $this->escape('lastname') . ",
 						" . $this->escape('gender') . ",
@@ -93,7 +98,7 @@
 		
 		private function escape($item){
 			if(isset($_POST[$item])){
-				if($item != "pass1" && $item != "username" && $item != "email"){
+				if($item != "username" && $item != "email"){
 					return DB::$db->quote(ucfirst($_POST[$item]));
 				}else{
 					return DB::$db->quote($_POST[$item]);

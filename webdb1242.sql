@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 20 Jan 2012 om 20:47
+-- Genereertijd: 22 Jan 2012 om 16:20
 -- Serverversie: 5.1.41
 -- PHP-Versie: 5.3.1
 
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `delivery_status`, `payment_status`, `total_price`, `date`) VALUES
-(2, 6, 0, 0, 114.95, '2012-01-20 19:37:31');
+(2, 6, 1, 1, 114.95, '2012-01-20 19:37:31');
 
 -- --------------------------------------------------------
 
@@ -165,7 +165,8 @@ INSERT INTO `products` (`product_id`, `cat_id`, `product_name`, `normal_price`, 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(32) NOT NULL,
-  `password` varchar(32) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
+  `password` varchar(128) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
+  `password_salt` varchar(25) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `zipcode` char(6) NOT NULL,
   `city` varchar(32) NOT NULL,
   `street` varchar(32) NOT NULL,
@@ -186,13 +187,13 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Gegevens worden uitgevoerd voor tabel `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `zipcode`, `city`, `street`, `house_number`, `firstname`, `lastname`, `gender`, `tel1`, `tel2`, `email`, `admin_rights`) VALUES
-(1, 'admin', 'admin123', '1234AB', 'Amsterdam', 'Science Park', '904', 'Ad', 'Min', 'm', '1234567890', '', 'umbranis@hotmail.com', 1),
-(2, 'rene', 'blablabla', '4321BA', 'Amsterdam', 'gaatjeniksaanstraat', '321', 'René', 'Aparicio', 'm', '0987654321', '', 'rene66613@gmail.com', 0),
-(3, 'pietpiraat12', 'piraatpiet21', '1782LK', 'Den Helder', 'Tuinstraat', '59', 'Piet', 'Pieterson', 'm', '06573919395', '', 'pietpiraat@yahoo.com', 0),
-(4, 'kim', 'kimrulez', '6235AS', 'weekveelwaar stad', 'middelofnowhere', '67', 'Kimberly', 'de Vries', 'f', '10602358', '', 'kimberly543@hotmail.com', 0),
-(5, 'jan', 'twaalfeneenhalf', '2973HJ', 'Maaskantje', 'Koekwousstraat', '92', 'Jan', 'Jannssen', 'm', '0237598274', '', 'j.jannssen@hotmail.com', 0),
-(6, 'tom', 'geheim', '0000AA', 'geen', 'geen', '0', 'Tom', 'Peerdeman', 'm', '0000000000', '', 'nogwat4@gmail.com', 1);
+INSERT INTO `users` (`id`, `username`, `password`, `password_salt`, `zipcode`, `city`, `street`, `house_number`, `firstname`, `lastname`, `gender`, `tel1`, `tel2`, `email`, `admin_rights`) VALUES
+(1, 'admin', '55ff8afe762c9f26b91f8a535d718257c18774fcf34126a8bf8356a472dc82b2400f3e75083a9494bb73707a6444f0185af18a1d14cad1430edfa6a7f4dcb527', '5Lk>dU@~', '1234AB', 'Amsterdam', 'Science Park', '904', 'Ad', 'Min', 'm', '1234567890', '', 'umbranis@hotmail.com', 1),
+(2, 'rene', 'blablabla', '', '4321BA', 'Amsterdam', 'gaatjeniksaanstraat', '321', 'René', 'Aparicio', 'm', '0987654321', '', 'rene66613@gmail.com', 0),
+(3, 'pietpiraat12', 'piraatpiet21', '', '1782LK', 'Den Helder', 'Tuinstraat', '59', 'Piet', 'Pieterson', 'm', '06573919395', '', 'pietpiraat@yahoo.com', 0),
+(4, 'kim', 'kimrulez', '', '6235AS', 'weekveelwaar stad', 'middelofnowhere', '67', 'Kimberly', 'de Vries', 'f', '10602358', '', 'kimberly543@hotmail.com', 0),
+(5, 'jan', 'twaalfeneenhalf', '', '2973HJ', 'Maaskantje', 'Koekwousstraat', '92', 'Jan', 'Jannssen', 'm', '0237598274', '', 'j.jannssen@hotmail.com', 0),
+(6, 'tom', '579c0c5840079a82ea35beb6d0547a49ef1d568492f9210098f47271d86968cc42bbc9ecc04c99f2adbc3051d3441bbb5953b52b46c00c67f2b1facf25f5336f', 'Ts9-68OG49(%q(soMm', '0000AA', 'Gaatjeniksaan', 'Gaatjenogminderaan', '0b', 'Tom', 'Peerdeman', 'M', '06-00000000', '', 'nogwat4@gmail.com', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

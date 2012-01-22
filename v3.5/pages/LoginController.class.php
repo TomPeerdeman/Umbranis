@@ -19,39 +19,43 @@
 				$this->check = false;
 			}
 			
-			$res = DB::$db->query("SELECT * FROM users WHERE username=" . DB::$db->quote($_POST['username']) . " 
-									AND password=" . DB::$db->quote($_POST['password']) ."");
 			// dit bericht is overbodig als 1 van de velden niet is ingevuld
-			if(($res->rowCount() == 0) && $this->check) {
-				$this->errors[] = "onjuist username/wachtwoord combinatie";
-			}
-			
-			if($res->rowCount() == 1){
-				while($row = $res->fetch()){
-				$rechten = $row['admin_rights'];
+			if($this->check){
+				$res = DB::$db->query("SELECT username, password, password_salt, admin_rights
+					FROM users
+					WHERE username=" . DB::$db->quote($_POST['username']) . "
+					LIMIT 1");
+				
+				//Geen gebruiker met die username
+				if(($res->rowCount() != 1)) {
+					$this->errors[] = "onjuist username/wachtwoord combinatie";
+				}
+				
+				$row = $res->fetch();
+				include("PasswordGenerator.class.php");
+				$passgen = new PasswordGenerator();
+				$passhash = $passgen->getPasswordHash($_POST['password'], $row['password_salt']);
+				
+				//Onjuist wachtwoord ingevoerd 
+				if($passhash != $row['password']) {
+					$this->errors[] = "onjuist username/wachtwoord combinatie (2)";
+				}
+				
+				if(count($this->errors) == 0){
+					//gegevens worden opgeslagen zodat je later content kan laten zien op 
+					//basis van checks op deze gegevens
+					$_SESSION['username'] = $row['username'];
+					
+					if($row['admin_rights'] == 1)
+						$_SESSION['rechten'] = "admin";
+					else
+						$_SESSION['rechten']= "klant";
+					$this->showform = false;
 				}
 			}
-			
-			if(count($this->errors) == 0){
-				//gegevens worden opgeslagen zodat je later content kan laten zien op 
-				//basis van checks op deze gegevens
-				$_SESSION['username']=$_POST['username'];
-				$_SESSION['password']=$_POST['password'];
-				if($rechten == 1)
-					$_SESSION['rechten'] = "admin";
-				if($rechten == 0)
-					$_SESSION['rechten']= "klant";
-				$this->showform = false;
-			}
-			$this->posted = true;
-			
+			$this->posted = true;	
 		}
-		//geen idee wat dit doet, maar ik zag het bij tom's registratie :P
-		private function valueLoad($item){
-			if($this->posted && count($this->errors) == 0){
-				return;
-			}
-		}
+
 		public function buildPage(){
 ?>
 <div id="contentcontainer">
@@ -69,9 +73,10 @@
 				echo "</span></p>";
 				echo "<br />";
 			}else{
-				echo "<p>Hello, " .$_SESSION['username']. "<br />";
-				echo "ik snap redirect niet dus ga maar handmatig ergens anders naartoe.<br />";
-				echo "<a href=\"?p=home\">home</a></p>";
+				echo "<p>Hallo, " .$_SESSION['username']. ".<br />";
+				echo "Je bent succesvol ingelogd!<br /><br />";
+				echo "U wordt automatisch doorgestuurd na 5 seconden gebeurt dit niet klik dan <a href=\"?p=home\">hier</a>.</p>";
+				echo "<meta http-equiv=\"refresh\" content=\"5;url=?p=home\" />";
 			}
 		}
 		//wist niet precies hoe redirect ging dus heb ik ipv daarvan heb ik
