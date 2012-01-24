@@ -7,6 +7,7 @@
 		private $products;
 		
 		public function __construct(){
+			parent::__construct();
 			if(isset($_GET['oid']) && ctype_digit($_GET['oid'])){
 				$oid = intval($_GET['oid']);
 				$res = DB::$db->query("SELECT * FROM orders JOIN users ON users.id = orders.user_id WHERE order_id=" . $oid . " LIMIT 1");
