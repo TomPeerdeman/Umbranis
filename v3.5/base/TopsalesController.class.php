@@ -50,7 +50,7 @@
 	  rpp: 4,
 	  interval: 30000,
 	  width: 164,
-	  height: 300,
+	  height: 180,
 	  theme: {
 		shell: {
 		  background: '#333333',
@@ -64,7 +64,7 @@
 		}
 	  },
 	  features: {
-		scrollbar: false,
+		scrollbar: true,
 		loop: false,
 		live: false,
 		behavior: 'all'
