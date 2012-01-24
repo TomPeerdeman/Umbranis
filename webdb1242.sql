@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: 127.0.0.1
--- Genereertijd: 24 jan 2012 om 16:47
+-- Genereertijd: 24 jan 2012 om 20:21
 -- Serverversie: 5.5.16
 -- PHP-Versie: 5.3.8
 
@@ -87,14 +87,16 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `total_price` double unsigned NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel `orders`
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `delivery_status`, `payment_status`, `total_price`, `date`) VALUES
-(2, 6, 1, 1, 114.95, '2012-01-20 18:37:31');
+(2, 6, 1, 1, 114.95, '2012-01-20 18:37:31'),
+(3, 5, 0, 0, 822.55, '2012-01-24 16:12:49'),
+(4, 5, 0, 0, 30, '2012-01-24 16:27:32');
 
 -- --------------------------------------------------------
 
@@ -115,7 +117,10 @@ CREATE TABLE IF NOT EXISTS `order_products` (
 --
 
 INSERT INTO `order_products` (`order_id`, `product_id`, `price`, `amount`) VALUES
-(2, 5, 12.99, 5);
+(2, 5, 12.99, 5),
+(3, 2, 755.45, 11),
+(3, 3, 23.55, 2),
+(4, 1, 40, 1);
 
 -- --------------------------------------------------------
 
