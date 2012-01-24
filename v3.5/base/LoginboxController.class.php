@@ -14,7 +14,7 @@
 			if($user->is_member() && $user->is_admin())
 				echo '<a href="?p=admin/admin">Admin</a>&nbsp;';
 			if($user->is_member()){
-				echo '<a href="?p=accsettings">Account</a>&nbsp;';
+				echo '<a href="?p=account">Account</a>&nbsp;';
 				echo '<a href="?p=winkelwagen">Winkelwagen</a>&nbsp;';
 			}
 ?>

@@ -87,8 +87,7 @@
 				echo "<meta http-equiv=\"refresh\" content=\"5;url=?p=home\" />";
 			}
 		}
-		//wist niet precies hoe redirect ging dus heb ik ipv daarvan heb ik
-		//de formulier verborgen als je bent ingelogt
+		//formulier alleen tonen als je nog niet bent ingelogt
 		if($this->showform){
 ?>
 		<p>Als u al een account heeft kunt u hier inloggen.</p>
@@ -125,7 +124,6 @@
 		</form>
 		<br />
 		<p>Heeft u nog geen account, registreer u dan <a href="?p=registreer">hier</a>.</p>
-		<!-- onderstaande is nog niet geimplementeert -->
 		<p>Bent u uw wachtwoord vergeten, klik dan <a href="?p=recovery">hier</a>.</p>
 		<br />
 	</div>

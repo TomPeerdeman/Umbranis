@@ -82,8 +82,7 @@
 				echo "<meta http-equiv=\"refresh\" content=\"5;url=?p=home\" />";
 			}
 		}
-		//wist niet precies hoe redirect ging dus heb ik ipv daarvan heb ik
-		//de formulier verborgen als je bent ingelogt
+		//formulier alleen tonen als je nog niet bent ingelogt
 		if($this->showform){
 ?>
 		<p>Vul de onderstaande velden in om uw wachtwoord te resetten.</p>
