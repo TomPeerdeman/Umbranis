@@ -20,6 +20,12 @@
 			if(!isset($_POST['stock']) || empty($_POST['stock'])){
 				$this->errors[] = "U heeft geen voorraad ingevoerd!";
 			}
+			if(!isset($_POST['delivery_time']) || empty($_POST['delivery_time'])){
+				$this->errors[] = "Er is geen bezorgtijd ingevuld!";
+			}
+			if(!isset($_POST['ean_code']) || empty($_POST['ean_code'])){
+				$this->errors[] = "U heeft geen EAN-code ingevoerd!";
+			}
 
 
 			
@@ -56,13 +62,31 @@
 			if($this->posted && count($this->errors) == 0){
 				return;
 			}
+			else{
+				echo (isset($_POST[$item])) ? $_POST[$item] : "";
+			}
 		}
 		
 		private function escape($item){
 			if(isset($_POST[$item])){
 				if($item != "ean_code" && $item != "product_name"){
-					return DB::$db->quote(ucfirst($_POST[$item]));
-				}else{
+					if($item == "image_path" && empty($_POST[$item])){
+						return DB::$db->quote("no_image.png");
+					}
+					elseif($item == "publisher" && empty($_POST[$item])){
+						return DB::$db->quote("Onbekend");
+					}
+					elseif($item == "author" && empty($_POST[$item])){
+						return DB::$db->quote("Onbekend");
+					}
+					elseif($item == "description" && empty($_POST[$item])){
+						return DB::$db->quote("Geen beschrijving beschikbaar");
+					}
+					else{
+						return DB::$db->quote(ucfirst($_POST[$item]));
+					}
+				}
+				else{
 					return DB::$db->quote($_POST[$item]);
 				}
 			}else{
@@ -161,7 +185,7 @@
 						Bezorgtijd:
 					</td>
 					<td>
-						<input type="text" name="delivery_time" maxlength="25" value="<?php $this->valueLoad('delivery_time'); ?>" />
+						<input type="text" name="delivery_time" maxlength="25" value="<?php $this->valueLoad('delivery_time'); ?>" />*
 					</td>
 				</tr>
 				<tr>
@@ -201,7 +225,7 @@
 						EAN-code:
 					</td>
 					<td>
-						<input type="text" name="ean_code" value="<?php $this->valueLoad('ean_code'); ?>"/>
+						<input type="text" name="ean_code" value="<?php $this->valueLoad('ean_code'); ?>"/>*
 					</td>
 				</tr>
 			

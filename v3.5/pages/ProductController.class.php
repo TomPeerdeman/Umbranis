@@ -41,7 +41,7 @@
 										</tr>
 										<tr>
 											<td class="even">EAN-code</td>
-											<td class="even">' . $row['EAN-code'] . '</td>
+											<td class="even">' . $row['ean_code'] . '</td>
 										</tr>
 										<tr>
 											<td class="uneven">Prijs (incl. BTW)</td>
