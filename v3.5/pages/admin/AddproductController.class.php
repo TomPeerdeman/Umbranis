@@ -95,6 +95,7 @@
 		}
 	
 		public function buildPage(){
+			
 ?>
 <div id="contentcontainer">
 	<h2>Product Toevoegen</h2>
@@ -122,23 +123,14 @@
 						Categorie:
 					</td>
 					<td>
-						<select name="cat_id" size="1">
-							<option value="5" selected="selected">Jazz</option>
-							<option value="6">Blues</option>
-							<option value="7">Disco</option>
-							<option value="8">Death Metal</option>
-							<option value="9">Horror</option>
-							<option value="10">Actie</option>
-							<option value="11">Alternative</option>
-							<option value="12">Scifi</option>
-							<option value="13">PC</option>
-							<option value="14">Xbox 360</option>
-							<option value="15">PS3</option>
-							<option value="16">Wii</option>
-							<option value="17">Suspense</option>
-							<option value="18">Roman</option>
-							<option value="19">Non-Fiction</option>
-						</select>*
+				<select name="cat_id" size="1">		
+<?php
+$res = DB::$db->query("SELECT * FROM categories WHERE cat_id > 4");
+	while($row = $res->fetch()){
+		echo "<option value=" . $row['cat_id'] . ">" . $row['cat_name'] . "</option>";
+	}								
+?>
+					</select>*
 							
 					</td>
 				</tr>

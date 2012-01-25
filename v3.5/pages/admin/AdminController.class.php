@@ -9,13 +9,18 @@
 				<h2>Admin page</h2>
 				<div id="admincontainer">
 					<br />
-					<a href="?p=admin/bestellingen">
+					<p><a href="?p=admin/bestellingen">
 						Bestellingen overzicht</a>
 					<br />
 					<br />
 					<a href="?p=admin/addproduct">
 						Product toevoegen</a>
 					<br />
+					<br />
+					<a href="?p=admin/addcategorie">
+						Categorie toevoegen</a>
+					<br />
+					<br /></p>
 				</div>
 			</div>
 <?php			

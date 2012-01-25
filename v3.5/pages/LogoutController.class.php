@@ -9,8 +9,8 @@
 ?>
 <div id="contentcontainer">
 	<div id="logincontainer">
-		U bent succesvol uitgelogt.<br />
-		Wij zien u graag gouw terug!
+		<p style="margin-top:20px;">U bent succesvol uitgelogt.<br /><br />
+		Wij zien u graag gouw terug!</p>
 	</div>
 </div>
 <?php
