@@ -39,7 +39,7 @@
 				$this->errors[] = "Er is al een product met deze EAN-code!";
 			}	
 
-				
+			if(count($this->errors) == 0){				
 				DB::$db->query("INSERT INTO products (cat_id, product_name, normal_price, price, stock, delivery_time, publisher, author, image_path, description, ean_code)
 					VALUES (
 						" . $this->escape('cat_id') . ", 
@@ -54,7 +54,7 @@
 						" . $this->escape('description') . ",
 						" . $this->escape('ean_code') . "
 					)");
-					
+			}
 			$this->posted = true;
 		}
 		
