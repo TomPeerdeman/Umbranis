@@ -16,12 +16,6 @@
 			if(!isset($_POST['price']) || empty($_POST['price'])){
 				$this->errors[] = "U heeft geen aanbieding prijs ingevoerd!
 					Is er geen aanbeiding vul dan hetzelfde bedrag in als bij de normale prijs";
-			}			
-			if(!isset($_POST['stock']) || empty($_POST['stock'])){
-				$this->errors[] = "U heeft geen voorraad ingevoerd!";
-			}
-			if(!isset($_POST['delivery_time']) || empty($_POST['delivery_time'])){
-				$this->errors[] = "Er is geen bezorgtijd ingevuld!";
 			}
 			if(!isset($_POST['ean_code']) || empty($_POST['ean_code'])){
 				$this->errors[] = "U heeft geen EAN-code ingevoerd!";
@@ -78,6 +72,12 @@
 					}
 					elseif($item == "author" && empty($_POST[$item])){
 						return DB::$db->quote("Onbekend");
+					}
+					elseif($item == "delivery_time" && empty($_POST[$item])){
+						return DB::$db->quote("0");
+					}
+					elseif($item == "stock" && empty($_POST[$item])){
+						return DB::$db->quote("0");
 					}
 					elseif($item == "description" && empty($_POST[$item])){
 						return DB::$db->quote("Geen beschrijving beschikbaar");
@@ -168,7 +168,7 @@ $res = DB::$db->query("SELECT * FROM categories WHERE cat_id > 4");
 						Voorraad:
 					</td>
 					<td>
-						<input type="text" name="stock" maxlength="25" value="<?php $this->valueLoad('stock'); ?>" />*
+						<input type="text" name="stock" maxlength="25" value="<?php $this->valueLoad('stock'); ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -177,7 +177,7 @@ $res = DB::$db->query("SELECT * FROM categories WHERE cat_id > 4");
 						Bezorgtijd:
 					</td>
 					<td>
-						<input type="text" name="delivery_time" maxlength="25" value="<?php $this->valueLoad('delivery_time'); ?>" />*
+						<input type="text" name="delivery_time" maxlength="25" value="<?php $this->valueLoad('delivery_time'); ?>" />
 					</td>
 				</tr>
 				<tr>
