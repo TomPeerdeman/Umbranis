@@ -21,8 +21,9 @@
 			
 			// dit bericht is overbodig als 1 van de velden niet is ingevuld
 			if($this->check){
-				$res = DB::$db->query("SELECT username, password, password_salt, admin_rights, last_action, login_tries
+				$res = DB::$db->query("SELECT username, password, password_salt, admin_rights, login_tries, last_action
 					FROM users
+					LEFT JOIN logins ON users.id = logins.user_id
 					WHERE username=" . DB::$db->quote($_POST['username']) . "
 					LIMIT 1");
 				
@@ -38,8 +39,10 @@
 				
 				if($row['login_tries'] ==5){
 					$this->errors[] = "Dit account is gelocked! Vraag een nieuw paswoord aan.";
-				}else if($row['login_tries'] > 5){
+				}else if($row['login_tries'] == 6){
 					$this->errors[] = "Dit account is geband!";
+				}else if($row['login_tries'] >= 7){
+					$this->errors[] = "Dit account is nog niet geactiveerd!";
 				}else{	
 					include("PasswordGenerator.class.php");
 					$passgen = new PasswordGenerator();
@@ -87,7 +90,8 @@
 				echo "<meta http-equiv=\"refresh\" content=\"5;url=?p=home\" />";
 			}
 		}
-		//formulier alleen tonen als je nog niet bent ingelogt
+		//wist niet precies hoe redirect ging dus heb ik ipv daarvan heb ik
+		//de formulier verborgen als je bent ingelogt
 		if($this->showform){
 ?>
 		<p>Als u al een account heeft kunt u hier inloggen.</p>
@@ -124,6 +128,7 @@
 		</form>
 		<br />
 		<p>Heeft u nog geen account, registreer u dan <a href="?p=registreer">hier</a>.</p>
+		<!-- onderstaande is nog niet geimplementeert -->
 		<p>Bent u uw wachtwoord vergeten, klik dan <a href="?p=recovery">hier</a>.</p>
 		<br />
 	</div>

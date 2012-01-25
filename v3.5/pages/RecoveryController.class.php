@@ -82,8 +82,8 @@
 				echo "<meta http-equiv=\"refresh\" content=\"5;url=?p=home\" />";
 			}
 		}
-		//formulier alleen tonen als je nog niet bent ingelogt
-		if($this->showform){
+
+			if($this->showform){
 ?>
 		<p>Vul de onderstaande velden in om uw wachtwoord te resetten.</p>
 		<br />
@@ -120,7 +120,7 @@
 		</div>
 </div>
 <?php
-		}
+			}
 		}
 	}
 ?>

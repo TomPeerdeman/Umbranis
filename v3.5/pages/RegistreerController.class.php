@@ -60,6 +60,17 @@
 				$this->errors[] = "Er is al een gebruiker met deze username!";
 			}	
 			
+			if(!in_array("sha1", hash_algos()))die("Register hash algorithm not available!");
+			
+			$reghash = hash("sha1", "Register[" . $_POST['username'] . $_POST['email'] . chr(mt_rand(65, 90)) . "]/Register");
+			
+			include("MailSender.class.php");
+			$msg = "<html><body><a href=\"umbranis.nogwat.co.cc/v3.5/?p=activatie&amp;key=" . $reghash . "\">Klik hier om uw account te activeren</a></body></html>";
+			
+			if(count($this->errors) == 0 && !MailSender::sendMail($_POST['email'], "Registratie", $msg, true)){
+				$this->errors[] = "De registratie mail kon niet verstuurd worden!";
+			}
+			
 			if(count($this->errors) == 0){
 				include("PasswordGenerator.class.php");
 				$passgen = new PasswordGenerator();
@@ -81,14 +92,25 @@
 						" . $this->escape('phone2') . ",
 						" . $this->escape('email') . "
 					)");
+					
+				$res = DB::$db->query("SELECT id FROM users WHERE username = " . $this->escape('username') . " LIMIT 1");	
+				if(!$res->rowCount() == 1){
+					$this->errors[] = "De registratie kon niet verwerkt worden!";
+				}else{
+					$row = $res->fetch();
+				
+					DB::$db->query("INSERT INTO password_requests (user_id, request_hash) VALUES (" . $row['id'] . ", '" . $reghash . "')");
+				}
 			}
 			$this->posted = true;
 		}
 		
 		private function valueLoad($item){
+			//Velden leeg laten als het formulier successvol afgehandelt is
 			if($this->posted && count($this->errors) == 0){
 				return;
 			}
+			
 			if($item == "zip2"){
 				echo (isset($_POST[$item])) ? strtoupper($_POST[$item]) : "";
 			}else{
