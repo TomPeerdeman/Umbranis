@@ -8,12 +8,18 @@
 			$x= DB::$db->quote($_GET["id"]);
 			echo '<div id="contentcontainer">';
 			$res = DB::$db->query("SELECT * FROM products where product_id = $x");
+
 			while($row = $res->fetch()){
 				echo "<h2>";
 				echo $row['product_name'];
 				echo "</h2>";
-				echo '<div id="productbox">
-						<div id="propertiescontainer">
+				echo '<div id="productbox">';
+						if($this->user->is_member() && $this->user->is_admin()){
+							echo'<a href="?p=admin/updateproduct&amp;id=' . $row['product_id'] . '">
+								Product bewerken</a>
+								<br />';
+						}
+						echo'<div id="propertiescontainer">
 							<div class="shadow">
 								<div id="propertiesbox">
 									<table>
