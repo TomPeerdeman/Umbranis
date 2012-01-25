@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 25 Jan 2012 om 13:34
+-- Genereertijd: 25 Jan 2012 om 13:47
 -- Serverversie: 5.1.41
 -- PHP-Versie: 5.3.1
 
@@ -94,6 +94,8 @@ CREATE TABLE IF NOT EXISTS `logins` (
 -- Gegevens worden uitgevoerd voor tabel `logins`
 --
 
+INSERT INTO `logins` (`user_id`, `last_action`, `login_hash`) VALUES
+(1, '2012-01-25 13:46:58', 'b864ea5fe401ad799c2941e70bdf5e660cc3a34367b6b28aa8f343c87330f4af');
 
 -- --------------------------------------------------------
 
@@ -109,12 +111,16 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `total_price` double unsigned NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel `orders`
 --
 
+INSERT INTO `orders` (`order_id`, `user_id`, `delivery_status`, `payment_status`, `total_price`, `date`) VALUES
+(1, 6, 1, 1, 114.95, '2012-01-20 18:37:31'),
+(2, 5, 0, 0, 822.55, '2012-01-24 16:12:49'),
+(3, 5, 0, 0, 30, '2012-01-24 16:27:32');
 
 -- --------------------------------------------------------
 
@@ -134,6 +140,11 @@ CREATE TABLE IF NOT EXISTS `order_products` (
 -- Gegevens worden uitgevoerd voor tabel `order_products`
 --
 
+INSERT INTO `order_products` (`order_id`, `product_id`, `price`, `amount`) VALUES
+(1, 5, 12.99, 5),
+(2, 2, 755.45, 11),
+(2, 3, 23.55, 2),
+(3, 1, 40, 1);
 
 -- --------------------------------------------------------
 
