@@ -2,6 +2,9 @@
 	error_reporting(E_ALL);
 	define("INDEX", true);
 	
+	define("SITE_ROOT", "127.0.0.1/v3.5/");
+	ini_set("SMTP", "mail.nogwat.co.cc");
+	
 	include("MainController.class.php");
 	include("BaseController.class.php");
 	include("DB.class.php");

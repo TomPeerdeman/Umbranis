@@ -3,10 +3,7 @@
 	if(!defined("INDEX"))die("NO INDEX!");
 
 	class MailSender{
-		public static function sendMail($to, $subject, $message, $html = false, $from = "no-reply@umbranis.nl", $fromName = "Umbranis"){
-			//Als je geen locale server hebt de host aanpassen en uncommenten
-			//ini_set("SMTP", "host");
-			
+		public static function sendMail($to, $subject, $message, $html = false, $from = "no-reply@umbranis.nl", $fromName = "Umbranis"){		
 			$headers = "From: " . $fromName . " <" . $from . ">\r\n";
 			$headers .= "To: <" . $to . ">\r\n";
 			$headers .= "Subject: " .$subject . "\r\n";

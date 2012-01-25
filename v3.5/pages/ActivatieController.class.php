@@ -32,7 +32,7 @@
 <div id="contentcontainer">
 	<h2>Login</h2>
 	<div id="logincontainer">
-<?php
+<?php		
 			if($this->success){
 				echo "<br /><p>Uw account is geactiveerd!";
 				echo "<br /><br />U wordt automatisch doorgestuurd na 5 seconden gebeurt dit niet klik dan <a href=\"?p=login\">hier</a>.</p>";

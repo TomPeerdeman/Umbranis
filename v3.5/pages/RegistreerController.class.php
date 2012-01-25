@@ -65,7 +65,7 @@
 			$reghash = hash("sha1", "Register[" . $_POST['username'] . $_POST['email'] . chr(mt_rand(65, 90)) . "]/Register");
 			
 			include("MailSender.class.php");
-			$msg = "<html><body><a href=\"umbranis.nogwat.co.cc/v3.5/?p=activatie&amp;key=" . $reghash . "\">Klik hier om uw account te activeren</a></body></html>";
+			$msg = "<html><body><a href=\"" . SITE_ROOT . "?p=activatie&amp;key=" . $reghash . "\">Klik hier om uw account te activeren</a></body></html>";
 			
 			if(count($this->errors) == 0 && !MailSender::sendMail($_POST['email'], "Registratie", $msg, true)){
 				$this->errors[] = "De registratie mail kon niet verstuurd worden!";
@@ -105,12 +105,7 @@
 			$this->posted = true;
 		}
 		
-		private function valueLoad($item){
-			//Velden leeg laten als het formulier successvol afgehandelt is
-			if($this->posted && count($this->errors) == 0){
-				return;
-			}
-			
+		private function valueLoad($item){		
 			if($item == "zip2"){
 				echo (isset($_POST[$item])) ? strtoupper($_POST[$item]) : "";
 			}else{
@@ -147,10 +142,11 @@
 					echo "</span></p>";
 					echo "<br />";
 				}else{
-					echo "<p><span style=\"color: green;\">Uw account is aangemaakt.</span></p><br />";
+					echo "<p><span style=\"color: green;\">Uw account is aangemaakt.</span><br />U ontvangt een e-mail met activatie instructies.<br /><strong>Let op: deze mail is maar 10 minuten geldig!</strong></p><br />";
 					$_POST['gender'] = null;
 				}
 			}
+			if(!$this->posted || count($this->errors) != 0){
 ?>
 		<form action="#" method="post">
 			<table>
@@ -293,6 +289,7 @@
 	</div>
 </div>
 <?php
+			}
 		}
 	}
 ?>

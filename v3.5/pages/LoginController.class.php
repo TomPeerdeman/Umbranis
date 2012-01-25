@@ -50,7 +50,11 @@
 					
 					//Onjuist wachtwoord ingevoerd 
 					if($passhash != $row['password']) {
-						$this->errors[] = "Onjuiste username/wachtwoord combinatie. Nog " . (4 - $row['login_tries']) . " Pogingen.";
+						if($row['login_tries'] == 4){
+							$this->errors[] = "Onjuiste username/wachtwoord combinatie. Uw account wordt gelocked.";
+						}else{
+							$this->errors[] = "Onjuiste username/wachtwoord combinatie. Nog " . (4 - $row['login_tries']) . " Pogingen.";
+						}
 						DB::$db->query("UPDATE users SET login_tries = login_tries + 1 WHERE username='" . $row['username'] . "' LIMIT 1");
 					}
 				}

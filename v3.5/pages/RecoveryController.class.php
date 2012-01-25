@@ -5,23 +5,22 @@
 	class RecoveryController extends BaseController{
 		private $errors = array();
 		private $posted = false;
-		private $check = true;
-		private $showform = true;
-		private $newpass;
-		
+			
 		public function handleForm(){
 			if(!isset($_POST['username']) || empty($_POST['username'])){
 				$this->errors[] = "U heeft geen username ingevoerd!";
-				$this->check = false;
 			}
 
 			if(!isset($_POST['email']) || empty($_POST['email'])){
 				$this->errors[] = "U heeft geen email-adress ingevoerd!";
-				$this->check = false;
 			}
 			
-			if($this->check){
-				$res = DB::$db->query("SELECT * FROM users 
+			if($this->user->is_member()){
+				$this->errors[] = "U bent al ingelogd!";
+			}
+			
+			if(count($this->errors) == 0){
+				$res = DB::$db->query("SELECT login_tries, id, email FROM users 
 				WHERE username=" . DB::$db->quote($_POST['username'])  
 				. "AND email=" . DB::$db->quote($_POST['email']) ." LIMIT 1");
 										
@@ -31,27 +30,26 @@
 				}else{
 					$row = $res->fetch();
 					
-					if($row['login_tries'] > 5){
+					if($row['login_tries'] == 6){
 						$this->errors[] = "Dit account is geband!";
-					}else{	
-						include("PasswordGenerator.class.php");
-						$passgen = new PasswordGenerator();
-						$salt = $passgen->getRandomSalt();
-						$passhash = $passgen->getPasswordHash("welkom", $salt);
-					
-						DB::$db->query("UPDATE users SET password='" . $passhash . "', password_salt='" . $salt . "', login_tries = 0 
-							WHERE username='" . $row['username']. "'
+					}else{						
+						DB::$db->query("UPDATE users
+							SET password='', password_salt='', login_tries = 7 
+							WHERE id='" . $row['id']. "'
 							LIMIT 1");
 						
-						$_SESSION['username']= $row['username'];
-						$this->newpass = "welkom";
+						if(!in_array("sha1", hash_algos()))die("Recovery hash algorithm not available!");
+			
+						$rechash = hash("sha1", "Recover[" . $_POST['username'] . $_POST['email'] . chr(mt_rand(65, 90)) . "]/Recover");
 						
-						$this->user->login($row['username'], true);
-						$this->showform = false;
-						//
-						//TODO: doe iets
-						//mail nieuwe dingen ofzo
-						//
+						DB::$db->query("INSERT INTO password_requests (user_id, request_hash) VALUES (" . $row['id'] . ", '" . $rechash . "')");
+						
+						include("MailSender.class.php");
+						$msg = "<html><body><a href=\"" . SITE_ROOT . "?p=recover&amp;key=" . $rechash . "\">Klik hier om een nieuw wachtwoord in te stellen</a></body></html>";
+						
+						if(count($this->errors) == 0 && !MailSender::sendMail($row['email'], "Paswoord recovery", $msg, true)){
+							$this->errors[] = "De recovery mail kon niet verstuurd worden!";
+						}
 					}	
 				}
 			}
@@ -61,29 +59,26 @@
 		public function buildPage(){
 ?>
 <div id="contentcontainer">
-	<h2>Recover pass</h2>
+	<h2>Recover paswoord</h2>
 	<div id="logincontainer">
 		<br />
 		<?php 
-		if($this->posted){
-			if(count($this->errors) > 0){
-				echo "<p><span style=\"color: red;\">Het wachtwoord herstel process kon niet worden voltooid:<br />";
-				foreach($this->errors as $error){
-					echo $error . "<br />";
+			if($this->posted){
+				if(count($this->errors) > 0){
+					echo "<p><span style=\"color: red;\">Het wachtwoord herstel process kon niet worden voltooid:<br />";
+					foreach($this->errors as $error){
+						echo $error . "<br />";
+					}
+					echo "</span></p>";
+					echo "<br />";
+				}else{
+					echo "<p>";
+					echo "Uw aanvraag voor een nieuw wachtwoord is ontvangen<br />";
+					echo "U ontvangt een e-mail met daar in verdere instructies.<br /><strong>Let op deze e-mail blijf maar 10 minuten geldig!</strong><br /><br />";
+					echo "U wordt automatisch doorgestuurd na 20 seconden gebeurt dit niet klik dan <a href=\"?p=home\">hier</a>.<br /><br /></p>";
+					echo "<meta http-equiv=\"refresh\" content=\"20;url=?p=home\" />";
 				}
-				echo "</span></p>";
-				echo "<br />";
 			}else{
-				echo "<p>Hello, " .$this->user->username. "<br />";
-				echo "Uw aanvraag voor een nieuw wachtwoord is ontvangen<br />";
-				echo "Uw nieuw wachtwoord is: " . $this->newpass. "<br / ><br />";
-				echo "<strong>Belangrijk: vergeet niet om uw wachtwoord te wijzigen!</strong><br /><br />";
-				echo "U wordt automatisch doorgestuurd na 5 seconden gebeurt dit niet klik dan <a href=\"?p=home\">hier</a>.</p>";
-				echo "<meta http-equiv=\"refresh\" content=\"5;url=?p=home\" />";
-			}
-		}
-
-			if($this->showform){
 ?>
 		<p>Vul de onderstaande velden in om uw wachtwoord te resetten.</p>
 		<br />
