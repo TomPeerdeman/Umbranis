@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
+-- version 3.4.5
 -- http://www.phpmyadmin.net
 --
--- Machine: localhost
--- Genereertijd: 25 Jan 2012 om 13:47
--- Serverversie: 5.1.41
--- PHP-Versie: 5.3.1
+-- Machine: 127.0.0.1
+-- Genereertijd: 25 jan 2012 om 13:50
+-- Serverversie: 5.5.16
+-- PHP-Versie: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -31,11 +32,6 @@ CREATE TABLE IF NOT EXISTS `cart_products` (
   `amount` int(10) unsigned NOT NULL,
   UNIQUE KEY `user_id` (`user_id`,`product_id`,`amount`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Gegevens worden uitgevoerd voor tabel `cart_products`
---
-
 
 -- --------------------------------------------------------
 
@@ -95,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `logins` (
 --
 
 INSERT INTO `logins` (`user_id`, `last_action`, `login_hash`) VALUES
-(1, '2012-01-25 13:46:58', 'b864ea5fe401ad799c2941e70bdf5e660cc3a34367b6b28aa8f343c87330f4af');
+(1, '2012-01-25 12:46:58', 'b864ea5fe401ad799c2941e70bdf5e660cc3a34367b6b28aa8f343c87330f4af');
 
 -- --------------------------------------------------------
 
@@ -118,9 +114,9 @@ CREATE TABLE IF NOT EXISTS `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `delivery_status`, `payment_status`, `total_price`, `date`) VALUES
-(1, 6, 1, 1, 114.95, '2012-01-20 18:37:31'),
-(2, 5, 0, 0, 822.55, '2012-01-24 16:12:49'),
-(3, 5, 0, 0, 30, '2012-01-24 16:27:32');
+(1, 6, 1, 1, 114.95, '2012-01-20 17:37:31'),
+(2, 5, 0, 0, 822.55, '2012-01-24 15:12:49'),
+(3, 5, 0, 0, 30, '2012-01-24 15:27:32');
 
 -- --------------------------------------------------------
 
@@ -160,11 +156,6 @@ CREATE TABLE IF NOT EXISTS `password_requests` (
   UNIQUE KEY `request_hash` (`request_hash`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Gegevens worden uitgevoerd voor tabel `password_requests`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -183,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `author` varchar(32) NOT NULL,
   `image_path` varchar(32) NOT NULL,
   `description` text NOT NULL,
-  `EAN-code` varchar(16) NOT NULL,
+  `ean_code` varchar(16) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`product_id`),
   UNIQUE KEY `product_name` (`product_name`)
@@ -193,12 +184,12 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Gegevens worden uitgevoerd voor tabel `products`
 --
 
-INSERT INTO `products` (`product_id`, `cat_id`, `product_name`, `normal_price`, `price`, `stock`, `delivery_time`, `publisher`, `author`, `image_path`, `description`, `EAN-code`, `date`) VALUES
-(1, 13, 'The elder Scrolls: Skyrim', 49.99, 49.99, 10, 0, 'Bethesda Softworks', '', 'skyrim.png', '', '1234567891012', '2012-01-18 18:04:48'),
-(2, 13, 'Portal 2', 59.99, 59.99, 10, 2, 'Valve Corporation', '', 'portal.png', '', '1234567891013', '2012-01-18 18:04:48'),
-(3, 5, 'Birds of Fire', 15.99, 15.99, 10, 1, 'Sony music entertainment', 'Mahavishnu Orchestra', '', '', '4209714987224', '2012-01-18 19:36:43'),
-(4, 5, 'Unrecognizable screeches from a ', 15.99, 10.99, 10, 1, '', 'Ramses Ijff', '', '', '4209714987125', '2012-01-18 19:37:18'),
-(5, 9, 'Final destination 5', 22.99, 22.99, 0, 15, 'Warner Home Video', 'Steven Quale', 'final_destination_5.png', '', '5051888087602', '2012-01-20 13:48:10');
+INSERT INTO `products` (`product_id`, `cat_id`, `product_name`, `normal_price`, `price`, `stock`, `delivery_time`, `publisher`, `author`, `image_path`, `description`, `ean_code`, `date`) VALUES
+(1, 13, 'The elder Scrolls: Skyrim', 49.99, 49.99, 10, 0, 'Bethesda Softworks', '', 'skyrim.png', '', '1234567891012', '2012-01-18 17:04:48'),
+(2, 13, 'Portal 2', 59.99, 59.99, 10, 2, 'Valve Corporation', '', 'portal.png', '', '1234567891013', '2012-01-18 17:04:48'),
+(3, 5, 'Birds of Fire', 15.99, 15.99, 10, 1, 'Sony music entertainment', 'Mahavishnu Orchestra', '', '', '4209714987224', '2012-01-18 18:36:43'),
+(4, 5, 'Unrecognizable screeches from a ', 15.99, 10.99, 10, 1, '', 'Ramses Ijff', '', '', '4209714987125', '2012-01-18 18:37:18'),
+(5, 9, 'Final destination 5', 22.99, 22.99, 0, 15, 'Warner Home Video', 'Steven Quale', 'final_destination_5.png', '', '5051888087602', '2012-01-20 12:48:10');
 
 -- --------------------------------------------------------
 
