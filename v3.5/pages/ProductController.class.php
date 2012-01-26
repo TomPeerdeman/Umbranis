@@ -15,9 +15,18 @@
 				echo "</h2>";
 				echo '<div id="productbox">';
 						if($this->user->is_member() && $this->user->is_admin()){
-							echo'<a href="?p=admin/updateproduct&amp;id=' . $row['product_id'] . '">
-								Product bewerken</a>
-								<br />';
+							echo'<table>
+								<tr>
+									<td width="300px">
+										<a href="?p=admin/updateproduct&amp;id=' . $row['product_id'] . '">
+											Product bewerken</a>
+									</td>
+									<td>
+										<a href="?p=admin/verwijderproduct&amp;id=' . $row['product_id'] . '">
+											Product verwijderen</a>
+									</td>
+								</tr>
+							</table>';
 						}
 						echo'<div id="propertiescontainer">
 							<div class="shadow">

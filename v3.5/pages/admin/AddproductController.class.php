@@ -22,12 +22,6 @@
 			}
 
 
-			
-			$res = DB::$db->query("SELECT * FROM products WHERE product_name=" . DB::$db->quote($_POST['product_name']) . "");
-			if($res->rowCount() > 0){
-				$this->errors[] = "Er is al een product met deze naam!";
-			}
-
 			$res = DB::$db->query("SELECT * FROM products WHERE ean_code=" . DB::$db->quote($_POST['ean_code']) . "");
 			if($res->rowCount() > 0){
 				$this->errors[] = "Er is al een product met deze EAN-code!";
