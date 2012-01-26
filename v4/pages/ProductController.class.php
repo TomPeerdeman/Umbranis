@@ -161,7 +161,7 @@
 						if($this->user->is_member()){
 							$i = 10;
 							echo'
-								<form action="#" method="post">
+								<form action="?p=product&amp;id=' .$_GET['id'] . '" method="post">
 									<table width ="700px">
 										<tr>
 											<td>
