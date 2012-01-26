@@ -1,0 +1,270 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+html, body{
+	width: 100%;
+	height: 100%;
+	background-color: #DDD;
+	font-family: Verdana;
+}
+
+a:visited{
+	color: blue;
+}
+
+a{
+	text-decoration: underline;
+}
+
+a img{
+	border: none;
+}
+
+table{
+	border-collapse: collapse;
+}
+
+td.spacer{
+	height: 10px;
+}
+
+input{
+	width: 150px;
+	margin: 2px 0px;
+}
+
+input.submit{
+	width: 100px;
+}
+
+input.box{
+	width: 15px;
+}
+
+/* Center element*/
+#container, table, #contentbox, #contentboxsmall{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Center tekst*/
+#container, p{
+	text-align: center;
+}
+
+/* Hoofd container */
+#container{
+	background-color: #F9CB9C;
+	width: 1000px;
+	min-height: 100%;
+	border: solid 1px black;
+	border-top: none;
+	border-bottom: none;
+	position: relative;
+}
+
+#header, #menu, #content, #footer{
+	width: 100%;
+	line-height: 20px;
+}
+
+#menu, #footer{
+	line-height: 25px;
+}
+
+#header{
+	height: 90px;
+	background-color: #85200C;
+	border-bottom: solid 1px black;
+	line-height: 90px;
+	font-family: Gigi;
+}
+
+#header h1{
+	font-size: 45px;
+	color: #F8D50C;
+}
+
+#menu{
+	height: 27px;
+	background-color: #B45F0C;
+	border-bottom: solid 1px black;
+}
+
+#footer{
+	border-top: solid 1px black;
+	position: absolute;
+	bottom: 0px;
+	height: 25px;
+}
+
+#sidebar{
+	float: right;
+	position: relative;
+}
+
+#maincontent{
+	float: left;
+}
+
+#contentclear{
+	clear: both;
+	height: 30px;
+}
+
+#maincontent{
+	width: 800px;
+}
+
+#contentcontainer{
+	margin: 30px 0px 0px 20px;
+	text-align: left;
+}
+
+#contentbox, #contentboxsmall{
+	margin-top: 20px;
+	background-color: #FFE599;
+	border: solid 2px black;
+	padding: 10px;
+}
+
+#contentbox{
+	width: 750px;
+}
+
+#contentboxsmall{
+	width: 500px;
+}
+
+#loginbox{
+	position: absolute;
+	top: 0px;
+	right: 20px;
+	font-size: 10pt;
+}
+
+#topsales{
+	width: 170px;
+	background-color: #FFE599;
+	border-left: solid 1px black;
+	border-bottom: solid 1px black;
+	padding-bottom: 290px;
+	text-align: left;
+	font-size: 12px;
+}
+
+#topsales table{
+	margin-left: 3px;
+}
+
+#twitter{
+	position: absolute;
+	bottom: 3px;
+	right: 3px;
+}
+
+#topsales td{
+	line-height: 17px;
+}
+
+.topnum{
+	vertical-align: middle;
+	width: 20px;
+}
+
+#topsales .topnum a{
+	color: #808080;
+}
+
+.topitem, .topitemtop{
+	border-left: solid 1px #808080;
+	padding-left: 5px;
+}
+
+.topitemtop{
+	font-style: italic;
+}
+
+#topsales a{
+	color: black;
+	text-decoration: none;
+}
+
+/* menu */
+#nav, #nav ul{
+	list-style: none;
+}
+
+#nav  li ul ul{
+	margin: -1.6em 0 0 140px;
+}
+
+#nav li{
+	float: left;
+	width: 140px;
+}
+
+#nav li ul{
+	position: absolute;
+	width: 140px;
+	left: -999em;
+	z-index: 5;
+}
+
+#nav li:hover ul ul{
+	position: absolute;
+	left: -999em;
+}
+
+#nav li:hover ul, #nav li li:hover ul{
+	left: auto;
+}
+
+#nav a{
+	display: block;
+	width: 140px;
+	text-decoration: none;
+	color: #000;
+}
+
+/*text faq, contact, etc*/
+ul a{
+	font-weight: 700;
+}
+
+/*dropdown tekst*/
+ul ul a:link, ul ul a:visited{
+	font-weight: 400;
+}
+
+/* mouseover tekst */
+ul ul a:hover, ul ul a:active, ul a:hover, ul a:active{
+	font-weight: 400;
+	background-color: #A64D00;
+}
+
+ul li, ul ul li{
+	border : 1px solid #000;
+}
+
+/* box */
+ul li{
+	background-color: #B45F0C;
+}
+
+/* dropdown box */
+ul ul li{
+	background-color: #B45F0C;
+}
+
+/* IE only hack \*/
+* html ul li, * html ul ul li{
+	border-bottom: 3px solid #FFF;
+}
+
+* html ul ul li{
+	border-top: 0;
+}
+/* Einde IE only hack */ 
