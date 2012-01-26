@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: 127.0.0.1
--- Genereertijd: 25 jan 2012 om 13:50
+-- Genereertijd: 26 jan 2012 om 19:30
 -- Serverversie: 5.5.16
 -- PHP-Versie: 5.3.8
 
@@ -76,6 +76,34 @@ INSERT INTO `categories` (`cat_id`, `parent_id`, `cat_name`, `image_path`) VALUE
 -- --------------------------------------------------------
 
 --
+-- Tabelstructuur voor tabel `comment`
+--
+
+CREATE TABLE IF NOT EXISTS `comment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Gegevens worden uitgevoerd voor tabel `comment`
+--
+
+INSERT INTO `comment` (`id`, `product_id`, `rating`, `message`, `user_id`, `time`) VALUES
+(1, 1, 7, 'Ik vind dit een goed product.', 1, '2012-01-26 15:55:51'),
+(2, 1, 7, 'Ik vind dit een goed product.', 1, '2012-01-26 16:01:09'),
+(3, 1, 10, 'test', 0, '2012-01-26 18:04:53'),
+(4, 1, 10, 'test', 0, '2012-01-26 18:22:10'),
+(5, 1, 1, 'muahahha', 0, '2012-01-26 18:22:17'),
+(6, 1, 2, 'abc', 0, '2012-01-26 18:24:21');
+
+-- --------------------------------------------------------
+
+--
 -- Tabelstructuur voor tabel `logins`
 --
 
@@ -91,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `logins` (
 --
 
 INSERT INTO `logins` (`user_id`, `last_action`, `login_hash`) VALUES
-(1, '2012-01-25 12:46:58', 'b864ea5fe401ad799c2941e70bdf5e660cc3a34367b6b28aa8f343c87330f4af');
+(1, '2012-01-26 18:30:16', 'be9995460cdc46087dedea0a8082e5f96283891b5ddd8cfad87a420747387b08');
 
 -- --------------------------------------------------------
 
