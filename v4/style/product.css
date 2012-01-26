@@ -1,0 +1,52 @@
+.even, .uneven{
+	width: 400px;
+	padding-left: 5px;
+}
+
+.even{
+	background-color: #FFD65C;
+}
+
+.shadow{
+	background: url(../img/shadow.png) no-repeat bottom right;
+}
+
+#productbox{
+	background-color: #FFE599;
+	margin: 20px;
+	border: solid 2px black;
+	text-align: left;
+	padding: 7px;
+}
+
+#propertiesbox, .shadow{
+  position: relative;
+}
+
+#propertiesbox{
+	border: solid 1px #000;
+	background-color: #FFE599;
+	bottom: 6px;
+	right: 7px;
+	width: 400px;
+}
+
+#propertiescontainer{
+	width: 400px;
+	margin: 20px;
+	float: left;
+}
+
+#picturecontainer{
+	margin: 10px 20px 20px 40px;
+	float: left;
+}
+
+#picturecontainer img{
+	max-width: 250px;
+	max-height: 250px;
+}
+
+#descriptioncontainer{
+	clear: both;
+}
