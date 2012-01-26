@@ -10,12 +10,9 @@ html, body{
 	font-family: Verdana;
 }
 
-a:visited{
-	color: blue;
-}
-
-a{
+a, a:visited{
 	text-decoration: underline;
+	color: #000;
 }
 
 a img{
@@ -145,6 +142,10 @@ input.box{
 	font-size: 10pt;
 }
 
+#loginbox a{
+	color: blue;
+}
+
 #topsales{
 	width: 170px;
 	background-color: #FFE599;
@@ -188,7 +189,6 @@ input.box{
 }
 
 #topsales a{
-	color: black;
 	text-decoration: none;
 }
 
@@ -226,7 +226,6 @@ input.box{
 	display: block;
 	width: 140px;
 	text-decoration: none;
-	color: #000;
 }
 
 /*text faq, contact, etc*/

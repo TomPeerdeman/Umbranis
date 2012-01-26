@@ -21,10 +21,9 @@
 			while($row = $res2->fetch())
 			{
 				echo "<td>
-					<div class='category'>";
-								
+					<div class='category'>";		
 								echo "<a href=\"?p=producten&amp;cat=" . $row['cat_id'] . "\">";
-								echo "<img src= 'img/" . $row['image_path'] . "' alt='" . $row['cat_name'] . "' width='180px' height='150px' />";
+								echo "<img src= 'img/cats/" . $row['image_path'] . "' alt='" . $row['cat_name'] . "'/>";
 								echo "</a>";
 								
 								echo "<a href=\"?p=producten&amp;cat=" . $row['cat_id'] . "\">";

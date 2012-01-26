@@ -15,6 +15,7 @@
 				$parent = $row['parent_id'];
 				echo "</h2>";
 			}
+			echo "<table class=\"nocenter\"><tr>";
 			// nieuwe producten van de afgelopen  maand, lijkt me niet dat je 
 			// dingen van een jaar oud hier wilt zien
 			if (isset($_GET['spec']) && $_GET['spec'] == 'new'){
@@ -22,7 +23,7 @@
 									FROM products
 									WHERE cat_id = " . $x ."
 									AND date >= DATE_SUB(CURDATE(),INTERVAL 1 MONTH)");
-				echo "<br /><br /><table style=\"margin-left:auto;margin-right:auto \" ><tr><th>Nieuw in de winkel:</th></tr></table>";
+				echo "<td colspan=\"3\"><p><strong>Nieuw in de winkel:</strong></p></td></tr>";
 				$subcat="nieuw (in de afgelopen maand).";
 			}
 
@@ -31,7 +32,7 @@
 									FROM products
 									WHERE cat_id = " . $x ."
 									AND price < normal_price ");
-				echo "<br /><br /><table style=\"margin-left:auto;margin-right:auto \" ><tr><th>Aanbiedingen:</th></tr></table>";
+				echo "<td colspan=\"3\"><p><strong>Aanbiedingen:</strong></p></td></tr>";
 				$subcat="aanbiedingen.";
 			}
 			else{
@@ -41,17 +42,17 @@
 									ORDER BY product_name");
 			}
 			$teller = 0;
-			echo "<table><tr>";
+			$max = $res2->rowCount();
 			while($row = $res2->fetch())
 			{
 				echo "<td>
-					<div class='small'>
-						<table width='240px'>
+					<div class=\"small\">
+						<table>
 							<tr>
-								<td style=\"width: 170px; height: 150px;\">";
+								<td class=\"image\">";
 								
 								echo "<a href=\"?p=product&amp;id=" . $row['product_id'] . "\">";
-								echo "<img src= 'img/thumbs/" . $row['image_path'] . "' alt='" . $row['product_name'] . "' style=\"max-width: 170px; max-height: 150px; margin-left: auto; margin-right: auto;\" />
+								echo "<img src= 'img/products/thumbs/" . $row['image_path'] . "' alt='" . $row['product_name'] . "' style=\"max-width: 170px; max-height: 150px;\" />
 									</a>
 								</td>
 								<td>
@@ -78,12 +79,24 @@
 						</table>
 					</div>
 				</td>";
+				
 				// maak rijen van 3; meer past niet
 				$teller++;
-				if ($teller%3==0)
+				if($teller == $max){
+					//Lege kolom(men) aanmaken
+					$d = $teller % 3;
+					if($d > 0){
+						echo "<td>&nbsp;</td>";
+					}
+					if($d > 1){
+						echo "<td>&nbsp;</td>";
+					}
+				}
+				if($teller % 3 == 0)
 					echo "</tr><tr>";
 				}
 				echo "</tr></table>";
+				
 				//melding als er niets in de database is
 				if ($teller==0){
 					$res = DB::$db->query("SELECT cat_name FROM categories where cat_id = " . $parent);
