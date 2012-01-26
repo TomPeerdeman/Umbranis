@@ -11,13 +11,14 @@
 				$this->errors[] = "U heeft geen bericht ingevuld!";
 			}
 			if(count($this->errors) == 0){	
-				$res = DB::$db->query("SELECT * FROM users where user_name = " .$_SESSION['username']. "");
+				$res = DB::$db->query("SELECT * FROM users where username = '" .$this->user->username. "'");
+				$row = $res->fetch();
 				DB::$db->query("INSERT INTO comment (product_id, rating, message, user_id)
 					VALUES (
-						'" . $_GET["id"] . "',
-						'" . $_POST['rating'] . "',
-						'" . $_POST['message'] . "',
-						'" . $res['id'] . "'
+   					 " . DB::$db->quote($_GET["id"]) . ",
+   					 " . DB::$db->quote($_POST['rating']) . ",
+   					 " . DB::$db->quote($_POST['message']) . ",
+   					 '" . $row['id'] . "'
 					)");
 			}
 			$this->posted = true;
