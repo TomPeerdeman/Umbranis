@@ -2,49 +2,79 @@
 	//Dit bestand kan alleen vanuit de index aangeroepen worden
 	if(!defined("INDEX"))die("NO INDEX!");
 
-	class UpdateproductController extends BaseController{
+	class UpdateproductController extends AdminBaseController{
 		private $posted = false;
 		private $errors = array();
 		private $showform = true;
 
 		public function handleForm(){
-			if(!isset($_POST['prnaam']) || empty($_POST['prnaam'])){
+			if(!isset($_POST['product_name']) || empty($_POST['product_name'])){
 				$this->errors[] = "U heeft geen productnaam ingevoerd!";
 			}
-			if(!isset($_POST['normalprice']) || empty($_POST['normalprice'])){
+			if(!isset($_POST['normal_price']) || empty($_POST['normal_price'])){
 				$this->errors[] = "U heeft geen prijs ingevoerd!";
 			}
 			if(!isset($_POST['price']) || empty($_POST['price'])){
-				$this->errors[] = "U heeft geen aanbieding prijs ingevoerd!
-					Is er geen aanbeiding vul dan hetzelfde bedrag in als bij de normale prijs";
-			}			
-			if(!isset($_POST['stock']) || empty($_POST['stock'])){
-				$this->errors[] = "U heeft geen voorraad ingevoerd!";
+				$this->errors[] = "U heeft geen aanbieding prijs ingevoerd!<br />
+					Is er geen aanbieding vul dan hetzelfde bedrag in als bij de normale prijs";
 			}
-			if(!isset($_POST['delivery']) || empty($_POST['delivery'])){
-				$this->errors[] = "Er is geen bezorgtijd ingevuld!";
-			}
-			if(!isset($_POST['ean']) || empty($_POST['ean'])){
+			if(!isset($_POST['ean_code']) || empty($_POST['ean_code'])){
 				$this->errors[] = "U heeft geen EAN-code ingevoerd!";
 			}
+			
+			$res = DB::$db->query("SELECT * FROM products WHERE ean_code=" . DB::$db->quote($_POST['ean_code']) . "");
+			if($res->rowCount() > 0){
+				$this->errors[] = "Er is al een product met deze EAN-code!";
+			}	
+			
 			if(count($this->errors) == 0){
 				DB::$db->query("UPDATE products SET
-							cat_id =" . DB::$db->quote($_POST['cat_id']) . ",
-							product_name =" . DB::$db->quote($_POST['prnaam']) . ",
-							normal_price =" . DB::$db->quote($_POST['normalprice']) . ",
-							price =" . DB::$db->quote($_POST['price']) . ",
-							stock =" . DB::$db->quote($_POST['stock']) . ",
-							delivery_time =" . DB::$db->quote($_POST['delivery']) . ",
-							publisher =" . DB::$db->quote($_POST['publisher']) . ",
-							author =" . DB::$db->quote($_POST['author']) . ",
-							image_path =" . DB::$db->quote($_POST['image']) . ",
-							description =" . DB::$db->quote($_POST['description']) . ",
-							ean_code =" . DB::$db->quote($_POST['ean']) . "
+						cat_id =" . $this->escape('cat_id') . ", 
+						product_name =" . $this->escape('product_name') . ", 
+						normal_price =" . $this->escape('normal_price') . ",
+						price =" . $this->escape('price') . ",
+						stock =" . $this->escape('stock') . ",
+						delivery_time =" . $this->escape('delivery_time') . ",
+						publisher =" . $this->escape('publisher') . ",
+						author =" . $this->escape('author') . ",
+						image_path =" . $this->escape('image_path') . ",
+						description =" . $this->escape('description') . ",
+						ean_code =" . $this->escape('ean_code') . "
 							WHERE product_id =" . DB::$db->quote($_GET['id']) . "
 					");
 					$this->showform = false;
 			}
 			$this->posted = true;
+		}
+		
+		private function escape($item){
+			if(isset($_POST[$item])){
+				if($item != "ean_code" && $item != "product_name"){
+					if($item == "image_path" && empty($_POST[$item])){
+						return DB::$db->quote("no_image.png");
+					}
+					elseif($item == "publisher" && empty($_POST[$item])){
+						return DB::$db->quote("Onbekend");
+					}
+					elseif($item == "author" && empty($_POST[$item])){
+						return DB::$db->quote("Onbekend");
+					}
+					elseif($item == "delivery_time" && empty($_POST[$item])){
+						return DB::$db->quote("0");
+					}
+					elseif($item == "description" && empty($_POST[$item])){
+						return DB::$db->quote("Geen beschrijving beschikbaar");
+					}
+					else{
+						return DB::$db->quote(ucfirst($_POST[$item]));
+					}
+				}
+				else{
+					return DB::$db->quote($_POST[$item]);
+				}
+			}else{
+				return "''";
+			}
 		}
 
 		private function valueLoad($item){
@@ -56,10 +86,10 @@
 			if($item == "cat_id"){
 				echo (isset($_POST[$item])) ?  $_POST[$item] : $row['cat_id'];
 			}
-			if($item == "prnaam"){
+			if($item == "product_name"){
 				echo (isset($_POST[$item])) ?  $_POST[$item] : $row['product_name'];
 			}
-			if($item == "normalprice"){
+			if($item == "normal_price"){
 				echo (isset($_POST[$item])) ?  $_POST[$item] : $row['normal_price'];
 			}
 			if($item == "price"){
@@ -68,7 +98,7 @@
 			if($item == "stock"){
 				echo (isset($_POST[$item])) ?  $_POST[$item] : $row['stock'];
 			}
-			if($item == "delivery"){
+			if($item == "delivery_time"){
 				echo (isset($_POST[$item])) ?  $_POST[$item] : $row['delivery_time'];
 			}
 			if($item == "publisher"){
@@ -77,13 +107,13 @@
 			if($item == "author"){
 				echo (isset($_POST[$item])) ?  $_POST[$item] : $row['author'];
 			}
-			if($item == "image"){
+			if($item == "image_path"){
 				echo (isset($_POST[$item])) ?  $_POST[$item] : $row['image_path'];
 			}
 			if($item == "description"){
 				echo (isset($_POST[$item])) ?  $_POST[$item] : $row['description'];
 			}
-			if($item == "ean"){
+			if($item == "ean_code"){
 				echo (isset($_POST[$item])) ?  $_POST[$item] : $row['ean_code'];
 			}
 		}
@@ -95,36 +125,29 @@
 ?>
 			<div id="contentcontainer">
 				<h2>Product Gegevens</h2>
-				<div class="klantcontact"><br />
+				<div id="contentboxsmall"><br />
 				<?php
-				if (!$this->user->is_member() && !$this->user->is_admin()){
-				
-?>
-					<span style="color:red;">Je moet ingelogt zijn om deze pagina te kunnen bezichtigen!</span>
-<?php
-				}
-				else{
-					if($this->posted){
-						if(count($this->errors) > 0){
-							echo "<p><span style=\"color: red;\">De gegevens konden niet gewijzigd worden:<br />";
-							foreach($this->errors as $error){
-								echo $error . "<br />";
-							}
-							echo "</span></p>";
-							echo "<br />";
-						}
-						if(count($this->errors) == 0){
-							echo "<p><span style=\"color: green;\">Uw gegevens zijn gewijzigd.</span></p><br />";
-							echo "<p>U wordt automatisch doorgestuurd na 2 seconden gebeurt dit niet klik dan <a href=\"?p=product&amp;id=" .$_GET["id"]. "\">hier</a>.</p>";
-				echo "<meta http-equiv=\"refresh\" content=\"2;url=?p=product&amp;id=" .$_GET["id"]. "\" /></p>";
-						}
+			if($this->posted){
+				if(count($this->errors) > 0){
+					echo "<p><span style=\"color: red;\">De gegevens konden niet gewijzigd worden:<br />";
+					foreach($this->errors as $error){
+						echo $error . "<br />";
 					}
-				if($this->showform){
-					$res = DB::$db->query("SELECT * FROM products WHERE product_id =" . DB::$db->quote($_GET['id']) . "");
-					if(($res->rowCount() == 1)) {
-						$row = $res->fetch();
+					echo "</span></p>";
+					echo "<br />";
+				}
+				if(count($this->errors) == 0){
+					echo "<p><span style=\"color: green;\">Uw gegevens zijn gewijzigd.</span></p><br />";
+					echo "<p>U wordt automatisch doorgestuurd na 2 seconden gebeurt dit niet klik dan <a href=\"?p=product&amp;id=" .$_GET["id"]. "\">hier</a>.</p>";
+					echo "<meta http-equiv=\"refresh\" content=\"2;url=?p=product&amp;id=" .$_GET["id"]. "\" /></p>";
+				}
+			}
+			if($this->showform){
+				$res = DB::$db->query("SELECT * FROM products WHERE product_id =" . DB::$db->quote($_GET['id']) . "");
+				if(($res->rowCount() == 1)) {
+					$row = $res->fetch();
 ?>
-							<form action="#" method="post">
+							<form action="?p=admin/updateproduct" method="post">
 								<table>
 									<tr>
 										<td>Categorie</td>
@@ -149,54 +172,53 @@
 										</td>
 									</tr>
 									<tr>
-										<td>Product naam</td>
-										<td><input type="text" name="prnaam" value="<?php $this->valueLoad('prnaam'); ?>" /></td>
+										<td>Product naam:</td>
+										<td><input type="text" name="product_name" value="<?php $this->valueLoad('product_name'); ?>" />*</td>
 									</tr>
 									<tr>
-										<td>Normale prijs</td>
-										<td><input type="text" name="normalprice" value="<?php $this->valueLoad('normalprice');?>" /></td>
+										<td>Normale prijs:</td>
+										<td><input type="text" name="normal_price" value="<?php $this->valueLoad('normal_price');?>" />*</td>
 									</tr>
 									<tr>
-										<td>Aanbieding prijs</td>
-										<td><input type="text" name="price" value="<?php $this->valueLoad('price');?>" /></td>
+										<td>Aanbieding prijs:&nbsp;</td>
+										<td><input type="text" name="price" value="<?php $this->valueLoad('price');?>" />*</td>
 									</tr>
 									<tr>
-										<td>Voorraad</td>
+										<td>Voorraad:</td>
 										<td><input type="text" name="stock" value="<?php $this->valueLoad('stock');?>" /></td>
 									</tr>
 									<tr>
-										<td>Levertijd</td>
-										<td><input type="text" name="delivery"  value="<?php $this->valueLoad('delivery');?>" /></td>
+										<td>Levertijd:</td>
+										<td><input type="text" name="delivery_time"  value="<?php $this->valueLoad('delivery_time');?>" /></td>
 									</tr>
 									<tr>
-										<td>Uitgever</td>
+										<td>Uitgever:</td>
 										<td><input type="text" name="publisher" value="<?php $this->valueLoad('publisher');?>" /></td>
 									</tr>
 									<tr>
-										<td>Schrijver</td>
+										<td>Schrijver:</td>
 										<td><input type="text" name="author" value="<?php $this->valueLoad('author');?>" /></td>
 									</tr>
 									<tr>
-										<td>Image-path</td>
-										<td><input type="text" name="image" value="<?php $this->valueLoad('image');?>" /></td>
+										<td>image-path:</td>
+										<td><input type="text" name="image_path" value="<?php $this->valueLoad('image_path');?>" /></td>
 									</tr>
 									<tr>
-										<td>Beschrijving</td>
+										<td>Beschrijving:</td>
 										<td><input type="text" name="description" value="<?php $this->valueLoad('description');?>" /></td>
 									</tr>
 									<tr>
-										<td>EAN-code</td>
-										<td><input type="text" name="ean" value="<?php $this->valueLoad('ean');?>" /></td>
+										<td>EAN-code:</td>
+										<td><input type="text" name="ean_code" value="<?php $this->valueLoad('ean_code');?>" /></td>
 									</tr>
 									<tr>
 										<td>&nbsp;</td>
-										<td><input type="submit" name="submit" value="bevestigen" /></td>
+										<td><input class="submit" type="submit" name="submit" value="Bevestigen" /></td>
 									</tr>
 								</table>
-							</form><br />
+							</form>
 						</div>
-<?php				}
-				}
+<?php			}
 			}
 ?>
 			</div>

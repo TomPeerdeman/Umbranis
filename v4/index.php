@@ -3,7 +3,7 @@
 	define("INDEX", true);
 	
 	//define("SITE_ROOT", "127.0.0.1/v3.5/");
-	define("SITE_ROOT", "umbranis.nogwat.co.cc/v3.6/");
+	define("SITE_ROOT", "umbranis.nogwat.co.cc/v4/");
 	//ini_set("SMTP", "mail.nogwat.co.cc");
 	
 	include("MainController.class.php");

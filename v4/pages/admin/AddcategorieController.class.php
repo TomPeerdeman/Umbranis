@@ -2,7 +2,7 @@
 	//Dit bestand kan alleen vanuit de index aangeroepen worden
 	if(!defined("INDEX"))die("NO INDEX!");
 	
-	class AddcategorieController extends BaseController{
+	class AddcategorieController extends AdminBaseController{
 		private $errors = array();
 		private $posted = false;
 		private $check = true;
@@ -69,7 +69,7 @@
 ?>
 <div id="contentcontainer">
 	<h2>Product Toevoegen</h2>
-	<div id="admincontainer">
+	<div id="contentboxsmall">
 		<p>U kunt hier een nieuw categorie aanmaken.<br />Velden met een * zijn verplicht om in te vullen.</p>
 		<br />
 <?php
@@ -86,7 +86,7 @@
 				}
 			}
 ?>
-		<form action="#" method="post">
+		<form action="?p=admin/addcategorie" method="post">
 			<table>
 				<tr>
 					<td>
@@ -114,7 +114,7 @@
 				</tr>
 				<tr>
 					<td>
-						Afbeeldinglocatie:
+						Afbeeldinglocatie: &nbsp;
 					</td>
 					<td>
 						<input type="text" name="image_path" value="<?php $this->valueLoad('image_path'); ?>" />
@@ -123,12 +123,11 @@
 				<tr>
 					<td>&nbsp;</td>
 					<td>
-						<input id="submit" type="submit" name="submit" value="Registreer" />
+						<input class="submit" type="submit" name="submit" value="Voeg toe" />
 					</td>
 				</tr>
 			</table>
 		</form>
-		<br />
 	</div>
 </div>
 <?php

@@ -2,7 +2,7 @@
 	//Dit bestand kan alleen vanuit de index aangeroepen worden
 	if(!defined("INDEX"))die("NO INDEX!");
 	
-	class AddproductController extends BaseController{
+	class AddproductController extends AdminBaseController{
 		private $errors = array();
 		private $posted = false;
 		
@@ -13,26 +13,19 @@
 			if(!isset($_POST['normal_price']) || empty($_POST['normal_price'])){
 				$this->errors[] = "U heeft geen prijs ingevoerd!";
 			}
-			if(!isset($_POST['price']) || empty($_POST['price'])){
+			if((!isset($_POST['price']) || empty($_POST['price'])) && isset($_POST['normal_price']) && !empty($_POST['normal_price'])){
+				//Prijs = normale prijs
+				$_POST['price'] = $_POST['normal_price'];
+			}else if(!isset($_POST['price']) || empty($_POST['price'])){
+				//Prijs en normale prijs niet gezet
 				$this->errors[] = "U heeft geen aanbieding prijs ingevoerd!
-					Is er geen aanbeiding vul dan hetzelfde bedrag in als bij de normale prijs";
-			}			
-			if(!isset($_POST['stock']) || empty($_POST['stock'])){
-				$this->errors[] = "U heeft geen voorraad ingevoerd!";
+					Is er geen aanbeiding vul dan alleen een bedrag bij normale prijs in.";
 			}
-			if(!isset($_POST['delivery_time']) || empty($_POST['delivery_time'])){
-				$this->errors[] = "Er is geen bezorgtijd ingevuld!";
-			}
+			
 			if(!isset($_POST['ean_code']) || empty($_POST['ean_code'])){
 				$this->errors[] = "U heeft geen EAN-code ingevoerd!";
 			}
 
-
-			
-			$res = DB::$db->query("SELECT * FROM products WHERE product_name=" . DB::$db->quote($_POST['product_name']) . "");
-			if($res->rowCount() > 0){
-				$this->errors[] = "Er is al een product met deze naam!";
-			}
 
 			$res = DB::$db->query("SELECT * FROM products WHERE ean_code=" . DB::$db->quote($_POST['ean_code']) . "");
 			if($res->rowCount() > 0){
@@ -79,6 +72,12 @@
 					elseif($item == "author" && empty($_POST[$item])){
 						return DB::$db->quote("Onbekend");
 					}
+					elseif($item == "delivery_time" && empty($_POST[$item])){
+						return DB::$db->quote("0");
+					}
+					elseif($item == "stock" && empty($_POST[$item])){
+						return DB::$db->quote("0");
+					}
 					elseif($item == "description" && empty($_POST[$item])){
 						return DB::$db->quote("Geen beschrijving beschikbaar");
 					}
@@ -99,7 +98,7 @@
 ?>
 <div id="contentcontainer">
 	<h2>Product Toevoegen</h2>
-	<div id="registercontainer">
+	<div id="contentboxsmall">
 		<p>U kunt hier een nieuw product aanmaken.<br />Velden met een * zijn verplicht om in te vullen.</p>
 		<br />
 <?php
@@ -116,7 +115,7 @@
 				}
 			}
 ?>
-		<form action="#" method="post">
+		<form action="?p=admin/addproduct" method="post">
 			<table>
 				<tr>
 					<td>
@@ -159,7 +158,7 @@ $res = DB::$db->query("SELECT * FROM categories WHERE cat_id > 4");
 						Aanbiedingprijs:
 					</td>
 					<td>
-						<input type="text" name="price" maxlength="25" value="<?php $this->valueLoad('price'); ?>" />*
+						<input type="text" name="price" maxlength="25" value="<?php $this->valueLoad('price'); ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -168,7 +167,7 @@ $res = DB::$db->query("SELECT * FROM categories WHERE cat_id > 4");
 						Voorraad:
 					</td>
 					<td>
-						<input type="text" name="stock" maxlength="25" value="<?php $this->valueLoad('stock'); ?>" />*
+						<input type="text" name="stock" maxlength="25" value="<?php $this->valueLoad('stock'); ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -177,7 +176,7 @@ $res = DB::$db->query("SELECT * FROM categories WHERE cat_id > 4");
 						Bezorgtijd:
 					</td>
 					<td>
-						<input type="text" name="delivery_time" maxlength="25" value="<?php $this->valueLoad('delivery_time'); ?>" />*
+						<input type="text" name="delivery_time" maxlength="25" value="<?php $this->valueLoad('delivery_time'); ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -224,12 +223,11 @@ $res = DB::$db->query("SELECT * FROM categories WHERE cat_id > 4");
 				<tr>
 					<td>&nbsp;</td>
 					<td>
-						<input id="submit" type="submit" name="submit" value="Registreer" />
+						<input class="submit" type="submit" name="submit" value="Voeg toe" />
 					</td>
 				</tr>
 			</table>
 		</form>
-		<br />
 	</div>
 </div>
 <?php

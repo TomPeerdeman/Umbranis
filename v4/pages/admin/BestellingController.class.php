@@ -2,7 +2,7 @@
 	//Dit bestand kan alleen vanuit de index aangeroepen worden
 	if(!defined("INDEX"))die("NO INDEX!");
 	
-	class BestellingController extends BaseController{
+	class BestellingController extends AdminBaseController{
 		private $order;
 		private $products;
 		
@@ -10,6 +10,10 @@
 			parent::__construct();
 			if(isset($_GET['oid']) && ctype_digit($_GET['oid'])){
 				$oid = intval($_GET['oid']);
+			}elseif(isset($_POST['oid']) && ctype_digit($_POST['oid'])){
+				$oid = intval($_POST['oid']);
+			}
+			if(isset($oid)){
 				$res = DB::$db->query("SELECT * FROM orders JOIN users ON users.id = orders.user_id WHERE order_id=" . $oid . " LIMIT 1");
 				$this->order = $res->fetch();
 				
@@ -33,7 +37,7 @@
 		public function buildPage(){
 			echo '<div id="contentcontainer">
 				<h2>Bestelling no. ' . $this->order['order_id'] . '</h2>
-				<div id="admincontainer">
+				<div id="contentbox">
 					<table class="normal">
 						<tr>
 							<td>Klant naam: </td>
@@ -41,7 +45,7 @@
 						</tr>
 						<tr>
 							<td>Totale prijs: </td>
-							<td>: &euro;' . $this->order['total_price'] . '</td>
+							<td>: &euro;' . $this->price($this->order['total_price']) . '</td>
 						</tr>
 						<tr>
 							<td>Betaald</td>
@@ -75,7 +79,7 @@
 						</tr>
 					</table>
 					<br />
-					<table>
+					<table class="tdspace">
 						<tr>
 							<td><strong>Artikel no.</strong></td>
 							<td><strong>Artikel naam</strong></td>
@@ -105,7 +109,7 @@
 						</tr>
 					</table>
 					<br />
-					<form action="#" method="post">
+					<form action="?p=admin/bestelling" method="post">
 						<table class="normal">
 							<tr>
 								<td>Betaald</td>
@@ -126,8 +130,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td>&nbsp;</td>
-								<td><input type="submit" name="submit" value="Update" id="submit" /></td>
+								<td><input type="hidden" name="oid" value="' . $this->order['order_id'] . '" /></td>
+								<td><input class="submit" type="submit" name="submit" value="Update" id="submit" /></td>
 							</tr>
 						</table>
 					</form>

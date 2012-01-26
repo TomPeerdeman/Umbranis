@@ -21,9 +21,10 @@
 			$url = "pages/";
 			$arr = explode("/", $this->page);
 			if(count($arr) == 2 && $arr[0] == "Admin"){
+				//admin pagina
+				include("AdminBaseController.class.php");
 				$this->page = ucfirst($arr[1]);
 				$url = "pages/admin/";
-				$this->cssfile = "admin/" . $this->cssfile;
 			}
 			
 			if(!file_exists($url . $this->page . ".class.php")){
@@ -63,16 +64,6 @@
 </title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="style/base.css" type="text/css" />
-<!--<link rel="stylesheet" href="style/zoek.css" type="text/css" />
-<link rel="stylesheet" href="style/login.css" type="text/css" />
-<link rel="stylesheet" href="style/categorie.css" type="text/css" />
-<link rel="stylesheet" href="style/contact.css" type="text/css" />
-<link rel="stylesheet" href="style/bestel.css" type="text/css" />
-<link rel="stylesheet" href="style/admin.css" type="text/css" />
-<link rel="stylesheet" href="style/faq.css" type="text/css" />
-<link rel="stylesheet" href="style/addcart.css" type="text/css" />
-<link rel="stylesheet" href="style/accsettings.css" type="text/css" />
-<link rel="stylesheet" href="style/home.css" type="text/css" />-->
 <?php
 			if(file_exists("style/" . $this->cssfile . ".css")){
 				echo "<link rel=\"stylesheet\" href=\"style/" . $this->cssfile . ".css\" type=\"text/css\" />";

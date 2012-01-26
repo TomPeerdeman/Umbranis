@@ -2,12 +2,12 @@
 	//Dit bestand kan alleen vanuit de index aangeroepen worden
 	if(!defined("INDEX"))die("NO INDEX!");
 	
-	class AdminController extends BaseController{
+	class AdminController extends AdminBaseController{	
 		public function buildPage(){
 		?>
 			<div id="contentcontainer">
 				<h2>Admin page</h2>
-				<div id="admincontainer">
+				<div id="contentbox">
 					<br />
 					<p><a href="?p=admin/bestellingen">
 						Bestellingen overzicht</a>
