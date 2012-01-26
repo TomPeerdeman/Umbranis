@@ -81,7 +81,7 @@
 					if(($res->rowCount() > 0)) {
 ?>
 					<br /><h2>Bestelling overzicht</h2>
-					<div id="contentbox" style ="width:700px;">
+					<div id="contentbox">
 						<p>Dit is een overzicht van uw bestellingen. 
 						Klik op toon bestelling om de bijbehorende producten te zien.</p>
 
