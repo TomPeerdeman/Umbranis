@@ -78,7 +78,7 @@
 				}
 			}
 			
-			if($this->posted && count($this->errors) != 0){
+			if(!$this->posted || count($this->errors) != 0){
 ?>
 		<p>Vul de onderstaande velden in om uw wachtwoord te resetten.</p>
 		<br />
