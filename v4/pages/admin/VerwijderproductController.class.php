@@ -39,7 +39,7 @@
 						echo "<h2>";
 						echo $row['product_name'];
 						echo "</h2>";
-						echo '<div id="contentbox">';
+						echo '<div id="productbox">';
 							echo'<div id="propertiescontainer">
 								<div class="shadow">
 									<div id="propertiesbox">

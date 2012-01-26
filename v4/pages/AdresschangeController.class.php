@@ -92,7 +92,7 @@
 ?>
 			<div id="contentcontainer">
 				<h2>Adres gegevens</h2>
-				<div class="klantcontact"><br />
+				<div id="contentboxsmall">
 				<?php
 				if (!$this->user->is_member()){
 				
@@ -113,7 +113,7 @@
 						if(count($this->errors) == 0){
 							echo "<p><span style=\"color: green;\">Uw gegevens zijn gewijzigd.</span></p><br />";
 							echo "<p>U wordt automatisch doorgestuurd na 2 seconden gebeurt dit niet klik dan <a href=\"?p=account\">hier</a>.</p>";
-				echo "<meta http-equiv=\"refresh\" content=\"2;url=?p=account\" /></p>";
+							echo "<meta http-equiv=\"refresh\" content=\"2;url=?p=account\" /></p>";
 						}
 					}
 				if($this->showform){
@@ -121,50 +121,50 @@
 					if(($res->rowCount() == 1)) {
 						$row = $res->fetch();
 ?>
-							<form action="#" method="post">
+							<form action="?p=adresschange" method="post">
 								<table>
 									<tr>
-										<td>voornaam</td>
+										<td>voornaam:</td>
 										<td><input type="text" name="vnaam" maxlength="32" value="<?php $this->valueLoad('vnaam'); ?>" /></td>
 									</tr>
 									<tr>
-										<td>achternaam</td>
+										<td>Achternaam:</td>
 										<td><input type="text" name="anaam" maxlength="32" value="<?php $this->valueLoad('anaam'); ?>" /></td>
 									</tr>
 									<tr>
-										<td>Postcode</td>
+										<td>Postcode:</td>
 										<td><input type="text" class="cpstc" name="pstc" maxlength="6" value="<?php $this->valueLoad('pstc');?>" /></td>
 									</tr>
 									<tr>
-										<td>Plaats</td>
+										<td>Plaats:</td>
 										<td><input type="text" name="plaats" maxlength="32" value="<?php $this->valueLoad('plaats');?>" /></td>
 									</tr>
 									<tr>
-										<td>Straat</td>
+										<td>Straat:</td>
 										<td><input type="text" name="straat" maxlength="32" value="<?php $this->valueLoad('straat');?>" /></td>
 									</tr>
 									<tr>
-										<td>Huisnummer</td>
+										<td>Huisnummer:</td>
 										<td><input type="text" class="huisnr" name="huisnr" maxlength="5" value="<?php $this->valueLoad('huisnr');?>" /></td>
 									</tr>
 									<tr>
-										<td>telefoon 1</td>
+										<td>Telefoon 1:</td>
 										<td><input type="text" class="ctel" name="tel1" maxlength="12" value="<?php $this->valueLoad('tel1');?>" /></td>
 									</tr>
 									<tr>
-										<td>telefoon 2</td>
+										<td>Telefoon 2:</td>
 										<td><input type="text" class="ctel" name="tel2" maxlength="12" value="<?php $this->valueLoad('tel2');?>" /></td>
 									</tr>
 									<tr>
-										<td>Email adress</td>
+										<td>Email adress:&nbsp;</td>
 										<td><input type="text" class="cmail" name="mail" maxlength="32" value="<?php $this->valueLoad('mail');?>" /></td>
 									</tr>
 									<tr>
 										<td>&nbsp;</td>
-										<td><input type="submit" name="submit" value="bevestigen" /></td>
+										<td><input class="submit" type="submit" name="submit" value="Bevestigen" /></td>
 									</tr>
 								</table>
-							</form><br />
+							</form>
 						</div>
 <?php				}
 				}

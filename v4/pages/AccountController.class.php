@@ -19,7 +19,7 @@
 					
 ?>
 						<h2>Adres gegevens</h2>
-						<div class="klantcontact">
+						<div id="contentboxsmall">
 							<p>Dit zijn uw adres gegevens. Druk op aanpassen om deze gegevens aan te passen.</p>
 							
 								<table>
@@ -48,11 +48,11 @@
 									<td><?php echo ": ". $row['house_number'];?></td>
 								</tr>
 								<tr>
-									<td>telefoon 1</td>
+									<td>Telefoon 1</td>
 									<td><?php echo ": ". $row['tel1'];?></td>
 								</tr>
 								<tr>
-									<td>telefoon 2</td>
+									<td>Telefoon 2</td>
 									<td><?php echo ": ". $row['tel2'];?></td>
 								</tr>
 								<tr>
@@ -61,22 +61,19 @@
 								</tr>
 								<tr>
 									<td>&nbsp;</td>
-									<td><input type="submit" name="submit" onClick="location.href='?p=adresschange'" value="aanpassen" /></td>
+									<td><input type="button" name="submit" onClick="location.href='?p=adresschange'" value="Aanpassen" /></td>
 								</tr>
 							</table>
-						<br />
 					</div><br />
 					<h2>Wachtwoord wijzigen</h2>
-					<div class="klantcontact">
+					<div id="contentboxsmall">
 						<p>Klik op wachtwoord wijzigen om uw wachtwoord te wijzigen<br /></p>
 						
 							<table>
 								<tr>
-									<td><input type="submit" name="submit" onClick="location.href='?p=passchange'" value="wachtwoord wijzigen" /></td>
+									<td><input type="button" name="submit" onClick="location.href='?p=passchange'" value="Wachtwoord wijzigen" /></td>
 								</tr>
 							</table>
-						
-						<br />
 					</div>
 <?php				$res = DB::$db->query("SELECT * FROM orders 
 										where user_id =" . DB::$db->quote($_SESSION['id'])."
@@ -84,7 +81,7 @@
 					if(($res->rowCount() > 0)) {
 ?>
 					<br /><h2>Bestelling overzicht</h2>
-					<div class="klantbestel" style ="width:700px;">
+					<div id="contentbox" style ="width:700px;">
 						<p>Dit is een overzicht van uw bestellingen. 
 						Klik op toon bestelling om de bijbehorende producten te zien.</p>
 
@@ -92,16 +89,16 @@
 								<tr>
 									<th class="begin">&nbsp;</th>
 									<th>Order no.</th>
-									<th>prijs</th>
-									<th>betaling<br />ontvangen</th>
-									<th>afgeleverd</th>
-									<th>datum bestelling</th>
+									<th>Prijs</th>
+									<th>Betaling<br />ontvangen</th>
+									<th>Afgeleverd</th>
+									<th>Datum bestelling</th>
 								</tr>
 <?php
 								while($row = $res->fetch()){
 
 									echo "<tr>";
-									echo "<td class=\"begin\"><a href=\"?p=mijnBestelling&amp;id=" .  $row['order_id'] . "\" >toon bestelling</a></td>";
+									echo "<td class=\"begin\"><a href=\"?p=mijnBestelling&amp;id=" .  $row['order_id'] . "\" >Toon bestelling</a>&nbsp;&nbsp;</td>";
 ?>	
 										<td><?php echo $row['order_id'];?></td>
 										<td>&euro;<?php echo $row['total_price'];?></td>
@@ -111,7 +108,7 @@
 									</tr>
 <?php						}
 ?>
-							</table><br />
+							</table>
 					
 				
 <?php					echo "</div>";

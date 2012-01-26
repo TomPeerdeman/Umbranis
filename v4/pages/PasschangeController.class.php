@@ -7,7 +7,6 @@
 		private $posted = false;
 		private $check = true;
 		private $showform = true;
-
 		
 		public function handleForm(){
 			if(!isset($_POST['oldpass']) || empty($_POST['oldpass'])){
@@ -61,7 +60,7 @@
 ?>		
 			<div id="contentcontainer">
 				<h2>Wachtwoord wijzigen</h2>
-				<div class="klantcontact">
+				<div id="contentboxsmall">
 <?php			if (!$this->user->is_member()){
 					echo "<span style='color:red;'>Je moet ingelogt zijn om deze pagina te kunnen bezichtigen!</span>";
 				}
@@ -89,26 +88,26 @@
 					<p>Om uw wachtwoord te wijzigen moet u bij huidig wachtwoord uw oude wachtwoord invoeren en bij
 					nieuw wachtwoord uw nieuwe wachtwoord. Bij wachtwoord herhalen voert u opnieuw uw wachtwoord
 					in als controle.</p><br />
-					<form action="#" method="post">
+					<form action="?p=passchange" method="post">
 						<table>
 							<tr>
-								<td>huidig wachtwoord</td>
+								<td>Huidig wachtwoord:</td>
 								<td><input type="password" name="oldpass" maxlength="32" /></td>
 							</tr>
 							<tr>
-								<td>nieuw wachtwoord</td>
+								<td>Nieuw wachtwoord:</td>
 								<td><input type="password" name="newpass1" maxlength="32" /></td>
 							</tr>
 							<tr>
-								<td>wachtwoord herhalen</td>
+								<td>Wachtwoord herhalen:&nbsp;</td>
 								<td><input type="password" name="newpass2" maxlength="32" /></td>
 							</tr>
 							<tr>
-								<td><input type="button" name="submit" onClick="location.href='?p=account'" value="annuleren" /></td>
-								<td><input type="submit" name="submit" value="bevestigen" /></td>
+								<td><input type="button" name="submit" onClick="location.href='?p=account'" value="Annuleren" /></td>
+								<td><input type="submit" name="submit" value="Bevestigen" /></td>
 							</tr>
 						</table>
-					</form><br />
+					</form>
 <?php			}
 				}
 ?>

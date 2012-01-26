@@ -8,7 +8,7 @@
 ?>
 			<div id="contentcontainer">
 				<h2>bestelling overzicht</h2>
-				<div class="klantovz">
+				<div id="contentbox">
 <?php
 					if (!$this->user->is_member()){
 ?>
@@ -65,11 +65,11 @@
 								<tr>
 									<td class="leeg" colspan="2">&nbsp;</td>
 									<td class="leeg" colspan="2">
-										<input type="submit" name="submit" onClick="location.href='?p=account'" value="terug" />
+										<input type="submit" name="submit" onClick="location.href='?p=account'" value="Terug" />
 									</td>
 									<td class="leeg">&nbsp;</td>
 								</tr>
-							</table><br />
+							</table>
 
 <?php					}
 					}
