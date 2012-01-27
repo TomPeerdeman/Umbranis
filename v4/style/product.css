@@ -7,6 +7,16 @@
 	background-color: #FFD65C;
 }
 
+.evencomment, .unevencomment{
+	padding-left: 5px;
+	padding-right: 20px;
+}
+
+.evencomment{
+	border-top: solid 2px black;
+	background-color: #FFD65C;
+}
+
 .shadow{
 	background: url(../img/shadow.png) no-repeat bottom right;
 }
@@ -49,4 +59,12 @@
 
 #descriptioncontainer{
 	clear: both;
+}
+
+#commentbox{
+	border: solid 1px black;
+	background-color: #FFE599;
+	bottom: 6px;
+	right: 7px;
+	width: 700px;
 }

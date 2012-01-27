@@ -108,6 +108,8 @@
 
 						$res2 = DB::$db->query("SELECT * FROM comment where product_id = $x");
 							echo '<h3>Reviews van dit product:</h3><br />
+							
+								<div id="commentbox">
 									<table width = "700px">';
 							$total = 0;
 							$count = 0;
@@ -142,22 +144,25 @@
 								$row3 = $res3->fetch();
 								echo '
 										<tr>
-											<td>
+											<td class="evencomment" width="500px">
 												<b>' . $row3['username'] . ' heeft om ' . $row2['time'] . ' gepost:</b>
 											</td>
-											<td>
-												Cijfer: ' . $row2['rating'] . '<br /><br />
+											<td class="evencomment" width="100px" align="right">
+												Cijfer:
+											</td>
+											<td class="evencomment" width="100px">
+												' . $row2['rating'] . '
 											</td>
 										</tr>
 										<tr>
-											<td>
-												' . $row2['message'] . '<br /><br />
+											<td class="unevencomment">
+												<br />' . $row2['message'] . '<br /><br />
 											</td>
 										</tr>';
 							}
 							
 						
-						echo'</table><br />';
+						echo'</table></div><br />';
 						if($this->user->is_member()){
 							$i = 10;
 							echo'
