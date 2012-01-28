@@ -9,7 +9,11 @@
 				<h2>Admin page</h2>
 				<div id="contentbox">
 					<br />
-					<p><a href="?p=admin/bestellingen">
+					<p><a href="?p=admin/klantenoverzicht">
+						Klanten overzicht</a>
+					<br />
+					<br />
+					<a href="?p=admin/bestellingen">
 						Bestellingen overzicht</a>
 					<br />
 					<br />

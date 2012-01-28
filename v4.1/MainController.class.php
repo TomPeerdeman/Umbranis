@@ -31,7 +31,8 @@
 			"admin/bestelling", 
 			"admin/bestellingen", 
 			"admin/updateproduct", 
-			"admin/verwijderproduct");
+			"admin/verwijderproduct",
+			"admin/klantenoverzicht");
 	
 		public function __construct(){	
 			//Bijbehorende controller zoeken, als geen pagina aangegeven is dan de home gebruiken
