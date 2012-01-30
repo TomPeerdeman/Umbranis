@@ -113,7 +113,7 @@
 							<br /><br />
 						</div>
 						<div id="cartcontainer">
-							<a href="cart.php?action=add&id='.$row['product_id'].'"><img src="img/Cart.png>" alt="Cart">Stop in Winkelwagen.</a>
+							<a href="WinkelwagenController.class.php?action=add&id='.$row['product_id'].'"><img src="img/cart.png>" alt="Cart">Stop in Winkelwagen.</a>
 						</div>';
 
 						$res2 = DB::$db->query("SELECT * FROM comment where product_id = $x");

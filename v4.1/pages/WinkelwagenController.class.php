@@ -1,8 +1,12 @@
 <?php
 //Dit bestand kan alleen vanuit de index aangeroepen worden
 if(!defined("INDEX"))die("NO INDEX!");
-$cart = $_SESSION['cart'];
-$action = $_GET['action'];
+if(isset($_SESSION['cart'])){
+	$cart = $_SESSION['cart'];
+} 
+if(isset($_get['action'])){
+	$action = $_get['action'];
+}
 
 class WinkelwagenController extends BaseController{
 	
@@ -10,7 +14,7 @@ class WinkelwagenController extends BaseController{
 			//updates the cart;
 			switch ($action){
 				case 'add':
-					if ($cart) {
+					if (!empty($cart)) {
 						$cart = $cart.','.$_get['id'];
 					}
 					else{
@@ -66,7 +70,7 @@ class WinkelwagenController extends BaseController{
 	}
 	
 	public function buildcart(){
-		if ($cart){
+		if (!empty($cart)){
 			$inhoud = explode(',',$cart);
 			$builtlist = '';
 			$totalcost;
@@ -125,8 +129,7 @@ class WinkelwagenController extends BaseController{
 	}
 	
 	public function buildPage(){
-		$cart = $_SESSION['cart'];
-		if (]]){
+		if (isset($_GET['action'])){
 			$this->cartchange();
 		}
 		echo '
