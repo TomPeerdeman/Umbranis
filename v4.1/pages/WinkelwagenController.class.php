@@ -126,7 +126,7 @@ class WinkelwagenController extends BaseController{
 	
 	public function buildPage(){
 		$cart = $_SESSION['cart'];
-		if ($_GET['action']){
+		if (]]){
 			$this->cartchange();
 		}
 		echo '
