@@ -1,64 +1,68 @@
 <?php
 //Dit bestand kan alleen vanuit de index aangeroepen worden
 if(!defined("INDEX"))die("NO INDEX!");
+$cart = $_SESSION['cart'];
+$action = $_GET['action'];
 
 class WinkelwagenController extends BaseController{
-	$cart = $_SESSION['cart'];
-	//updates the cart
-	$action = $_GET['action'];
-	$switch ($case){
-		case 'add':
-			if ($cart) {
-				$cart = $cart.','.$_get['id'];
-			}
-			else{
-				$cart = $_get['id'];
-			}
-		break;
-		case 'remove':
-			$inhoud = explode(',',$cart);
-			$nextcart = '';
-			foreach ($inhoud as $x){
-				if $x != $_get['id']{
-					if ($nextcart = ''){
-						$nextcart = $x
-					} 
-					else{
-						$nextcart = $nextcart.''.$x
+	
+	public function cartchange(){
+			//updates the cart;
+			switch ($action){
+				case 'add':
+					if ($cart) {
+						$cart = $cart.','.$_get['id'];
 					}
-				} 
-				
-			}
-			$cart=$nextcart
-		break;
-		case 'minus':
-			$inhoud = explode(',',$cart);
-			$nextcart = '';
-			$subtracted = false;
-			foreach ($inhoud as $x){
-				if ($x != $_get['id'] || ($subtracted){ 
-					if ($nextcart = ''){
-						$nextcart = $x
-					} 
 					else{
-						$nextcart = $nextcart.''.$x
+						$cart = $_get['id'];
 					}
-				} else{
-					$subtracted = true;
-				}
+				break;
+				case 'remove':
+					$inhoud = explode(',',$cart);
+					$nextcart = '';
+					foreach ($inhoud as $x){
+						if ($x != $_get['id']){
+							if ($nextcart = ''){
+								$nextcart = $x;
+							} 
+							else{
+								$nextcart = $nextcart.''.$x;
+							}
+						} 
+						
+					}
+					$cart=$nextcart;
+				break;
+				case 'minus':
+					$inhoud = explode(',',$cart);
+					$nextcart = '';
+					$subtracted = false;
+					foreach ($inhoud as $x){
+						if ($x != $_get['id'] || ($subtracted)){ 
+							if ($nextcart = ''){
+								$nextcart = $x;
+							} 
+							else{
+								$nextcart = $nextcart.''.$x;
+							}
+						} else{
+							$subtracted = true;
+						}
+					}
+				break;
 			}
-		break;
-	}
+			$_SESSION['cart'] = $cart;
+		}
 	
 	public function countcart($id){
 		$count = 0;
 		$inhoud = explode(',',$cart);
 		foreach ($inhoud as $x){
 			if ($x = $id){
-				$count += 1
+				$count += 1;
 			}
 		}
-		return $count
+		return $count;
 	}
 	
 	public function buildcart(){
@@ -68,7 +72,7 @@ class WinkelwagenController extends BaseController{
 			$totalcost;
 			// sets up the top of the table
 			echo '
-				<table borders='1'>
+				<table borders=1>
 				<tr>
 				<th>Product name</th>
 				<th>Author</th>
@@ -77,15 +81,15 @@ class WinkelwagenController extends BaseController{
 				<th>Amount</th>
 				<th></th>
 				</tr>
-			'
+			';
 			//builds the list product for product
 			foreach ($inhoud as $x){
 				//checks whether this product is already present.
-				$alreadydone = false
+				$alreadydone = false;
 				$builtarray = explode(',',$builtlist);
 				foreach ($builtarray as $y){
-					if $x = $y {
-						$alreadydone = true
+					if ($x = $y) {
+						$alreadydone = true;
 					}
 				}
 				//does the actual building
@@ -94,11 +98,11 @@ class WinkelwagenController extends BaseController{
 					while($res && $row = $res->fetch()){
 						echo '
 							<tr>
-							<th>'echo $row['product_name']'</th>
-							<th>'echo $row['author']'</th>
-							<th>'echo $row['publisher']'</th>
-							<th>'echo $row['price']'</th>
-							<th>'echo $amount = countcart($x)'</th>
+							<th>'.$row['product_name'].'</th>
+							<th>'.$row['author'].'</th>
+							<th>'.$row['publisher'].'</th>
+							<th>'.$row['price'].'</th>
+							<th>'.$amount = countcart($x).'</th>
 							<th><a href="cart.php?action=minus&id='.$x.'"><img src="img/minus.png"></a><a href="cart.php?action=add&id='.$x.'"><img src="img/plus.png"></a></th>
 							</tr>
 						';
@@ -111,18 +115,23 @@ class WinkelwagenController extends BaseController{
 			echo '
 				<tr>
 				<td colspan="4">Total Price:</td>
-				<th>'echo $totalcost'</th>
+				<th>'.$totalcost.'</th>
 				</tr>
 			';
+		}
 		else{
 			echo 'Je winkelwagen is leeg';
 		}
 	}
 	
 	public function buildPage(){
+		$cart = $_SESSION['cart'];
+		if ($_GET['action']){
+			$this->cartchange();
+		}
 		echo '
-			<div id="fullcart">'buildcart()'</div>
-		'
+			<div id="fullcart">'.$this->buildcart().'</div>
+		';
 	}
 }
 ?>

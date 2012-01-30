@@ -38,7 +38,6 @@
 	
 	include("MainController.class.php");
 	include("BaseController.class.php");
-	include("ShopController.class.php");
 	include("DB.class.php");
 	include("UserController.class.php");
 	

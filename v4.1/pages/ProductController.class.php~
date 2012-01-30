@@ -111,6 +111,9 @@
 							<strong>' . $row['product_name'] . '</strong><br />
 							' . ((!empty($row['description'])) ? $row['description'] : "Geen omschrijving.") . '
 							<br /><br />
+						</div>
+						<div id="cartcontainer">
+							<a href="cart.php?action=add&id='.$row['product_id'].'"><img src="img/Cart.png>" alt="Cart">Stop in Winkelwagen.</a>
 						</div>';
 
 						$res2 = DB::$db->query("SELECT * FROM comment where product_id = $x");
