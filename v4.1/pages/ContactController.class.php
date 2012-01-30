@@ -8,10 +8,11 @@
 <div id="contentcontainer">
 	<h2>Contact</h2>
 	<div id="contentbox">
-		<u>Contact:</u></br>
-		<a href="mailto:umbranis@hotmail.com">umbranis@hotmail.com</a><br />
+		<strong>Email</strong><br /><a href="mailto:admin@umbranis.nl">admin@umbranis.nl</a><br /><br />
+		<strong>Adres</strong><br />
 		Uva Sciencepark 904<br />
-		1090 GE Amsterdam<br />
+		1090 GE Amsterdam<br /><br />
+		<strong>Telefoon</strong><br />
 		020-525 8080
 	</div>
 </div>

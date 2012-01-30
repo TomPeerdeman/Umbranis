@@ -4,7 +4,7 @@
 	define("INDEX", true);
 	
 	/* Error handler vervangen zodat deze naar een file schrijft ipv naar het scherm */
-	 /*
+	/*
 	set_error_handler(function($errno, $errstr, $errfile, $errline){
 		$file = fopen("log/log_" . date("d-m-Y") . ".txt", "a+");
 		$errstr = str_replace("<br />", "\r\n", $errstr);
@@ -29,16 +29,17 @@
 		fwrite($file, "\r\n\r\n");
 		fclose($file);
 	});
-	 */
+	*/
 	
-	//define("SITE_ROOT", "127.0.0.1/v3.5/");
-	define("SITE_ROOT", "umbranis.nogwat.co.cc/v4/");
-	//define("SITE_ROOT", "www.umbranis.nl/v4/");
-	//ini_set("SMTP", "mail.nogwat.co.cc");
+	//define("SITE_ROOT", "127.0.0.1/v4.1/");
+	define("SITE_ROOT", "umbranis.nogwat.co.cc/v4.1/");
+	//define("SITE_ROOT", "www.umbranis.nl/v4.1/");
+	
+	//Voor https moet de site_root correct gezet zijn
+	define("HTTPS", false);
 	
 	include("MainController.class.php");
 	include("BaseController.class.php");
-	include("ShopController.class.php");
 	include("DB.class.php");
 	include("UserController.class.php");
 	

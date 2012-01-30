@@ -10,7 +10,7 @@
 		}
 	
 		public function getTitle(){
-			return "Umbranis webshop b&egrave;ta versie 4! Ingelogd: " . (($this->user->is_member()) ? "Ja" : "Nee");
+			return "Umbranis multimedia webshop! Ingelogd: " . (($this->user->is_member()) ? "Ja" : "Nee");
 		}
 	
 		public function handleForm(){

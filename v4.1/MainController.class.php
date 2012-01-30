@@ -62,6 +62,12 @@
 				exit();
 			}
 			
+			if(HTTPS && (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != 'on')){
+				//Als https aan staat redirecten als https:// nog niet gebruikt wordt
+				header("Location: https://" . SITE_ROOT . "?p=" . $this->page);
+				exit();
+			}
+			
 			$this->cssfile = $this->page;
 			//Pagina naam wijzigen van naam naar NaamController
 			$this->page = ucfirst($this->page);
@@ -122,7 +128,7 @@
 </head>
 <body>
 <div id="container">
-<div id="header"><h1>Umbranis webshop b&egrave;ta versie 4</h1></div>
+<div id="header"><h1>Umbranis multimedia webshop</h1></div>
 <div id="menu">
 <?php 
 			//menu bouwen
