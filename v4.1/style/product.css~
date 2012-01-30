@@ -62,18 +62,9 @@
 }
 
 #commentbox{
-	border: double 1px black;
+	border: solid 1px black;
 	background-color: #FFE599;
 	bottom: 6px;
 	right: 7px;
 	width: 700px;
-}
-
-#cartcontainer{
-	border: solid 1px black:
-	background-color: #FFE599;
-	width: 100px;
-	height: 30px;
-	bottom: 6px;
-	right: 150px;
 }
