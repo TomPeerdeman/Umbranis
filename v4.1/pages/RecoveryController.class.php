@@ -21,7 +21,7 @@
 			}
 			
 			if(count($this->errors) == 0){
-				$res = DB::$db->query("SELECT login_tries, id, email FROM users 
+				$res = DB::$db->query("SELECT login_tries, id, email, firstname, lastname FROM users 
 				WHERE username=" . DB::$db->quote($_POST['username'])  
 				. "AND email=" . DB::$db->quote($_POST['email']) ." LIMIT 1");
 				
@@ -58,7 +58,21 @@
 						}
 						
 						include("MailSender.class.php");
-						$msg = "<html><body><a href=\"" . SITE_ROOT . "?p=recover&amp;key=" . $rechash . "\">Klik hier om een nieuw wachtwoord in te stellen</a></body></html>";
+						$msg = "<html>
+							<head>
+							<title>Umbranis paswoord recovery</title>
+							</head>
+							<body>
+							<p>Beste " . $row['firstname'] . " " . $row['lastname'] . ",<br />U heeft bij ons aangegeven dat u uw paswoord vergeten bent!<br />
+							Wij hebben hierom uit voorzorg uw account tijdelijk gedeactiveerd!</p>
+							<p>Om uw account weer te gebruiken en een nieuw wachtwoord op te geven hoeft u alleen op de ondertaande link klikken.<br />
+							<a href=\"" . ((HTTPS) ? "https://" : "http://") . SITE_ROOT . "?p=recover&amp;key=" . $rechash . "\">Klik hier om een nieuw wachtwoord in te stellen</a></p>
+							<p>Werkt deze link niet dan kunt u deze url kopieeren in het adresvak van uw browser:<br />
+							" . ((HTTPS) ? "https://" : "http://") . SITE_ROOT . "?p=recover&amp;key=" . $rechash . "</p>
+							<p><strong>Let op!</strong> Deze email blijft maar 10 minuten geldig<br />
+							Als deze verlopen is moet u nogmaals een nieuw wachtwoord aanvragen via de wachtwoord vergeten functie.</p>
+							</body>
+							</html>";
 						
 						if(count($this->errors) == 0 && !MailSender::sendMail($row['email'], "Paswoord recovery", $msg, true)){
 							$this->errors[] = "De recovery mail kon niet verstuurd worden!";

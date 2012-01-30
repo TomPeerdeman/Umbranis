@@ -76,15 +76,18 @@
 							return;
 						}
 					}
-					if(!DB::$db->query("UPDATE users SET login_tries = 0 WHERE username='" . $row['username'] . "' LIMIT 1")){
-						$this->errors[] = "Er is een fout in de database opgetreden!";
-						return;
-					}
+
 					//gegevens worden opgeslagen zodat je later content kan laten zien op 
 					//basis van checks op deze gegevens
-					$_SESSION['username'] = $row['username'];
-					$this->user->login($row['username'], true);
-					$this->showform = false;
+					if(count($this->errors) == 0){
+						if(!DB::$db->query("UPDATE users SET login_tries = 0 WHERE username='" . $row['username'] . "' LIMIT 1")){
+							$this->errors[] = "Er is een fout in de database opgetreden!";
+							return;
+						}
+						$_SESSION['username'] = $row['username'];
+						$this->user->login($row['username'], true);
+						$this->showform = false;
+					}
 				}
 			}
 			
@@ -121,7 +124,7 @@
 			<table>
 				<tr>
 					<td>
-						Username:
+						Username:&nbsp;
 					</td>
 					<td>
 						<input type="text" name="username" maxlength="50" />

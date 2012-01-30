@@ -57,11 +57,15 @@
 					$this->success = false;
 				}else{
 					$row = $res->fetch();
+					//Passwoord updaten
 					$a = DB::$db->query("UPDATE users SET login_tries = 0, password = '" . $passhash . "', password_salt = '" . $salt . "' WHERE id = " . $row['user_id'] . " LIMIT 1");
 					
 					//Geen limit 1 hier aangezien er sowieso maar een request per user hoort te zijn
 					$b = DB::$db->query("DELETE FROM password_requests WHERE user_id = " . $row['user_id']);
-					if(!$a || ! $b){
+					
+					//Active logins voor dit account weghalen
+					$c = DB::$db->query("DELETE FROM logins WHERE user_id = " . $row['user_id']);
+					if(!$a || !$b || !$c){
 						$this->errors[] = "Er is een fout in de database opgetreden!";
 					}
 				}

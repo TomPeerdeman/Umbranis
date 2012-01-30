@@ -74,7 +74,21 @@
 			$reghash = hash("sha1", "Register[" . $_POST['username'] . $_POST['email'] . chr(mt_rand(65, 90)) . "]/Register");
 			
 			include("MailSender.class.php");
-			$msg = "<html><body><a href=\"" . SITE_ROOT . "?p=activatie&amp;key=" . $reghash . "\">Klik hier om uw account te activeren</a></body></html>";
+			$msg = "<html>
+				<head>
+				<title>Umbranis registratie</title>
+				</head>
+				<body>
+				<p>Beste " . ucfirst($_POST['name']) . " " . ucfirst($_POST['lastname']) . ",<br />bedankt voor het registreren bij Umbranis de webshop voor al uw multimedia!</p>
+				<p>U Heeft een account aangemaakt met de gebruikersnaam " . $_POST['username'] . ".</p>
+				<p>Om uw account te gebruiken vragen wij u eerst om uw e-mailadres te bevestigen door op de ondertaande link te klikken.<br />
+				<a href=\"" . ((HTTPS) ? "https://" : "http://") . SITE_ROOT . "?p=activatie&amp;key=" . $reghash . "\">Klik hier om uw account te activeren</a></p>
+				<p>Werkt deze link niet dan kunt u deze url kopieeren in het adresvak van uw browser:<br />
+				" . ((HTTPS) ? "https://" : "http://") . SITE_ROOT . "?p=activatie&amp;key=" . $reghash . "</p>
+				<p><strong>Let op!</strong> Deze activatie blijft maar 10 minuten geldig.<br />
+				Als deze verlopen is moet u een nieuw wachtwoord aanvragen via de wachtwoord vergeten functie.</p>
+				</body>
+				</html>";
 			
 			if(count($this->errors) == 0 && !MailSender::sendMail($_POST['email'], "Registratie", $msg, true)){
 				$this->errors[] = "De registratie mail kon niet verstuurd worden!";

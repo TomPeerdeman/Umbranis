@@ -33,7 +33,7 @@
 ?>
 <div id="contentcontainer">
 	<h2>Login</h2>
-	<div id="logincontainer">
+	<div id="contentbox">
 <?php		
 			if($this->success){
 				echo "<br /><p>Uw account is geactiveerd!";
