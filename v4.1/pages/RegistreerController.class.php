@@ -50,6 +50,12 @@
 			if($_POST['pass2'] != $_POST['pass1']){
 				$this->errors[] = "Het paswoord komt niet overeen met het controle paswoord!";
 			}
+			if(!isset($_POST['captcha']) || empty($_POST['captcha'])){
+				$this->errors[] = "U heeft de code uit de afbeelding niet overgenomen!";
+			}else if($_POST['captcha'] != $_SESSION['captcha']){
+				$this->errors[] = "U heeft de code uit de afbeelding niet correct overgenomen!";
+			}
+			
 			
 			$res = DB::$db->query("SELECT * FROM users WHERE email=" . DB::$db->quote($_POST['email']) . "");
 			if(!$res){
@@ -307,10 +313,28 @@
 				</tr>
 				<tr>
 					<td>
-						Paswoord controle:
+						Paswoord controle:&nbsp;
 					</td>
 					<td>
 						<input type="password" name="pass2" maxlength="25" />*
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="spacer"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><p>Captcha (Case insesitive, geen 0, 1, 9 of I)</p></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="spacer"></td>
+				</tr>
+				<tr>
+					<td>
+						<img src="captcha/captcha.php" alt="Captcha" />
+					</td>
+					<td>
+						Vul de code uit<br />de afbeelding in:<br />
+						<input type="text" name="captcha" maxlength="7" />*
 					</td>
 				</tr>
 				<tr>
