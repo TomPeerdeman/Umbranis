@@ -1,71 +1,86 @@
 <?php
-	//Dit bestand kan alleen vanuit de index aangeroepen worden
-	if(!defined("INDEX"))die("NO INDEX!");
-	
-	class ProductController extends BaseController{
-		private $errors = array();
-		private $posted = false;
-	
-		public function buildPage(){
-			//get product id
-			$x= DB::$db->quote($_GET["id"]);
-			echo '<div id="contentcontainer">';
-			$res = DB::$db->query("SELECT * FROM products where product_id = $x");
+//Dit bestand kan alleen vanuit de index aangeroepen worden
+if(!defined("INDEX"))die("NO INDEX!");
+$cart = $_SESSION['cart'];
 
-			while($res && $row = $res->fetch()){
-				echo "<h2>";
-				echo $row['product_name'];
-				echo "</h2>";
-				echo '<div id="productbox">';
-						echo'<div id="propertiescontainer">
-							<div class="shadow">
-								<div id="propertiesbox">
-									<table>
-										<tr>
-											<td class="even">Artikelnummer</td>
-											<td class="even">' . $row['product_id'] . '</td>
-										</tr>
-										<tr>' . //TODO Type in db? boeken gaan met deze file ook pc-dvd krijgen
-											'
-											<td class="uneven">Type</td>
-											<td class="uneven">PC-DVD</td>
-										</tr>
-										<tr>
-											<td class="even">Voorraad</td>
-											<td class="even">' . $row['stock'] . ' stuks</td>
-										</tr>
-										<tr>
-											<td class="uneven">Levertijd</td>
-											<td class="uneven">';
-												if ($row['stock'] > 0)
-													echo '<span style="color: green;">Direct leverbaar</span>';
-												else
-													echo '<span style="color: red;">Uitverkocht; +- ' . $row['delivery_time'] . ' dagen</span>';
-											echo '</td>
-										</tr>
-										<tr>
-											<td class="even">EAN-code</td>
-											<td class="even">' . $row['ean_code'] . '</td>
-										</tr>
-										<tr>
-											<td class="uneven">Prijs (incl. BTW)</td>
-											<td class="uneven">&euro;' . $this->price($row['price']) . '</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-						<div id="picturecontainer">
-							<img src="img/products/' . $row['image_path'] . '" alt="' . $row['product_name'] . '" />
-						</div>
-						<div id="descriptioncontainer">
-							<strong>' . $row['product_name'] . '</strong><br />
-							' . ((!empty($row['description'])) ? $row['description'] : "Geen omschrijving.") . '
-							<br /><br />
-						</div>';
-				echo'</div>
-				</div>';
+class WinkelwagenController extends BaseController{
+	
+	public function countcart($id){
+		$count = 0;
+		$inhoud = explode(',',$cart);
+		foreach ($inhoud as $x){
+			if ($x = $id){
+				$count += 1;
 			}
 		}
+		return $count;
 	}
+	
+	public function buildcart(){
+		if ($cart){
+			$inhoud = explode(',',$cart);
+			$builtlist = '';
+			$totalcost;
+			// sets up the top of the table
+			echo '
+				<table borders=1>
+				<tr>
+				<th>Product name</th>
+				<th>Author</th>
+				<th>Publisher</th>
+				<th>Price</th>
+				<th>Amount</th>
+				<th></th>
+				</tr>
+			';
+			//builds the list product for product
+			foreach ($inhoud as $x){
+				//checks whether this product is already present.
+				$alreadydone = false;
+				$builtarray = explode(',',$builtlist);
+				foreach ($builtarray as $y){
+					if ($x = $y) {
+						$alreadydone = true;
+					}
+				}
+				//does the actual building
+				if (!($alreadydone)){
+					$res = DB::$db->query("SELECT * FROM products where product_id = $x");
+					while($res && $row = $res->fetch()){
+						echo '
+							<tr>
+							<th>'.$row['product_name'].'</th>
+							<th>'.$row['author'].'</th>
+							<th>'.$row['publisher'].'</th>
+							<th>'.$row['price'].'</th>
+							<th>'.$amount = countcart($x).'</th>
+							<th><a href="cart.php?action=minus&id='.$x.'"><img src="img/minus.png"></a><a href="cart.php?action=add&id='.$x.'"><img src="img/plus.png"></a></th>
+							</tr>
+						';
+						$totalcost += ($row['price'] * $amount);
+						$builtlist = $builtlist.','.$x;
+					}
+				}
+			}
+			//Gives the total price.
+			echo '
+				<tr>
+				<td colspan="4">Total Price:</td>
+				<th>'.$totalcost.'</th>
+				</tr>
+			';
+		}
+		else{
+			echo 'Je winkelwagen is leeg';
+		}
+	}
+	
+	public function buildPage(){
+		$cart = $_SESSION['cart'];
+		cartchange();
+		echo '
+			<div id="fullcart">'.buildcart().'</div>
+		';
+	}
+}
 ?>
