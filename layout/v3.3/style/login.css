@@ -1,0 +1,55 @@
+/* login en registreer pagina */
+#logincontainer{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	background-color: #FFE599;
+	border: solid 2px black;
+	width: 500px;
+	height: 200px;
+	text-align: left;
+}
+
+#logincontainer p, #registercontainer p{
+	text-align: center;
+}
+
+#logincontainer p a, #registercontainer p a{
+	text-decoration: underline;
+}
+
+#logincontainer table, #registercontainer table{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#registercontainer{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	background-color: #FFE599;
+	border: solid 2px black;
+	width: 500px;
+	height: 450px;
+	text-align: left;
+}
+
+#zip1{
+	width: 100px;
+}
+
+#zip2{
+	width: 40px;
+}
+
+#submit{
+	width: 100px;
+}
+
+input{
+	width: 150px;
+}
+
+td.spacer{
+	height: 10px;
+}

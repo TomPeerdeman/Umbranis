@@ -1,0 +1,24 @@
+#searchcontainer{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	background-color: #FFE599;
+	border: solid 2px black;
+	width: 500px;
+	height: 150px;
+	text-align: left;
+}
+
+#searchcontainer p{
+	text-align: center;
+}
+
+#searchcontainer p a{
+	text-decoration: underline;
+}
+
+#searchcontainer table{
+	margin-left: auto;
+	margin-right: auto;
+}
+

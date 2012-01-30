@@ -7,28 +7,21 @@
 		private $posted = false;
 		
 		public function handleForm(){
-			$this->posted = true;
 			if(!isset($_POST['message']) || empty($_POST['message'])){
 				$this->errors[] = "U heeft geen bericht ingevuld!";
 			}
 			if(count($this->errors) == 0){	
 				$res = DB::$db->query("SELECT * FROM users where username = '" .$this->user->username. "'");
-				if(!$res){
-					$this->errors[] = "Er is een fout in de database opgetreden!";
-					return;
-				}
 				$row = $res->fetch();
-				if(!DB::$db->query("INSERT INTO comment (product_id, rating, message, user_id)
+				DB::$db->query("INSERT INTO comment (product_id, rating, message, user_id)
 					VALUES (
    					 " . DB::$db->quote($_GET["id"]) . ",
    					 " . DB::$db->quote($_POST['rating']) . ",
    					 " . DB::$db->quote($_POST['message']) . ",
    					 '" . $row['id'] . "'
-					)")
-				){
-					$this->errors[] = "Er is een fout in de database opgetreden!";
-				}
+					)");
 			}
+			$this->posted = true;
 		}
 	
 		public function buildPage(){
@@ -37,7 +30,7 @@
 			echo '<div id="contentcontainer">';
 			$res = DB::$db->query("SELECT * FROM products where product_id = $x");
 
-			while($res && $row = $res->fetch()){
+			while($row = $res->fetch()){
 				echo "<h2>";
 				echo $row['product_name'];
 				echo "</h2>";
@@ -120,7 +113,7 @@
 									<table width = "700px">';
 							$total = 0;
 							$count = 0;
-							while($res2 && $row2 = $res2->fetch()){
+							while($row2 = $res2->fetch()){
 								$total = $total + $row2['rating'];
 								$count++;
 							}
@@ -145,7 +138,7 @@
 										</tr>';
 							
 							$res2 = DB::$db->query("SELECT * FROM comment where product_id = $x");
-							while($res2 && $row2 = $res2->fetch()){
+							while($row2 = $res2->fetch()){
 								
 								$res3 = DB::$db->query("SELECT * FROM users WHERE id =" . $row2['user_id'] . "");
 								$row3 = $res3->fetch();

@@ -1,0 +1,178 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+html, body{
+	width: 100%;
+	height: 100%;
+	background-color: #DDDDDD;
+	font-family: Verdana;
+}
+
+#container{
+	background-color: #F9CB9C;
+	width: 1024px;
+	min-height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	border: solid 1px black;
+	border-top: none;
+	border-bottom: none;
+	position: relative;
+}
+
+#header, #tabs, #content, #footer{
+	width: 100%;
+	line-height: 25px;
+}
+
+#header{
+	height: 90px;
+	background-color: #85200C;
+	border-bottom: solid 1px black;
+	line-height: 90px;
+	font-family: Gigi;
+}
+
+#header h1{
+	font-size: 45px;
+	/*color: rgb(255, 128, 64);*/
+	color: rgb(248, 213, 12);
+}
+
+#tabs{
+	height: 27px;
+	background-color: #B45F0C;
+	border-bottom: solid 1px black;
+}
+
+#footer{
+	border-top: solid 1px black;
+	position: absolute;
+	bottom: 0px;
+	height: 25px;
+}
+
+#left, #right{
+	float: right;
+}
+
+#left{
+	width: 150px;
+	background-color: #FFE599;
+	border-left: solid 1px black;
+	border-bottom: solid 1px black;
+	height: 500px;
+}
+
+#right{
+	width: 870px;
+}
+/*    -------------   */
+#nav, #nav ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+
+}
+
+#nav  li ul ul {
+	margin: -1.6em 0 0 9em;
+}
+
+#nav li {
+	float: left;
+	width: 9em;
+}
+
+#nav li ul {
+	position: absolute;
+	width: 9em;
+	left: -999em;
+}
+
+#nav li:hover ul ul{
+	position: absolute;
+	left: -999em;
+}
+#nav li:hover ul, #nav li.ie_does_hover ul, #nav li li:hover ul, #nav li li.ie_does_hover ul {
+	left: auto;
+	background-position: 0 0;
+}
+
+#nav a {
+	display: block;
+	width: 9em;
+
+	text-decoration: none;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+}
+/*text faq, contact, etc*/
+ul a{
+	font-weight: bold;
+	color: black;
+	cursor: pointer;
+}
+/*dropdown tekst*/
+ul ul a:link, ul ul a:visited{
+	font-weight: normal;
+	color: black;
+	cursor: pointer;
+}
+/* mouseover tekst */
+ul ul a:hover, ul ul a:active, ul a:hover, ul a:active{
+	font-weight: normal;
+	background-color: blue;
+	color: white;
+	cursor: pointer;
+}
+/* box */
+ul li{
+background-color: #B45F0C;
+border : 1px solid black;
+}
+/* dropdown box */
+ul ul li{
+background-color: #B45F0C;
+border: 1px solid black;
+
+}
+
+/* IE only hack \*/
+* html ul li, * html ul ul li{
+border-bottom: 3px solid #FFF;
+}
+
+* html ul ul li{
+border-top: 0;
+}
+/* Einde IE only hack */ 
+
+/* contact pagina */
+#contactbox{
+	background-color: #FFFFFF;
+	margin: 50px;
+	border: solid 5px black;
+	text-align: left;
+}
+#contactboxtekst{
+	margin-left: 30px;
+}
+
+/* pcgames pagina */
+#gameboxsmall{
+	margin: 10px;
+	background-color: #FFE599;
+	border: solid 2px black;
+	width: 180px;
+	height: 190px;
+	text-align: center;
+}
+#gamebox{
+	margin-top: 30px;
+	margin-left: 30px;
+	text-align: left;
+}
