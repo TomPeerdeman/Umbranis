@@ -93,7 +93,7 @@ function isset(obj){
 function checkStrength(pwd){
 	var text = document.getElementById('text');
 	var id = document.getElementById('id');
-	var bar = document.getElementById('progress');
+	var progress = document.getElementById('progress');
  
 	var strong = new RegExp('^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$', 'g');
 	var medium = new RegExp('^(?=.{6,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$', 'g');
