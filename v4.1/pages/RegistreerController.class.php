@@ -47,6 +47,9 @@
 			if(!isset($_POST['pass2']) || empty($_POST['pass2'])){
 				$this->errors[] = "U heeft het controle paswoord niet ingevoerd!";
 			}
+			if(isset($_POST['pass1']) && (strlen($_POST['pass1']) < 6)){
+				$this->errors[] = "U paswoord is te kort!";
+			}
 			if($_POST['pass2'] != $_POST['pass1']){
 				$this->errors[] = "Het paswoord komt niet overeen met het controle paswoord!";
 			}
@@ -308,7 +311,20 @@
 						Paswoord:
 					</td>
 					<td>
-						<input type="password" name="pass1" maxlength="25" />*
+						<input type="password" name="pass1" onkeyup="checkStrength(this.value)" maxlength="25" />*
+					</td>
+				<tr>
+					<td>
+					&nbsp;
+					</td>
+					<td>
+						<div id="strength" style="margin-top: 5px;">
+							<div style="width: 150px; border: grey 1px solid;">
+								<div id="progress" style="height: 5px;"></div>
+							</div>
+							<span id="text" style=" font-size: 10px; color: grey;">Geen</span>
+							<input type="hidden" name="id" id="id" value="1" />
+						</div>
 					</td>
 				</tr>
 				<tr>
