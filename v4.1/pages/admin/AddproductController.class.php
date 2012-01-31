@@ -25,6 +25,9 @@
 			if(!isset($_POST['ean_code']) || empty($_POST['ean_code'])){
 				$this->errors[] = "U heeft geen EAN-code ingevoerd!";
 			}
+			if(isset($_POST['ean_code']) && (strlen($_POST['ean_code']) != 13)){
+				$this->errors[] = "U heeft een ongeldige EAN-code ingevoerd!";
+			}
 
 
 			$res = DB::$db->query("SELECT * FROM products WHERE ean_code=" . DB::$db->quote($_POST['ean_code']) . "");
