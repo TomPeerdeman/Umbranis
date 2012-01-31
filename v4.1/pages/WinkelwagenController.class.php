@@ -49,12 +49,12 @@ class WinkelwagenController extends BaseController{
 			<div id="contentcontainer">
 			<table border="1" cellpadding = "2">
 			<tr>
-			<th></th>
 			<th>Product name</th>
 			<th>Author</th>
 			<th>Publisher</th>
 			<th>Price</th>
 			<th>Amount</th>
+			<th></th>
 			<th></th>
 			</tr>
 		';
@@ -68,13 +68,13 @@ class WinkelwagenController extends BaseController{
 				if($res2 && $row2 = $res2->fetch()){
 					echo '
 						<tr>
-						<th><a href="?p=winkelwagen&action=delete&id='.$row2['product_id'].'">Haal uit winkelwagen</a></th>
 						<th>'.$row2['product_name'].'</th>
 						<th>'.$row2['author'].'</th>
 						<th>'.$row2['publisher'].'</th>
 						<th>'.$row2['price'].'</th>
 						<th>'.$row1['amount'].'</th>
 						<th><a href="?p=winkelwagen&action=minus&id='.$row2['product_id'].'"><img src="img/minus.png"></a><a href="?p=winkelwagen&action=plus&id='.$row2['product_id'].'"><img src="img/plus.png"></a></th>
+						<th><a href="?p=winkelwagen&action=delete&id='.$row2['product_id'].'">Haal uit winkelwagen</a></th>
 						</tr>
 					';
 					$totalcost += ($row2['price'] * $row1['amount']);
