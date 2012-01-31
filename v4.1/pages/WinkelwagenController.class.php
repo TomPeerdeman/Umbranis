@@ -13,33 +13,42 @@ class WinkelwagenController extends BaseController{
 			$productid = DB::$db->quote($_GET['id']);
 			$res = DB::$db->query("SELECT id FROM users WHERE username='".$this->user->username."' LIMIT 1");
 			if($res && $row = $res->fetch()){
-				switch ($action){
-					case 'add':
-						$res4 = DB::$db->query("SELECT amount FROM winkelwagen WHERE user_id = ".$row['id']." AND prod_id = " . $productid);
-						if($res4 && $row4 = $res4->fetch()){
-							if(!($row4 = NULL)){
-								break;
+				$finished = false;
+				while(!$finished){
+					switch ($action){
+						case 'add':
+							$res = DB::$db->query("SELECT  * FROM winkelwagen WHERE user_id = ".$row['id']." AND prod_id = " . $productid);
+							if($res->rowCount() > 0){
+								$action = 'plus';
+							}else{
+								DB::$db->query("INSERT INTO winkelwagen (prod_id, user_id, amount)VALUES (".$productid.", ".$row['id'].", '1')");
+								$finished = true;
 							}
-						}
-						DB::$db->query("INSERT INTO winkelwagen (prod_id, user_id, amount) VALUES (".$productid.", ".$row['id'].", '1')");
-						break;
-					case 'delete':
-						DB::$db->query("DELETE FROM winkelwagen WHERE prod_id = " . $productid . " AND user_id = ".$row['id']."");
-						break;
-					case 'plus':
-						DB::$db->query("UPDATE winkelwagen SET amount = amount + 1 WHERE user_id = ".$row['id']." AND prod_id = " . $productid);
-						break;
-					case 'minus':
-						$res3 = DB::$db->query("SELECT amount FROM winkelwagen WHERE user_id = ".$row['id']." AND prod_id = " . $productid);
-						if($res3 && $row3 = $res3->fetch()){
-							if ($row3['amount'] = 1){
+							break;
+						case 'delete':
+							DB::$db->query("DELETE FROM winkelwagen WHERE prod_id = " . $productid . " AND user_id = ".$row['id']."");
+							$finished = true;
+							break;
+						case 'plus':
+							$res = DB::$db->query("SELECT * FROM winkelwagen WHERE user_id = ".$row['id']." AND prod_id = " . $productid);
+							if($res->rowCount() > 0){
+								DB::$db->query("UPDATE winkelwagen SET amount = amount + 1 WHERE user_id = ".$row['id']." AND prod_id = " . $productid);
+								$finished = true;
+							}else{
+								$action = 'add';
+							}
+							break;
+						case 'minus':
+							$res = DB::$db->query("SELECT amount FROM winkelwagen WHERE user_id = ".$row['id']." AND prod_id = " . $productid);
+							$arow = $res->fetch();
+							if($arow['amount'] > 1){
 								DB::$db->query("UPDATE winkelwagen SET amount = amount - 1 WHERE user_id = ".$row['id']." AND prod_id = " . $productid);
+								$finished = true;
+							}else{
+								$action = 'delete';
 							}
-							else{
-								DB::$db->query("DELETE FROM winkelwagen WHERE prod_id = " . $productid . " AND user_id = ".$row['id']."");
-							}
-						}
-						break;
+							break;
+					}
 				}
 			}
 		}
@@ -67,7 +76,6 @@ class WinkelwagenController extends BaseController{
 				if($res2 && $row2 = $res2->fetch()){
 					echo '
 						<tr>
-						<th><a href="?p=winkelwagen&action=delete&id='.$row2['product_id'].'">Haal uit winkelwagen</a></th>
 						<th>'.$row2['product_name'].'</th>
 						<th>'.$row2['author'].'</th>
 						<th>'.$row2['publisher'].'</th>
@@ -83,6 +91,7 @@ class WinkelwagenController extends BaseController{
 		echo '
 			<td colspan="6">Total price:</td>
 			<th>&euro;'.$totalcost.'</th>
+			</table>
 		';
 	}
 }
