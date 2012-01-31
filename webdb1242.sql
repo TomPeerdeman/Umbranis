@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5
+-- version 3.2.4
 -- http://www.phpmyadmin.net
 --
--- Machine: 127.0.0.1
--- Genereertijd: 26 jan 2012 om 19:58
--- Serverversie: 5.5.16
--- PHP-Versie: 5.3.8
+-- Machine: localhost
+-- Genereertijd: 31 Jan 2012 om 20:53
+-- Serverversie: 5.1.41
+-- PHP-Versie: 5.3.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -19,6 +18,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `webdb1242`
 --
+
+-- --------------------------------------------------------
 
 --
 -- Tabelstructuur voor tabel `categories`
@@ -72,22 +73,23 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `user_id` int(11) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel `comment`
 --
 
 INSERT INTO `comment` (`id`, `product_id`, `rating`, `message`, `user_id`, `time`) VALUES
-(1, 1, 7, 'Ik vind dit een goed product.', 1, '2012-01-26 15:55:51'),
-(2, 1, 7, 'Ik vind dit een goed product.', 1, '2012-01-26 16:01:09'),
-(3, 1, 10, 'test', 1, '2012-01-26 18:04:53'),
-(4, 1, 10, 'test', 1, '2012-01-26 18:22:10'),
-(5, 1, 1, 'muahahha', 1, '2012-01-26 18:22:17'),
-(6, 1, 2, 'abc', 1, '2012-01-26 18:24:21'),
-(7, 1, 10, 'test', 1, '2012-01-26 18:48:14'),
-(8, 1, 10, 'test2', 1, '2012-01-26 18:49:53'),
-(9, 1, 10, 'test12', 1, '2012-01-26 18:54:05');
+(1, 1, 7, 'Ik vind dit een goed product.', 1, '2012-01-26 16:55:27'),
+(2, 1, 7, 'Ik vind dit een goed product.', 1, '2012-01-26 17:00:45'),
+(3, 1, 10, 'test', 1, '2012-01-26 19:04:29'),
+(4, 1, 10, 'test', 1, '2012-01-26 19:21:46'),
+(5, 1, 1, 'muahahha', 1, '2012-01-26 19:21:53'),
+(6, 1, 2, 'abc', 1, '2012-01-26 19:23:57'),
+(7, 2, 10, 'vet cool', 1, '2012-01-26 19:46:14'),
+(8, 1, 10, 'ik ben cool', 1, '2012-01-26 19:51:25'),
+(9, 1, 6, 'abc', 1, '2012-01-27 20:25:34'),
+(10, 1, 6, 'abc', 1, '2012-01-27 20:26:31');
 
 -- --------------------------------------------------------
 
@@ -107,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `logins` (
 --
 
 INSERT INTO `logins` (`user_id`, `last_action`, `login_hash`) VALUES
-(1, '2012-01-26 18:54:05', 'be9995460cdc46087dedea0a8082e5f96283891b5ddd8cfad87a420747387b08');
+(1, '2012-01-31 20:52:26', '64211af30ea3dcead605831943b59e5ef6503e35ecaf519b015b9829187631e4');
 
 -- --------------------------------------------------------
 
@@ -130,9 +132,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `delivery_status`, `payment_status`, `total_price`, `date`) VALUES
-(1, 6, 1, 1, 114.95, '2012-01-20 17:37:31'),
-(2, 5, 0, 0, 822.55, '2012-01-24 15:12:49'),
-(3, 5, 0, 0, 30, '2012-01-24 15:27:32');
+(2, 1, 0, 0, 822.55, '2012-01-24 16:12:25');
 
 -- --------------------------------------------------------
 
@@ -153,10 +153,8 @@ CREATE TABLE IF NOT EXISTS `order_products` (
 --
 
 INSERT INTO `order_products` (`order_id`, `product_id`, `price`, `amount`) VALUES
-(1, 5, 12.99, 5),
 (2, 2, 755.45, 11),
-(2, 3, 23.55, 2),
-(3, 1, 40, 1);
+(2, 3, 23.55, 2);
 
 -- --------------------------------------------------------
 
@@ -171,6 +169,11 @@ CREATE TABLE IF NOT EXISTS `password_requests` (
   UNIQUE KEY `user_id` (`user_id`),
   UNIQUE KEY `request_hash` (`request_hash`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden uitgevoerd voor tabel `password_requests`
+--
+
 
 -- --------------------------------------------------------
 
@@ -201,11 +204,11 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`product_id`, `cat_id`, `product_name`, `normal_price`, `price`, `stock`, `delivery_time`, `publisher`, `author`, `image_path`, `description`, `ean_code`, `date`) VALUES
-(1, 13, 'The elder Scrolls: Skyrim', 49.99, 49.99, 10, 0, 'Bethesda Softworks', '', 'skyrim.png', '', '1234567891012', '2012-01-18 17:04:48'),
-(2, 13, 'Portal 2', 59.99, 59.99, 10, 2, 'Valve Corporation', '', 'portal.png', '', '1234567891013', '2012-01-18 17:04:48'),
-(3, 5, 'Birds of Fire', 15.99, 15.99, 10, 1, 'Sony music entertainment', 'Mahavishnu Orchestra', '', '', '4209714987224', '2012-01-18 18:36:43'),
-(4, 5, 'Unrecognizable screeches from a ', 15.99, 10.99, 10, 1, '', 'Ramses Ijff', '', '', '4209714987125', '2012-01-18 18:37:18'),
-(5, 9, 'Final destination 5', 22.99, 22.99, 0, 15, 'Warner Home Video', 'Steven Quale', 'final_destination_5.png', '', '5051888087602', '2012-01-20 12:48:10');
+(1, 13, 'The elder Scrolls: Skyrim', 49.99, 49.99, 10, 0, 'Bethesda Softworks', '', 'skyrim.png', '', '1234567891012', '2012-01-18 18:04:24'),
+(2, 13, 'Portal 2', 59.99, 59.99, 10, 2, 'Valve Corporation', '', 'portal.png', '', '1234567891013', '2012-01-18 18:04:24'),
+(3, 5, 'Birds of Fire', 15.99, 15.99, 10, 1, 'Sony music entertainment', 'Mahavishnu Orchestra', '', '', '4209714987224', '2012-01-18 19:36:19'),
+(4, 5, 'Unrecognizable screeches from a ', 15.99, 10.99, 10, 1, '', 'Ramses Ijff', '', '', '4209714987125', '2012-01-18 19:36:54'),
+(5, 9, 'Final destination 5', 22.99, 22.99, 0, 15, 'Warner Home Video', 'Steven Quale', 'final_destination_5.png', '', '5051888087602', '2012-01-20 13:47:46');
 
 -- --------------------------------------------------------
 
@@ -233,14 +236,35 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `password_salt`, `zipcode`, `city`, `street`, `house_number`, `firstname`, `lastname`, `gender`, `tel1`, `tel2`, `email`, `admin_rights`, `login_tries`) VALUES
-(1, 'jan', 'becd7781558a57200088bfbb5bafae1fc2a901f8dbd7ef8d415ccf4f249826b0fd337a9d7c06c513d3418258b68b1ae4debbd3d8a69a77589fa3714efd47ede0', '.$KfZ~ %_rw6MA|47^^$', '2973HJ', 'Maaskantje', 'Koekwousstraat', '92', 'Jan', 'Jannssen', 'M', '0237598274', '', 'jj@hotmail.com', 1, 0);
+(1, 'jan', '6bbc1d45cf2bc16bbaf39bffb654e85fe28e02328de451360f3499a50f77d8257bb218ed516dd693350eadba7ee37d44e0acfe7f5973a30630ff254f053bcd1f', '9WYEtFmX6ECJcmjd9', '2973HJ', 'Maaskantje', 'Koekwousstraat', '92', 'Jan', 'Jannssen', 'M', '0237598274', '', 'jj@hotmail.com', 1, 0),
+(2, 'tom', '517a9114d4075d07f8f62bedb2752e9e88afe02715d134285a0f8928f1b622ca0b3e15e2819fa09b00c1115c7af8219700c6afae02b5c832e9021f4b4b69a656', 'xNLqxcuDQ', '1000AA', 'Geen', 'Geen', '1a', 'Tom', 'Peerdeman', 'M', '0000000000', '', 'nogwat4@gmail.com', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `winkelwagen`
+--
+
+CREATE TABLE IF NOT EXISTS `winkelwagen` (
+  `user_id` int(10) unsigned NOT NULL,
+  `prod_id` int(10) unsigned NOT NULL,
+  `amount` int(10) unsigned NOT NULL,
+  UNIQUE KEY `user_id` (`user_id`,`prod_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden uitgevoerd voor tabel `winkelwagen`
+--
+
+INSERT INTO `winkelwagen` (`user_id`, `prod_id`, `amount`) VALUES
+(1, 1, 13);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
