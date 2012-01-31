@@ -70,6 +70,16 @@ window.onload = function(){
 	isset(form1.elements['pass1']);
 	isset(form1.elements['captcha']);
 	
+	var pass1 = form1.elements['pass1'];
+	pass1.onblur = function(){
+		var reg = new RegExp('(?=.{6,}).*');
+		if(!pass1.value.match(reg)){
+			pass1.className = 'wrong';
+		}else{
+			pass1.className = 'correct';
+		}
+	};
+	
 	var pass2 = form1.elements['pass2'];
 	pass2.onblur = function(){
 		if(pass2.value == '' || pass2.value != form1.elements['pass1'].value){
