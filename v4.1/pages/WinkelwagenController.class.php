@@ -82,8 +82,11 @@ class WinkelwagenController extends BaseController{
 			}
 		}
 		echo '
+			<tr>
 			<td colspan="6">Total price:</td>
-			<th>&euro;'.$totalcost.'</th>	
+			<th>&euro;'.$totalcost.'</th>
+			</tr>
+			</table>
 			</div>
 		';
 	}
