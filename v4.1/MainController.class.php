@@ -121,7 +121,10 @@
 <link rel="stylesheet" href="style/base.css" type="text/css" />
 <?php
 			if(file_exists("style/" . $this->cssfile . ".css")){
-				echo "<link rel=\"stylesheet\" href=\"style/" . $this->cssfile . ".css\" type=\"text/css\" />";
+				echo "<link rel=\"stylesheet\" href=\"style/" . $this->cssfile . ".css\" type=\"text/css\" />\n";
+			}
+			if(file_exists("javascript/" . $this->cssfile . ".js")){
+				echo "<script src=\"javascript/" . $this->cssfile . ".js\" type=\"text/javascript\"></script>\n";
 			}
 ?>
 <script src="http://widgets.twimg.com/j/2/widget.js" type="text/javascript"></script>

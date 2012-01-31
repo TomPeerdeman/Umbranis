@@ -40,6 +40,16 @@ input.box{
 	width: 15px;
 }
 
+input.wrong{
+	border: solid 1px red;
+	padding: 1px 1px;
+}
+
+input.correct{
+	border: solid 1px green;
+	padding: 1px 1px;
+}
+
 /* Center element*/
 #container, table, #contentbox, #contentboxsmall{
 	margin-left: auto;
