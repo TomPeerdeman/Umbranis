@@ -32,7 +32,7 @@ class WinkelwagenController extends BaseController{
 					case 'minus':
 						$res3 = DB::$db->query("SELECT amount FROM winkelwagen WHERE user_id = ".$row['id']." AND prod_id = " . $productid);
 						if($res3 && $row3 = $res3->fetch()){
-							if ($row3['amount'] = 1){
+							if ($row3['amount'] > 1){
 								DB::$db->query("UPDATE winkelwagen SET amount = amount - 1 WHERE user_id = ".$row['id']." AND prod_id = " . $productid);
 							}
 							else{
@@ -46,6 +46,7 @@ class WinkelwagenController extends BaseController{
 		//building the actual page
 		//sets up the top of the table
 		echo '
+			<div id="contentcontainer">
 			<table border="1" cellpadding = "2">
 			<tr>
 			<th></th>
@@ -82,7 +83,8 @@ class WinkelwagenController extends BaseController{
 		}
 		echo '
 			<td colspan="6">Total price:</td>
-			<th>&euro;'.$totalcost.'</th>
+			<th>&euro;'.$totalcost.'</th>	
+			</div>
 		';
 	}
 }
