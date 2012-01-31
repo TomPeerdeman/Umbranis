@@ -39,6 +39,12 @@
 				$this->errors[] = "U heeft geen geldig e-mailadres ingevoerd!";
 			}
 			if(isset($_POST['update'])){
+				if(intval($_POST['login_tries']) != 7){
+					if(!DB::$db->query("DELETE FROM password_requests WHERE user_id = " . DB::$db->quote($_GET['id']))){
+						$this->errors[] = "Er deed zich een fout in de database voor!";
+						return;
+					}
+				}
 				if(count($this->errors) == 0){
 					$res = DB::$db->query("UPDATE users SET
 								username =" . DB::$db->quote($_POST['unaam']) . ",
@@ -51,7 +57,8 @@
 								tel1 =" . DB::$db->quote($_POST['tel1']) . ",
 								tel2 =" . DB::$db->quote($_POST['tel2']) . ",
 								email =" . DB::$db->quote($_POST['mail']) . ",
-								admin_rights = " . DB::$db->quote($_POST['rights']) . "
+								admin_rights = " . DB::$db->quote($_POST['rights']) . ",
+								login_tries = " . DB::$db->quote($_POST['login_tries']) . "
 								WHERE id =" . DB::$db->quote($_GET['id']) . "
 						");
 					if(!$res){
@@ -194,7 +201,8 @@
 										<tr>
 											<td>Admin Rights:&nbsp;</td>
 											<td>
-<?php 										echo '<select name="rights">
+<?php 	
+												echo '<select name="rights">
 													<option value="1"' . (($row['admin_rights'] == 1) ? " selected=\"selected\"" : "") . '>Ja</option>
 													<option value="0"' . (($row['admin_rights'] == 0) ? " selected=\"selected\"" : "") . '>Nee</option>
 												</select>';
@@ -202,8 +210,18 @@
 											</td>
 										</tr>
 										<tr>
-											<td>Login pogingen:&nbsp;</td>
-											<td><?php echo $row['login_tries'];?></td>
+											<td>Status:&nbsp;</td>
+											<td>
+<?php
+												echo '<select name="login_tries">
+													<option value="0"' . (($row['login_tries'] < 5) ? " selected=\"selected\"" : "") . '>Kan inloggen</option>
+													<option value="5"' . (($row['login_tries'] == 5) ? " selected=\"selected\"" : "") . '>Gedeactiveerd</option>
+													<option value="6"' . (($row['login_tries'] == 6) ? " selected=\"selected\"" : "") . '>Gebanned</option>
+													<option value="7"' . (($row['login_tries'] == 7) ? " selected=\"selected\"" : "") . '>Moet geactivativeerd worden</option>
+												</select>';
+
+?>			
+											</td>
 										</tr>
 										<tr>
 											<td><input class="submit" type="submit" name="delete" value="Verwijder" /></td>
