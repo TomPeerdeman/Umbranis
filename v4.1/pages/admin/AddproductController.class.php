@@ -10,6 +10,18 @@
 			if(!isset($_POST['product_name']) || empty($_POST['product_name'])){
 				$this->errors[] = "U heeft geen productnaam ingevoerd!";
 			}
+			if(!empty($_POST['normal_price']) && !preg_match("/^[0-9]{1,}[.]?[0-9]{0,2}$/", $_POST['normal_price'])){
+				$this->errors[] = "U heeft een ongeldige prijs ingevoerd!";
+			}
+			if(!empty($_POST['price']) && !preg_match("/^[0-9]{1,}[.]?[0-9]{0,2}$/", $_POST['price'])){
+				$this->errors[] = "U heeft een ongeldige aanbieding prijs ingevoerd!";
+			}
+			if(!empty($_POST['stock']) && !preg_match("/^[0-9]{0,}$/", $_POST['stock'])){
+				$this->errors[] = "U heeft een ongeldige voorraad ingevoerd!";
+			}
+			if(!empty($_POST['delivery_time']) && !preg_match("/^[0-9]{0,}$/", $_POST['delivery_time'])){
+				$this->errors[] = "U heeft een ongeldige levertijd ingevoerd!";
+			}
 			if(!isset($_POST['normal_price']) || empty($_POST['normal_price'])){
 				$this->errors[] = "U heeft geen prijs ingevoerd!";
 			}
@@ -24,6 +36,9 @@
 			
 			if(!isset($_POST['ean_code']) || empty($_POST['ean_code'])){
 				$this->errors[] = "U heeft geen EAN-code ingevoerd!";
+			}
+			if(!empty($_POST['ean_code']) && !preg_match("/^[0-9]{13}$/", $_POST['ean_code'])){
+				$this->errors[] = "U heeft een ongeldige EAN-code ingevoerd!";
 			}
 
 
