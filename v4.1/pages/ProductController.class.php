@@ -34,88 +34,108 @@
 		public function buildPage(){
 			//get product id
 			$x= DB::$db->quote($_GET["id"]);
-			echo '<div id="contentcontainer">';
+?>
+			<div id="contentcontainer">
+<?php
 			$res = DB::$db->query("SELECT * FROM products where product_id = $x");
 
 			while($res && $row = $res->fetch()){
 				echo "<h2>";
 				echo $row['product_name'];
 				echo "</h2>";
-				echo '<div id="productbox">';
-						if($this->user->is_member() && $this->user->is_admin()){
-							echo'<table>
+?>
+				<div id="productbox">
+
+<?php					if($this->user->is_member() && $this->user->is_admin()){ ?>
+							<table>
 								<tr>
 									<td width="300px">
-										<a href="?p=admin/updateproduct&amp;id=' . $row['product_id'] . '">
+<?php									echo '<a href="?p=admin/updateproduct&amp;id=' . $row['product_id'] . '">';?>
 											Product bewerken</a>
 									</td>
 									<td>
-										<a href="?p=admin/verwijderproduct&amp;id=' . $row['product_id'] . '">
+<?php									echo '<a href="?p=admin/verwijderproduct&amp;id=' . $row['product_id'] . '">';?>
 											Product verwijderen</a>
 									</td>
 								</tr>
-							</table>';
-						}
+							</table>
+<?php					}
 						if($this->posted){
-							if(count($this->errors) > 0){
-								echo "<p><span style=\"color: red;\">De review kon niet worden toegevoegd:<br />";
-								foreach($this->errors as $error){
+							if(count($this->errors) > 0){ 
+?>
+								<p><span style="color: red;">De review kon niet worden toegevoegd:<br />
+<?php								foreach($this->errors as $error){
 									echo $error . "<br />";
 								}
 								echo "</span></p>";
 								echo "<br />";
 							}
 						}
-						echo'<div id="propertiescontainer">
+?>
+						<div id="propertiescontainer">
 							<div class="shadow">
 								<div id="propertiesbox">
 									<table>
 										<tr>
 											<td class="even">Artikelnummer</td>
-											<td class="even">' . $row['product_id'] . '</td>
+											<td class="even"><?php echo $row['product_id'];?></td>
 										</tr>
-										<tr>' . //TODO Type in db? boeken gaan met deze file ook pc-dvd krijgen
-											'
+										<tr>
 											<td class="uneven">Type</td>
 											<td class="uneven">PC-DVD</td>
 										</tr>
 										<tr>
 											<td class="even">Voorraad</td>
-											<td class="even">' . $row['stock'] . ' stuks</td>
+											<td class="even"><?php echo $row['stock'];?> stuks</td>
 										</tr>
 										<tr>
 											<td class="uneven">Levertijd</td>
-											<td class="uneven">';
+											<td class="uneven"><?php
 												if ($row['stock'] > 0)
 													echo '<span style="color: green;">Direct leverbaar</span>';
 												else
-													echo '<span style="color: red;">Uitverkocht; +- ' . $row['delivery_time'] . ' dagen</span>';
-											echo '</td>
+													echo '<span style="color: red;">Uitverkocht; +- ' . $row['delivery_time'] . ' dagen</span>';?>
+											</td>
 										</tr>
 										<tr>
 											<td class="even">EAN-code</td>
-											<td class="even">' . $row['ean_code'] . '</td>
+											<td class="even"><?php echo $row['ean_code'];?></td>
 										</tr>
 										<tr>
 											<td class="uneven">Prijs (incl. BTW)</td>
-											<td class="uneven">&euro;' . $this->price($row['price']) . '</td>
+											<td class="uneven">&euro; <?php echo $this->price($row['price']);?></td>
 										</tr>
 									</table>
 								</div>
 							</div>
 						</div>
+						
 						<div id="picturecontainer">
-							<img src="img/products/' . $row['image_path'] . '" alt="' . $row['product_name'] . '" />
+							<?php echo '<img src="img/products/' . $row['image_path'] . '" alt="' . $row['product_name'] . '" />';?>
 						</div>
-						<div id="descriptioncontainer">
-							<strong>' . $row['product_name'] . '</strong><br />
-							' . ((!empty($row['description'])) ? $row['description'] : "Geen omschrijving.") . '
-							<br /><br />
+						
+						<br />
+						<div id="cartcontainer" style="clear:both;" >
+							<?php echo '<a href="?p=winkelwagen&action=add&id='.$row['product_id'].'">
+							<img src="img/Cart.png" alt="Cart">Stop in Winkelwagen.</a>';?>
+						</div><br /><br />
+							<!-- kopjes -->
+							<ul id="productTabs" >
+								<li id="tab1" class="selected" onclick="tabs(this);">product beschrijving</li>
+								<li id="tab2" onclick="tabs(this);">comments</li>
+							</ul>
+							<!-- onderstaande lege div tabContent mag NIET weg -->
+							<div id="tabContent"></div>
+							
+						<!-- inhoud tab 1 -->
+						<div id="tab1Content" style="display:none;">
+							<strong><?php echo $row['product_name'];?></strong><br />
+							<?php echo((!empty($row['description'])) ? $row['description'] : "Geen omschrijving.");?>
 						</div>
-						<div id="cartcontainer">
-							<a href="?p=winkelwagen&action=add&id='.$row['product_id'].'"><img src="img/cart.png" alt="Cart">Stop in Winkelwagen.</a>
-						</div>';
-
+						
+						<!-- inhoud tab 2 -->
+						<div id="tab2Content" style="display:none;">
+<?php
 						$res2 = DB::$db->query("SELECT * FROM comment where product_id = $x");
 							echo '<h3>Reviews van dit product:</h3><br />
 							
@@ -205,9 +225,13 @@
 								</form>
 								';
 						}
-				echo'</div>
-				</div>';
-			}
+?>
+</div>
+						
+
+				</div>
+				</div>
+<?php			}
 		}
 	}
 ?>

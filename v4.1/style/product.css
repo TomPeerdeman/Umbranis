@@ -70,10 +70,42 @@
 }
 
 #cartcontainer{
-	border: solid 1px black;
-	background-color: #FFE599;
 	width: 220px;
 	height: 25px;
 	bottom: 6px;
 	right: 150px;
+}
+/*tabs*/
+
+#tabContent{
+	padding:10px;
+	background-color:#FFE599;
+	border:1px solid black;
+}
+#productTabs{
+	list-style:none;
+	display:block;
+	overflow:hidden;
+	margin:0;
+	padding:0px;
+	position:relative;
+	top:1px;
+	clear:both;
+}
+#productTabs li{
+	float:left;
+	background-color:#FFD65C;
+	border:1px solid black;
+	padding:5px;
+	cursor:pointer;
+	border-bottom:none;
+	margin-right:10px;
+	font-family:verdana;
+	font-size:.8em;
+	font-weight:bold;
+
+}
+#productTabs .selected{
+	background-color:#FFE599;
+	cursor:default;
 }
