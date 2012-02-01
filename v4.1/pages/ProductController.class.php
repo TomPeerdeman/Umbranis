@@ -130,7 +130,7 @@
 						<!-- inhoud tab 1 -->
 						<div id="tab1Content" style="display:none;">
 							<strong><?php echo $row['product_name'];?></strong><br />
-							<?php echo((!empty($row['description'])) ? $row['description'] : "Geen omschrijving.");?>
+							<?php echo((!empty($row['description'])) ? str_replace("\n", "<br />", $row['description']) : "Geen omschrijving.");?>
 						</div>
 						
 						<!-- inhoud tab 2 -->
