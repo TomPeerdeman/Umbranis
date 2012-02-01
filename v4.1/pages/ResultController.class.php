@@ -144,7 +144,7 @@
 				echo '</table><br />';
 			}
 			if($num_res2 > 0){
-				echo '<table width="700px">
+				echo '<table width="720px">
 						<tr>
 							<td>
 								<b>Categorie</b>
