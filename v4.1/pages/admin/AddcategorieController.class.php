@@ -68,7 +68,7 @@
 		public function buildPage(){
 ?>
 <div id="contentcontainer">
-	<h2>Product Toevoegen</h2>
+	<h2>Categorie Toevoegen</h2>
 	<div id="contentboxsmall">
 		<p>U kunt hier een nieuw categorie aanmaken.<br />Velden met een * zijn verplicht om in te vullen.</p>
 		<br />
