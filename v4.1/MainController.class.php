@@ -10,6 +10,7 @@
 		private $allowedPages = array("account", 
 			"activatie", 
 			"adresschange", 
+			"bestelling",
 			"categorie", 
 			"contact", 
 			"faq", 

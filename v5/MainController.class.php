@@ -13,6 +13,7 @@
 			"activatie", 
 			"adresschange", 
 			"categorie", 
+			"bestelling",
 			"contact", 
 			"faq", 
 			"home", 

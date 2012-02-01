@@ -115,10 +115,14 @@
 						</div>
 						
 						<br />
-						<div id="cartcontainer" style="clear:both;" >
-							<?php echo '<a href="?p=winkelwagen&action=add&id='.$row['product_id'].'">
-							<img src="img/Cart.png" alt="Cart">Stop in Winkelwagen.</a>';?>
-						</div><br /><br />
+						<?php
+						if (($this->user->is_member()){
+							echo '<div id="cartcontainer" style="clear:both;" >
+							<a href="?p=winkelwagen&action=add&id='.$row['product_id'].'">
+							<img src="img/Cart.png" alt="Cart">Stop in Winkelwagen.</a>
+							</div><br /><br />';
+						}
+						?>
 							<!-- kopjes -->
 							<ul id="productTabs" >
 								<li id="tab1" class="selected" onclick="tabs(this);">product beschrijving</li>
