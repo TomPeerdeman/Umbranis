@@ -21,6 +21,16 @@
 			if(!isset($_POST['ean_code']) || empty($_POST['ean_code'])){
 				$this->errors[] = "U heeft geen EAN-code ingevoerd!";
 			}
+			$res = DB::$db->query("SELECT * FROM products WHERE ean_code=" . DB::$db->quote($_POST['ean_code']) . "");
+			if($res->rowCount() > 0){
+				$row = $res->fetch();
+				if($res->rowCount() == 1 && $_GET['id'] != $row['product_id']){
+					$this->errors[] = "Er is al een product met deze EAN-code!";
+				}
+				if($res->rowCount() > 1){
+					$this->errors[] = "Er is al een product met deze EAN-code!";
+				}
+			}	
 			
 			if(count($this->errors) == 0){
 				DB::$db->query("UPDATE products SET
