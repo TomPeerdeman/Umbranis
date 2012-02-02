@@ -120,7 +120,7 @@
 		<p>Als u al een account heeft kunt u hier inloggen.</p>
 		<br />
 		
-		<form action"#" method="post">
+		<form action="?p=login" method="post">
 			<table>
 				<tr>
 					<td>

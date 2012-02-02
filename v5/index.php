@@ -32,8 +32,8 @@
 	*/
 	
 	//define("SITE_ROOT", "127.0.0.1/v4.1/");
-	define("SITE_ROOT", "umbranis.nogwat.co.cc/v4.1/");
-	//define("SITE_ROOT", "www.umbranis.nl/v4.1/");
+	//define("SITE_ROOT", "umbranis.nogwat.co.cc/v4.1/");
+	define("SITE_ROOT", "www.umbranis.nl/v5/");
 	
 	//Voor https moet de site_root correct gezet zijn
 	define("HTTPS", false);

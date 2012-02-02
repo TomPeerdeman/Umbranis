@@ -9,7 +9,6 @@
 		private $type;
 		//Pagina's die zijn toegestaan om te laden
 		private $allowedPages = array("account", 
-			"test", 
 			"activatie", 
 			"adresschange", 
 			"categorie", 

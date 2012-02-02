@@ -76,7 +76,7 @@ class WinkelwagenController extends BaseController{
 							<th>'.$row2['publisher'].'</th>
 							<th>'.$row2['price'].'</th>
 							<th>'.$row1['amount'].'</th>
-							<th><a href="?p=winkelwagen&action=minus&id='.$row2['product_id'].'"><img src="img/minus.png"></a><a href="?p=winkelwagen&action=delete&id='.$row2['product_id'].'"><img src="img/garbage.png"></a><a href="?p=winkelwagen&action=plus&id='.$row2['product_id'].'"><img src="img/plus.png"></a></th>
+							<th><a href="?p=winkelwagen&action=minus&id='.$row2['product_id'].'" onclick="return page_load(\'winkelwagen\', \'action=minus&id='.$row2['product_id'].'\');"><img src="img/minus.png"></a><a href="?p=winkelwagen&action=delete&id='.$row2['product_id'].'"  onclick="return page_load(\'winkelwagen\', \'action=delete&id='.$row2['product_id'].'\');"><img src="img/garbage.png"></a><a href="?p=winkelwagen&action=plus&id='.$row2['product_id'].'"  onclick="return page_load(\'winkelwagen\', \'action=plus&id='.$row2['product_id'].'\');"><img src="img/plus.png"></a></th>
 							</tr>
 						';
 						$totalcost += ($row2['price'] * $row1['amount']);
@@ -93,7 +93,7 @@ class WinkelwagenController extends BaseController{
 				</div>
 			';
 			if ($carsize > 0){
-				echo '<a href="?p=bestelling"><img src="img/bestelling.png"></a>';
+				echo '<a href="?p=bestelling"  onclick="return page_load(\'bestelling\');"><img src="img/bestelling.png"></a>';
 			}	
 		}
 	}

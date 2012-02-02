@@ -26,14 +26,14 @@
 	$base = new BaseController();
 	for($i = 0; $i < 5; $i++){
 		echo '<tr>
-			<td rowspan="3" class="topnum"><a href="?p=product&amp;id=' . $this->topsales[$i]['product_id'] . '">' . ($i + 1) . '</a></td>
-			<td class="topitemtop"><a href="?p=product&amp;id=' . $this->topsales[$i]['product_id'] . '">' . $this->topsales[$i]['hoofdcat_name'] . ' - ' . $this->topsales[$i]['subcat_name'] . '</a></td>
+			<td rowspan="3" class="topnum"><a href="?p=product&amp;id=' . $this->topsales[$i]['product_id'] . '" onclick="return page_load(\'product\', \'id=' . $this->topsales[$i]['product_id'] . '\');">' . ($i + 1) . '</a></td>
+			<td class="topitemtop"><a href="?p=product&amp;id=' . $this->topsales[$i]['product_id'] . '" onclick="return page_load(\'product\', \'id=' . $this->topsales[$i]['product_id'] . '\');">' . $this->topsales[$i]['hoofdcat_name'] . ' - ' . $this->topsales[$i]['subcat_name'] . '</a></td>
 		</tr>
 		<tr>
-			<td class="topitem"><a href="?p=product&amp;id=' . $this->topsales[$i]['product_id'] . '">' . $this->topsales[$i]['product_name'] . '</a></td>
+			<td class="topitem"><a href="?p=product&amp;id=' . $this->topsales[$i]['product_id'] . '" onclick="return page_load(\'product\', \'id=' . $this->topsales[$i]['product_id'] . '\');">' . $this->topsales[$i]['product_name'] . '</a></td>
 		</tr>
 		<tr>
-			<td class="topitem"><a href="?p=product&amp;id=' . $this->topsales[$i]['product_id'] . '">&euro;' . $base->price($this->topsales[$i]['price']) . '</a></td>
+			<td class="topitem"><a href="?p=product&amp;id=' . $this->topsales[$i]['product_id'] . '" onclick="return page_load(\'product\', \'id=' . $this->topsales[$i]['product_id'] . '\');">&euro;' . $base->price($this->topsales[$i]['price']) . '</a></td>
 		</tr>		
 		<tr>
 			<td class="spacer" colspan="2"></td>

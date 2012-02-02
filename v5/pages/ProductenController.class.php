@@ -51,7 +51,7 @@
 							<tr>
 								<td class=\"image\">";
 								
-								echo "<a href=\"?p=product&amp;id=" . $row['product_id'] . "\">";
+								echo "<a href=\"?p=product&amp;id=" . $row['product_id'] . "\" onclick=\"return page_load('product', 'id=" . $row['product_id'] . "');\">";
 								echo "<img src= 'img/products/thumbs/" . $row['image_path'] . "' alt='" . $row['product_name'] . "' style=\"max-width: 170px; max-height: 150px;\" />
 									</a>
 								</td>
@@ -71,7 +71,7 @@
 							</tr>
 							<tr>
 								<td>";
-									echo "<a href=\"?p=product&amp;id=" . $row['product_id'] . "\">";
+									echo "<a href=\"?p=product&amp;id=" . $row['product_id'] . "\" onclick=\"return page_load('product', 'id=" . $row['product_id'] . "');\">";
 									echo $row['product_name'];								
 									echo "</a>
 								</td>

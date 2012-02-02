@@ -89,17 +89,46 @@ function page_load(page, param){
 	ajax_get(url, function(result){
 		maindiv.innerHTML = result;
 		//opvragen welke files in de head moeten komen
-		ajax_get('getHead.php?p=' + page, function(result){
-			var heads = result.split(",");
-			if(heads[0] && heads[0] == 'true'){
+		ajax_get('getFullHead.php?p=' + page, function(result){
+			var idx = result.lastIndexOf(",");
+			var heads = new Array();
+			heads[0] = result.substr(0, idx);
+			heads[1] = result.substr(idx + 1);
+			var cssload = false;
+			var jsload = false;
+			if(heads[0] && heads[0] != 'false'){
 				//Css file in head zetten
-				css = document.createElement('link');
+				css = document.createElement('style');
 				css.setAttribute("type","text/css");
-				css.setAttribute("rel","stylesheet");
-				css.setAttribute("href", 'style/' + page + '.css');
+				
+				if(ie)css.styleSheet.cssText = heads[0];
+				else css.innerHTML = heads[0];
+				
+				function cssready(){
+					cssload = true;
+					if(jsload){
+						fadeIn(0, maindiv, 3, function(){
+							finished = true;
+						});
+					}
+				}
+				
+				/* Chrome + Safari lijken deze onload te negeren? */
+				/*if(!ie){
+					css.onload = function(){
+						alert('Loadme');
+						cssready();
+					};
+				}else{*/
+					setTimeout(function(){
+						cssready();
+					}, 50);
+				//}
+				
 				head.appendChild(css);
 			}else{
 				css = null;
+				cssload = true;
 			}
 			
 			if(heads[1] && heads[1] == 'true'){
@@ -107,18 +136,34 @@ function page_load(page, param){
 				js = document.createElement('script');
 				js.setAttribute("type","text/javascript");
 				js.setAttribute("src", 'javascript/' + page + '.js');
-				js.onload = function(){
+				
+				function jsready(){	
+					jsload = true;
 					init();
-				};
+					if(cssload){
+						fadeIn(0, maindiv, 3, function(){
+							finished = true;
+						});
+					}
+				}
+				
+				if(!ie){
+					js.onload = jsready;
+				}else{
+					setTimeout(function(){
+						jsready();
+					}, 50);
+				}
 				head.appendChild(js);
 			}else{
 				js = null;
+				jsload = true;
+				if(cssload){
+					fadeIn(0, maindiv, 3, function(){
+						finished = true;
+					});
+				}
 			}
-			
-			//Fade in
-			fadeIn(0, maindiv, 3, function(){
-				finished = true;
-			});
 		}, function(errorcode){
 			alert('fail: ' + errorcode);
 		});
@@ -158,7 +203,13 @@ function fadeIn(tick, elem, tickAmount, onfinish){
 	
 	opacity(elem, tick);
 	
-	setTimeout(function(){
-		fadeIn(tick, elem, tickAmount, onfinish);
-	}, 15);
+	if(!ie){
+		setTimeout(function(){
+			fadeIn(tick, elem, tickAmount, onfinish);
+		}, 15);
+	}else{
+		setTimeout(function(){
+			fadeIn(tick, elem, 7, onfinish);
+		}, 10);
+	}
 }

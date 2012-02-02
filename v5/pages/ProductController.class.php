@@ -116,9 +116,9 @@
 						
 						<br />
 						<?php
-						if (($this->user->is_member()){
+						if($this->user->is_member()){
 							echo '<div id="cartcontainer" style="clear:both;" >
-							<a href="?p=winkelwagen&action=add&id='.$row['product_id'].'">
+							<a href="?p=winkelwagen&action=add&id='.$row['product_id'].'" onclick="return page_load(\'winkelwagen\', \'&action=add&id='.$row['product_id'].'\');">
 							<img src="img/Cart.png" alt="Cart">Stop in Winkelwagen.</a>
 							</div><br /><br />';
 						}

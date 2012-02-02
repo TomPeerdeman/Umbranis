@@ -22,11 +22,11 @@
 			{
 				echo "<td>
 					<div class='category'>";		
-								echo "<a href=\"?p=producten&amp;cat=" . $row['cat_id'] . "\">";
+								echo "<a href=\"?p=producten&amp;cat=" . $row['cat_id'] . "\" onclick=\"return page_load('producten', 'cat=" . $row['cat_id'] . "');\">";
 								echo "<img src= 'img/cats/" . $row['image_path'] . "' alt='" . $row['cat_name'] . "'/>";
 								echo "</a>";
 								
-								echo "<a href=\"?p=producten&amp;cat=" . $row['cat_id'] . "\">";
+								echo "<a href=\"?p=producten&amp;cat=" . $row['cat_id'] . "\" onclick=\"return page_load('producten', 'cat=" . $row['cat_id'] . "');\">";
 								echo $row['cat_name'];								
 								echo "</a>
 					</div>
