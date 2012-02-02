@@ -83,7 +83,7 @@
 							<div id="descriptioncontainer">
 								Weet u zeker dat u het product: <strong>' . $row['product_name'] . '</strong> wilt verwijderen?
 								<br /><br />
-								<form action="?p=admin/verwijderproduct" method="post">
+								<form action="?p=admin/verwijderproduct&amp;id=' .$_GET["id"]. '" method="post">
 									<table>
 										<tr>
 											<td>

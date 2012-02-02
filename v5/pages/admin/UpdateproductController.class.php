@@ -152,7 +152,7 @@
 				if(($res->rowCount() == 1)) {
 					$row = $res->fetch();
 
-							echo'<form action="?p=admin/updateproduct&id=' .$_GET["id"]. '" method="post">
+							echo'<form action="?p=admin/updateproduct&amp;id=' .$_GET["id"]. '" method="post">
 								<table>
 									<tr>
 										<td>Categorie</td>
