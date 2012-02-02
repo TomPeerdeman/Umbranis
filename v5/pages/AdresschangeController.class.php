@@ -128,7 +128,7 @@
 							<form action="?p=adresschange" method="post">
 								<table>
 									<tr>
-										<td>voornaam:</td>
+										<td>Voornaam:</td>
 										<td><input type="text" name="vnaam" maxlength="32" value="<?php $this->valueLoad('vnaam', $row); ?>" /></td>
 									</tr>
 									<tr>
