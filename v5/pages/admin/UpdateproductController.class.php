@@ -22,11 +22,6 @@
 				$this->errors[] = "U heeft geen EAN-code ingevoerd!";
 			}
 			
-			$res = DB::$db->query("SELECT * FROM products WHERE ean_code=" . DB::$db->quote($_POST['ean_code']) . "");
-			if($res->rowCount() > 0){
-				$this->errors[] = "Er is al een product met deze EAN-code!";
-			}	
-			
 			if(count($this->errors) == 0){
 				DB::$db->query("UPDATE products SET
 						cat_id =" . $this->escape('cat_id') . ", 
@@ -40,7 +35,7 @@
 						image_path =" . $this->escape('image_path') . ",
 						description =" . $this->escape('description') . ",
 						ean_code =" . $this->escape('ean_code') . "
-							WHERE product_id =" . DB::$db->quote($_GET['id']) . "
+						WHERE product_id =" . DB::$db->quote($_GET['id']) . "
 					");
 					$this->showform = false;
 			}
@@ -138,7 +133,7 @@
 				}
 				if(count($this->errors) == 0){
 					echo "<p><span style=\"color: green;\">Uw gegevens zijn gewijzigd.</span></p><br />";
-					echo "<p>U wordt automatisch doorgestuurd na 2 seconden gebeurt dit niet klik dan <a href=\"?p=product&amp;id=" .$_GET["id"]. "\">hier</a>.</p>";
+					echo '<p>U wordt automatisch doorgestuurd na 2 seconden gebeurt dit niet klik dan <a href=\"?p=product&amp;id=' .$_GET["id"]. '\">hier</a>.</p>';
 					echo "<meta http-equiv=\"refresh\" content=\"2;url=?p=product&amp;id=" .$_GET["id"]. "\" /></p>";
 				}
 			}
@@ -146,14 +141,13 @@
 				$res = DB::$db->query("SELECT * FROM products WHERE product_id =" . DB::$db->quote($_GET['id']) . "");
 				if(($res->rowCount() == 1)) {
 					$row = $res->fetch();
-?>
-							<form action="?p=admin/updateproduct" method="post">
+
+							echo'<form action="?p=admin/updateproduct&id=' .$_GET["id"]. '" method="post">
 								<table>
 									<tr>
 										<td>Categorie</td>
 										<td>
-											<select name="cat_id" size="1">		
-<?php
+											<select name="cat_id" size="1">';
 
 										$res = DB::$db->query("SELECT * FROM products WHERE product_id =" . DB::$db->quote($_GET['id']) . "");
 										$row = $res->fetch();
