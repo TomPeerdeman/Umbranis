@@ -10,7 +10,7 @@ websec.science.uva.nl/webdb1242
 
 Admin account voor de website:
 
-Gebruikersnaam: jan
+Gebruikersnaam: admin
 Password: welkom
 
 ~~~~~~~~~~~~~~~~~~
