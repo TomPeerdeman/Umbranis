@@ -8,30 +8,15 @@
 		
 		public function handleForm(){			
 			include("MailSender.class.php");
-			if ($_POST['submit']){
-				$resgegevens = DB::$db->query("SELECT * FROM users WHERE username =" . DB::$db->quote($_SESSION['username'])."");
-				$row = $resgegevens->fetch();
-				$msg = "<html>
-					<head>
-					<title>Umbranis Bestelling</title>
-					</head>
-					<body>
-					<p>Beste " . ucfirst($row['firstname']) . " " . ucfirst($row['lastname']) . ",<br />bedankt voor het plaatsen van uw bestelling bij Umbranis, de webshop voor al uw multimedia!</p>
-					</body>
-					</html>";
-				
-				if(!MailSender::sendMail($row['email'], "Bestel", $msg, true)){
-					$this->errors[] = "De bevestigings mail kon niet verstuurd worden!";
-				}
-				
+			if ($_POST['submit']){		
 				if(count($this->errors) == 0){
 					
 					$total = 0;
-					$res0 = DB::$db->query("SELECT id FROM users WHERE username='".$_SESSION['username']."' LIMIT 1");
+					$res0 = DB::$db->query("SELECT * FROM users WHERE username='".$_SESSION['username']."' LIMIT 1");
 					if($res0 && $row0 = $res0->fetch()){
 						$res1 = DB::$db->query("SELECT * FROM winkelwagen where user_id =". $row0['id']."");		
 						DB::$db->query("INSERT INTO orders (user_id) VALUE (". $row0['id'].")");	
-						$resorderid = DB::$db->query("SELECT order_id FROM orders WHERE user_id='". $row0['id']."' LIMIT 1");
+						$resorderid = DB::$db->query("SELECT MAX(order_id) as order_id FROM orders WHERE user_id='". $row0['id']."' LIMIT 1");
 						$roworderid = $resorderid->fetch();
 						while($res1 && $row1 = $res1->fetch()){
 							//builds up the individual's shopping list
@@ -44,22 +29,26 @@
 									'".$row2['price']."',
 									'".$row1['amount']."'
 								)");
-								DB::$db->query("UPDATE products SET stock = stock - 1 WHERE product_id =".$row2['prod_id']."");
+								DB::$db->query("UPDATE products SET stock = stock - " . $row1['amount'] . " WHERE product_id =".$row2['product_id']."");
 							}
 							DB::$db->query("DELETE FROM winkelwagen WHERE user_id=".$row1['user_id']."");
 						}
-					}
-					$res0 = DB::$db->query("SELECT id FROM users WHERE username='".$_SESSION['username']."' LIMIT 1");
-					$row0 = $res0->fetch();	
-						$resorderid = DB::$db->query("SELECT order_id FROM orders WHERE user_id='". $row0['id']."' LIMIT 1");
-						$roworderid = $resorderid->fetch();
-						
-					DB::$db->query("UPDATE orders 
-						SET total_price=".$total."
-						WHERE order_id =".$roworderid['order_id']."");
-					if(!$res0){
-						$this->errors[] = "Er is een fout in de database opgetreden!";
-						return;
+						$msg = "<html>
+							<head>
+							<title>Umbranis Bestelling</title>
+							</head>
+							<body>
+							<p>Beste " . ucfirst($row0['firstname']) . " " . ucfirst($row0['lastname']) . ",<br />bedankt voor het plaatsen van uw bestelling bij Umbranis, de webshop voor al uw multimedia!</p>
+							<p>Uw order id is " . $roworderid['order_id'] . "</p>
+							<p>U wordt verzocht het bedrag van &euro;" . $this->price($total) . " over te maken op rekening nummer 0123456789 t.n.v. Umbranis webwinkel onder vermeling van uw order id. </p>
+							</body>
+							</html>";
+						if(!MailSender::sendMail($row0['email'], "Umbranis Bestelling", $msg, true)){
+							$this->errors[] = "De bevestigings mail kon niet verstuurd worden!";
+						}
+						DB::$db->query("UPDATE orders 
+							SET total_price=".$total."
+							WHERE order_id =".$roworderid['order_id']."");
 					}
 				}
 				$this->posted = true;
