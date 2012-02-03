@@ -190,7 +190,7 @@
 										</tr>
 										<tr>
 											<td class="unevencomment">
-												<br />' . $row2['message'] . '<br /><br />
+												<br />' . strip_tags($row2['message'], '<b><u><i><font><ol><il><hr><th><td><tr>') . '<br /><br />
 											</td>
 										</tr>';
 							}
@@ -219,11 +219,14 @@
 												echo "<option value=" . $i . ">" . $i . "</option>";
 												$i--;
 											}
-										echo'</select>
-											</td>
-											<td>
-												<input id="submit" type="submit" name="submit" value="verstuur" />
-											</td>
+										echo'</select>';
+										if (strip_tags(!($row2['message'] = ''))){
+											echo' 
+												</td>
+												<td>
+													<input id="submit" type="submit" name="submit" value="verstuur" />
+												</td>
+										';}'
 										</tr>
 									</table>
 								</form>

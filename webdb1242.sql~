@@ -187,7 +187,6 @@ CREATE TABLE IF NOT EXISTS `products` (
   `product_name` varchar(32) NOT NULL,
   `normal_price` double NOT NULL,
   `price` double NOT NULL,
-  `sales` int(10) unsigned NOT NULL DEFAULT '0',
   `stock` int(10) unsigned NOT NULL DEFAULT '0',
   `delivery_time` int(10) unsigned NOT NULL DEFAULT '0',
   `publisher` varchar(32) NOT NULL,
@@ -204,12 +203,12 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Gegevens worden uitgevoerd voor tabel `products`
 --
 
-INSERT INTO `products` (`product_id`, `cat_id`, `product_name`, `normal_price`, `price`, `sales`, `stock`, `delivery_time`, `publisher`, `author`, `image_path`, `description`, `ean_code`, `date`) VALUES
-(1, 13, 'The elder Scrolls: Skyrim', 49.99, 49.99, 5, 10, 0, 'Bethesda Softworks', '', 'skyrim.png', '', '1234567891012', '2012-01-18 18:04:24'),
-(2, 13, 'Portal 2', 59.99, 59.99, 3, 10, 2, 'Valve Corporation', '', 'portal.png', '', '1234567891013', '2012-01-18 18:04:24'),
-(3, 5, 'Birds of Fire', 15.99, 15.99, 9, 10, 1, 'Sony music entertainment', 'Mahavishnu Orchestra', '', '', '4209714987224', '2012-01-18 19:36:19'),
-(4, 5, 'Unrecognizable screeches from a ', 15.99, 10.99, 0, 10, 1, '', 'Ramses Ijff', '', '', '4209714987125', '2012-01-18 19:36:54'),
-(5, 9, 'Final destination 5', 22.99, 22.99, 2, 0, 15, 'Warner Home Video', 'Steven Quale', 'final_destination_5.png', '', '5051888087602', '2012-01-20 13:47:46');
+INSERT INTO `products` (`product_id`, `cat_id`, `product_name`, `normal_price`, `price`, `stock`, `delivery_time`, `publisher`, `author`, `image_path`, `description`, `ean_code`, `date`) VALUES
+(1, 13, 'The elder Scrolls: Skyrim', 49.99, 49.99, 10, 0, 'Bethesda Softworks', '', 'skyrim.png', '', '1234567891012', '2012-01-18 18:04:24'),
+(2, 13, 'Portal 2', 59.99, 59.99, 10, 2, 'Valve Corporation', '', 'portal.png', '', '1234567891013', '2012-01-18 18:04:24'),
+(3, 5, 'Birds of Fire', 15.99, 15.99, 10, 1, 'Sony music entertainment', 'Mahavishnu Orchestra', '', '', '4209714987224', '2012-01-18 19:36:19'),
+(4, 5, 'Unrecognizable screeches from a ', 15.99, 10.99, 10, 1, '', 'Ramses Ijff', '', '', '4209714987125', '2012-01-18 19:36:54'),
+(5, 9, 'Final destination 5', 22.99, 22.99, 0, 15, 'Warner Home Video', 'Steven Quale', 'final_destination_5.png', '', '5051888087602', '2012-01-20 13:47:46');
 
 -- --------------------------------------------------------
 

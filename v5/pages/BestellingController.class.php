@@ -44,6 +44,7 @@
 									'".$row2['price']."',
 									'".$row1['amount']."'
 								)");
+								DB::$db->query("UPDATE products SET sales = sales + 1, stock = stock -1 WHERE product_id =".$row2['prod_id']."");
 							}
 							DB::$db->query("DELETE FROM winkelwagen WHERE user_id=".$row1['user_id']."");
 						}
