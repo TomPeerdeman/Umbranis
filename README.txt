@@ -10,7 +10,7 @@ websec.science.uva.nl/webdb1242
 
 Admin account voor de website:
 
-Gebruikersnaam: jan
+Gebruikersnaam: admin
 Password: welkom
 
 ~~~~~~~~~~~~~~~~~~
@@ -18,6 +18,8 @@ Password: welkom
 Niet eigen code:
 
 Twitterfeed:
+
+<script src="http://widgets.twimg.com/j/2/widget.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 	new TWTR.Widget({
