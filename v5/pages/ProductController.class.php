@@ -189,8 +189,8 @@
 											</td>
 										</tr>
 										<tr>
-											<td class="unevencomment">
-												<br />' . strip_tags($row2['message'], '<b><u><i><font><hr>') . '<br /><br />
+											<td class="unevencomment">		
+											<br />' . strip_tags($row2['message']) . '<br /><br />
 											</td>
 										</tr>';
 							}

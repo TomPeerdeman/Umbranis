@@ -2,10 +2,10 @@
 -- version 3.4.5
 -- http://www.phpmyadmin.net
 --
--- Machine: localhost
--- Genereertijd: 03 feb 2012 om 20:41
--- Serverversie: 5.5.16
--- PHP-Versie: 5.3.8
+-- Host: 127.0.0.1
+-- Generation Time: Feb 03, 2012 at 10:39 PM
+-- Server version: 5.5.16
+-- PHP Version: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE IF NOT EXISTS `categories` (
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
--- Gegevens worden uitgevoerd voor tabel `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`cat_id`, `parent_id`, `cat_name`, `image_path`) VALUES
@@ -53,9 +53,9 @@ INSERT INTO `categories` (`cat_id`, `parent_id`, `cat_name`, `image_path`) VALUE
 (11, 2, 'Alternative', 'film.png'),
 (12, 2, 'Scifi', 'film.png'),
 (13, 3, 'Pc', 'pc.png'),
-(14, 3, 'Xbox 360', 'test.png'),
-(15, 3, 'PS3', 'test.png'),
-(16, 3, 'Wii', 'test.png'),
+(14, 3, 'Xbox 360', 'icon_xbox360.png'),
+(15, 3, 'PS3', 'Icon_ps3.png'),
+(16, 3, 'Wii', 'icon_wii.png'),
 (17, 4, 'Suspense', 'boek.png'),
 (18, 4, 'Roman', 'boek.png'),
 (19, 4, 'Non-fiction', 'boek.png');
@@ -63,7 +63,7 @@ INSERT INTO `categories` (`cat_id`, `parent_id`, `cat_name`, `image_path`) VALUE
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `comment`
+-- Table structure for table `comment`
 --
 
 CREATE TABLE IF NOT EXISTS `comment` (
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Gegevens worden uitgevoerd voor tabel `comment`
+-- Dumping data for table `comment`
 --
 
 INSERT INTO `comment` (`id`, `product_id`, `rating`, `message`, `user_id`, `time`) VALUES
@@ -88,7 +88,7 @@ INSERT INTO `comment` (`id`, `product_id`, `rating`, `message`, `user_id`, `time
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `logins`
+-- Table structure for table `logins`
 --
 
 CREATE TABLE IF NOT EXISTS `logins` (
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `logins` (
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE IF NOT EXISTS `orders` (
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `order_products`
+-- Table structure for table `order_products`
 --
 
 CREATE TABLE IF NOT EXISTS `order_products` (
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `order_products` (
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `password_requests`
+-- Table structure for table `password_requests`
 --
 
 CREATE TABLE IF NOT EXISTS `password_requests` (
@@ -141,12 +141,6 @@ CREATE TABLE IF NOT EXISTS `password_requests` (
   UNIQUE KEY `user_id` (`user_id`),
   UNIQUE KEY `request_hash` (`request_hash`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Tabelstructuur voor tabel `products`
---
 
 -- --------------------------------------------------------
 
@@ -198,7 +192,7 @@ INSERT INTO `products` (`product_id`, `cat_id`, `product_name`, `normal_price`, 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -224,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Gegevens worden uitgevoerd voor tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `password_salt`, `zipcode`, `city`, `street`, `house_number`, `firstname`, `lastname`, `gender`, `tel1`, `tel2`, `email`, `admin_rights`, `login_tries`) VALUES
@@ -233,7 +227,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `password_salt`, `zipcode`, `
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `winkelwagen`
+-- Table structure for table `winkelwagen`
 --
 
 CREATE TABLE IF NOT EXISTS `winkelwagen` (
