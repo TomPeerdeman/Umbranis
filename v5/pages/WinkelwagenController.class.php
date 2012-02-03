@@ -50,6 +50,8 @@ class WinkelwagenController extends BaseController{
 			//sets up the top of the table
 			echo '
 				<div id="contentcontainer">
+				<h2>Mijn winkelwagen</h2>
+				<div id="contentbox">
 				<table border="1" cellpadding = "2">
 				<tr>
 				<th>Product naam</th>
@@ -91,14 +93,17 @@ class WinkelwagenController extends BaseController{
 				<td colspan="3">Totale prijs:</td>
 				<th colspan="4">&euro;'.$totalcost.'</th>
 				</tr>
-				</table>
+				</table>';
+				if ($carsize >0){
+				echo '<table><tr>
+						<td colspan="3" >&nbsp;</td>
+						<td colspan="4"><br /><form><input type="button" name="submit" onClick="location.href=\'?p=adressgegevens\'" value="Bestellen" /></form></td>
+						</tr>
+					</table>';
+				}
+?>				</div>
 				</div>
-			';
-			if ($carsize > 0){
-?>				
-				<br /><form><input type="button" name="submit" onClick="location.href='?p=adressgegevens'" value="Bestellen" /></form>
 <?php
-			}	
 		}
 	}
 }
