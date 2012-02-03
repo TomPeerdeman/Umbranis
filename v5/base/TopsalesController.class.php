@@ -51,10 +51,10 @@
 	if(count($this->topsales) < 5){
 		for($i = 0; $i < 5 - count($this->topsales); $i++){
 			echo '<tr>
-				<td rowspan="2" class="topnum"><a href="?=home">' . ($i + 1 + count($this->topsales)) . '</a></td>
+				<td rowspan="2" class="topnum"><a href="?p=home">' . ($i + 1 + count($this->topsales)) . '</a></td>
 			</tr>
 			<tr>
-				<td class="topitemtop"><a href="?=home">Nog geen product</a></td>
+				<td class="topitemtop"><a href="?p=home">Nog geen product</a></td>
 			</tr>		
 			<tr>
 				<td class="spacer" colspan="2"></td>
