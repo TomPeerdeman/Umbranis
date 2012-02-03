@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
+-- version 3.4.5
 -- http://www.phpmyadmin.net
 --
--- Machine: localhost
--- Genereertijd: 31 Jan 2012 om 20:53
--- Serverversie: 5.1.41
--- PHP-Versie: 5.3.1
+-- Host: 127.0.0.1
+-- Generation Time: Feb 03, 2012 at 07:32 PM
+-- Server version: 5.5.16
+-- PHP Version: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -22,7 +23,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE IF NOT EXISTS `categories` (
@@ -35,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
--- Gegevens worden uitgevoerd voor tabel `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`cat_id`, `parent_id`, `cat_name`, `image_path`) VALUES
@@ -62,7 +63,7 @@ INSERT INTO `categories` (`cat_id`, `parent_id`, `cat_name`, `image_path`) VALUE
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `comment`
+-- Table structure for table `comment`
 --
 
 CREATE TABLE IF NOT EXISTS `comment` (
@@ -76,25 +77,25 @@ CREATE TABLE IF NOT EXISTS `comment` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
--- Gegevens worden uitgevoerd voor tabel `comment`
+-- Dumping data for table `comment`
 --
 
 INSERT INTO `comment` (`id`, `product_id`, `rating`, `message`, `user_id`, `time`) VALUES
-(1, 1, 7, 'Ik vind dit een goed product.', 1, '2012-01-26 16:55:27'),
-(2, 1, 7, 'Ik vind dit een goed product.', 1, '2012-01-26 17:00:45'),
-(3, 1, 10, 'test', 1, '2012-01-26 19:04:29'),
-(4, 1, 10, 'test', 1, '2012-01-26 19:21:46'),
-(5, 1, 1, 'muahahha', 1, '2012-01-26 19:21:53'),
-(6, 1, 2, 'abc', 1, '2012-01-26 19:23:57'),
-(7, 2, 10, 'vet cool', 1, '2012-01-26 19:46:14'),
-(8, 1, 10, 'ik ben cool', 1, '2012-01-26 19:51:25'),
-(9, 1, 6, 'abc', 1, '2012-01-27 20:25:34'),
-(10, 1, 6, 'abc', 1, '2012-01-27 20:26:31');
+(1, 1, 7, 'Ik vind dit een goed product.', 1, '2012-01-26 15:55:27'),
+(2, 1, 7, 'Ik vind dit een goed product.', 1, '2012-01-26 16:00:45'),
+(3, 1, 10, 'test', 1, '2012-01-26 18:04:29'),
+(4, 1, 10, 'test', 1, '2012-01-26 18:21:46'),
+(5, 1, 1, 'muahahha', 1, '2012-01-26 18:21:53'),
+(6, 1, 2, 'abc', 1, '2012-01-26 18:23:57'),
+(7, 2, 10, 'vet cool', 1, '2012-01-26 18:46:14'),
+(8, 1, 10, 'ik ben cool', 1, '2012-01-26 18:51:25'),
+(9, 1, 6, 'abc', 1, '2012-01-27 19:25:34'),
+(10, 1, 6, 'abc', 1, '2012-01-27 19:26:31');
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `logins`
+-- Table structure for table `logins`
 --
 
 CREATE TABLE IF NOT EXISTS `logins` (
@@ -104,17 +105,10 @@ CREATE TABLE IF NOT EXISTS `logins` (
   UNIQUE KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Gegevens worden uitgevoerd voor tabel `logins`
---
-
-INSERT INTO `logins` (`user_id`, `last_action`, `login_hash`) VALUES
-(1, '2012-01-31 20:52:26', '64211af30ea3dcead605831943b59e5ef6503e35ecaf519b015b9829187631e4');
-
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE IF NOT EXISTS `orders` (
@@ -128,16 +122,16 @@ CREATE TABLE IF NOT EXISTS `orders` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Gegevens worden uitgevoerd voor tabel `orders`
+-- Dumping data for table `orders`
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `delivery_status`, `payment_status`, `total_price`, `date`) VALUES
-(2, 1, 0, 0, 822.55, '2012-01-24 16:12:25');
+(2, 1, 0, 0, 822.55, '2012-01-24 15:12:25');
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `order_products`
+-- Table structure for table `order_products`
 --
 
 CREATE TABLE IF NOT EXISTS `order_products` (
@@ -149,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `order_products` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Gegevens worden uitgevoerd voor tabel `order_products`
+-- Dumping data for table `order_products`
 --
 
 INSERT INTO `order_products` (`order_id`, `product_id`, `price`, `amount`) VALUES
@@ -159,7 +153,7 @@ INSERT INTO `order_products` (`order_id`, `product_id`, `price`, `amount`) VALUE
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `password_requests`
+-- Table structure for table `password_requests`
 --
 
 CREATE TABLE IF NOT EXISTS `password_requests` (
@@ -170,15 +164,10 @@ CREATE TABLE IF NOT EXISTS `password_requests` (
   UNIQUE KEY `request_hash` (`request_hash`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Gegevens worden uitgevoerd voor tabel `password_requests`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `products`
+-- Table structure for table `products`
 --
 
 CREATE TABLE IF NOT EXISTS `products` (
@@ -198,23 +187,35 @@ CREATE TABLE IF NOT EXISTS `products` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`product_id`),
   UNIQUE KEY `product_name` (`product_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
--- Gegevens worden uitgevoerd voor tabel `products`
+-- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`product_id`, `cat_id`, `product_name`, `normal_price`, `price`, `sales`, `stock`, `delivery_time`, `publisher`, `author`, `image_path`, `description`, `ean_code`, `date`) VALUES
-(1, 13, 'The elder Scrolls: Skyrim', 49.99, 49.99, 5, 10, 0, 'Bethesda Softworks', '', 'skyrim.png', '', '1234567891012', '2012-01-18 18:04:24'),
-(2, 13, 'Portal 2', 59.99, 59.99, 3, 10, 2, 'Valve Corporation', '', 'portal.png', '', '1234567891013', '2012-01-18 18:04:24'),
-(3, 5, 'Birds of Fire', 15.99, 15.99, 9, 10, 1, 'Sony music entertainment', 'Mahavishnu Orchestra', '', '', '4209714987224', '2012-01-18 19:36:19'),
-(4, 5, 'Unrecognizable screeches from a ', 15.99, 10.99, 0, 10, 1, '', 'Ramses Ijff', '', '', '4209714987125', '2012-01-18 19:36:54'),
-(5, 9, 'Final destination 5', 22.99, 22.99, 2, 0, 15, 'Warner Home Video', 'Steven Quale', 'final_destination_5.png', '', '5051888087602', '2012-01-20 13:47:46');
+(1, 13, 'The elder Scrolls: Skyrim', 49.99, 49.99, 5, 10, 0, 'Bethesda Softworks', '', 'skyrim.png', '', '1234567891012', '2012-01-18 17:04:24'),
+(2, 13, 'Portal 2', 59.99, 59.99, 3, 10, 2, 'Valve Corporation', '', 'portal.png', '', '1234567891013', '2012-01-18 17:04:24'),
+(3, 5, 'Birds of Fire', 15.99, 15.99, 9, 10, 1, 'Sony music entertainment', 'Mahavishnu Orchestra', 'birds_of_fire.png', '', '4209714987224', '2012-01-18 18:36:19'),
+(4, 5, 'Unrecognizable screeches from a ', 15.99, 10.99, 0, 10, 1, '', 'Ramses Ijff', 'no_image.png', '', '4209714987125', '2012-01-18 18:36:54'),
+(5, 9, 'Final destination 5', 22.99, 22.99, 2, 0, 15, 'Warner Home Video', 'Steven Quale', 'final_destination_5.png', '', '5051888087602', '2012-01-20 12:47:46'),
+(6, 6, 'Got My Mojo Working', 9.99, 9.99, 3, 22, 2, '', 'Muddy Waters', 'mojo_working.png', '', '7854269875421', '2012-02-03 16:54:46'),
+(7, 7, 'In the Navy', 12.99, 12.99, 1, 23, 7, 'Can''t stop productions', 'the village people', 'in_the_navy.png', '', '4587963215478', '2012-02-03 17:08:03'),
+(8, 8, 'While heaven wept', 4.99, 4.99, 5, 55, 616, 'nuclear blast records', 'fear of infinity', 'while_heaven_wept.png', '', '6166166616616', '2012-02-03 17:22:35'),
+(9, 10, 'Robowar', 1.99, 1.99, 0, 50, 10, '', 'Bruno Mattei', 'robowar.png', '', '7784512568974', '2012-02-03 17:25:14'),
+(10, 11, 'Cool as Ice', 21.99, 21.99, 1, 54, 1, 'Universal pictures', '', 'cool_as_ice.png', '', '4551245357849', '2012-02-03 17:28:46'),
+(11, 12, 'I, Robot', 12.99, 12.99, 3, 5, 11, 'Davis Entertainment', '', 'i_robot.png\n', '', '4785462189758', '2012-02-03 17:34:43'),
+(12, 14, 'call_of_duty_2', 45.44, 34.34, 12, 9, 1111, 'Activision', '', 'call_of_duty_2.png', '', '4587621598743', '2012-02-03 17:46:30'),
+(13, 15, 'Ghost Recon: Ghost Soldier', 35.99, 35.99, 3, 6, 7, 'Red Storm Entertainment', 'Tom Clancy', 'ghost_recon_future.png', '', '8759426589745', '2012-02-03 17:49:30'),
+(14, 16, 'a Boy and his Blob', 13.99, 12.99, 9, 3, 22, 'WayForward Technologies', '', 'boy_and_his_blob.png', '', '1254789547854', '2012-02-03 17:52:46'),
+(15, 17, 'Forever Odd', 11.99, 10.99, 3, 2, 1, '', 'Dean Koontz', 'forever_odd.png', '', '3562897456987', '2012-02-03 17:58:25'),
+(16, 18, 'Het verdriet van belgië', 23.33, 12.11, 3, 2, 11, 'De bezige bij', 'Hugo Claus', 'verdriet_van_belgie.png', '', '7854968759784', '2012-02-03 18:09:50'),
+(17, 19, 'Linear and Geometric Algebra', 21.99, 21.99, 21, 8, 66, '', 'Alan Macdonald', 'linear_geometric_algebra.png', '', '2365412546321', '2012-02-03 18:11:58');
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -240,7 +241,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Gegevens worden uitgevoerd voor tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `password_salt`, `zipcode`, `city`, `street`, `house_number`, `firstname`, `lastname`, `gender`, `tel1`, `tel2`, `email`, `admin_rights`, `login_tries`) VALUES
@@ -250,7 +251,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `password_salt`, `zipcode`, `
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `winkelwagen`
+-- Table structure for table `winkelwagen`
 --
 
 CREATE TABLE IF NOT EXISTS `winkelwagen` (
@@ -261,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `winkelwagen` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Gegevens worden uitgevoerd voor tabel `winkelwagen`
+-- Dumping data for table `winkelwagen`
 --
 
 INSERT INTO `winkelwagen` (`user_id`, `prod_id`, `amount`) VALUES

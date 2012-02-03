@@ -190,13 +190,13 @@
 										</tr>
 										<tr>
 											<td class="unevencomment">
-												<br />' . strip_tags($row2['message'], '<b><u><i><font><ol><il><hr><th><td><tr>') . '<br /><br />
+												<br />' . strip_tags($row2['message'], '<b><u><i><font><hr>') . '<br /><br />
 											</td>
 										</tr>';
 							}
 							
 						
-						echo'</table></div><br />';
+						echo'</table><br />';
 						if($this->user->is_member()){
 							$i = 10;
 							echo'
@@ -219,19 +219,17 @@
 												echo "<option value=" . $i . ">" . $i . "</option>";
 												$i--;
 											}
-										echo'</select>';
-										if (strip_tags(!($row2['message'] = ''))){
-											echo' 
-												</td>
-												<td>
-													<input id="submit" type="submit" name="submit" value="verstuur" />
-												</td>
-										';}'
+										echo'</select>
+											</td>
+											<td>
+												<input id="submit" type="submit" name="submit" value="verstuur" />
+											</td>
 										</tr>
 									</table>
 								</form>
 								';
 						}
+						echo '</div>';
 ?>
 </div>
 						
