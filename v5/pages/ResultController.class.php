@@ -153,7 +153,7 @@
 				for ($i=$num_res; $i <$num_total; $i++){
 					$num_found = $i + 1;
 					$row = $res2->fetch();
-					if(($row['cat_id']) < 4){
+					if(($row['parent_id']) == 0){
 						echo "<tr>
 								<td><a href=?p=categorie&amp;cat=" .($row['cat_id']). ">".($row['cat_name'])."</a>
 								</td>

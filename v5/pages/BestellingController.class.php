@@ -6,24 +6,50 @@
 		private $errors = array();
 		private $posted = false;
 		
-		public function handleForm(){			
+		public function handleForm(){
+			$this->posted = true;
+			if(!isset($_POST['name']) || empty($_POST['name'])){
+				$this->errors[] = "U heeft geen naam ingevoerd!";
+			}
+			if(!isset($_POST['lastname']) || empty($_POST['lastname'])){
+				$this->errors[] = "U heeft geen achternaam ingevoerd!";
+			}
+			if(!isset($_POST['zip1']) || empty($_POST['zip1']) || !isset($_POST['zip2']) || empty($_POST['zip2'])){
+				$this->errors[] = "U heeft geen of een onvolledige postcode ingevoerd!";
+			}elseif(!ctype_digit($_POST['zip1']) || !ctype_alpha($_POST['zip2']) || strlen($_POST['zip1']) != 4 || strlen($_POST['zip2']) != 2){
+				$this->errors[] = "U heeft een ongeldige postcode ingevoerd!";
+			}
+			
+			if(!isset($_POST['street']) || empty($_POST['street'])){
+				$this->errors[] = "U heeft geen straatnaam ingevoerd!";
+			}
+			if(!isset($_POST['city']) || empty($_POST['city'])){
+				$this->errors[] = "U heeft geen straatnaam ingevoerd!";
+			}
+			if(!isset($_POST['housenr']) || empty($_POST['housenr']) || !ctype_alnum($_POST['housenr']) || !preg_match("/^[0-9]{1,}[a-zA-Z]{0,}$/", $_POST['housenr'])){
+				$this->errors[] = "U heeft geen geldig huisnummer ingevoerd!";
+			}
+			if(!isset($_POST['email']) || empty($_POST['email']) || !preg_match("/^.+@.+\..+$/", $_POST['email'])){
+				$this->errors[] = "U heeft geen geldig e-mailadres ingevoerd!";
+			}
+			
 			include("MailSender.class.php");
-			if ($_POST['submit']){
-				$resgegevens = DB::$db->query("SELECT * FROM users WHERE username =" . DB::$db->quote($_SESSION['username'])."");
-				$row = $resgegevens->fetch();
-				$msg = "<html>
-					<head>
-					<title>Umbranis Bestelling</title>
-					</head>
-					<body>
-					<p>Beste " . ucfirst($row['firstname']) . " " . ucfirst($row['lastname']) . ",<br />bedankt voor het plaatsen van uw bestelling bij Umbranis, de webshop voor al uw multimedia!</p>
-					</body>
-					</html>";
+			$msg = "<html>
+				<head>
+				<title>Umbranis Bestelling</title>
+				</head>
+				<body>
+				<p>Beste " . ucfirst($_POST['name']) . " " . ucfirst($_POST['lastname']) . ",<br />bedankt voor het plaatsen van uw bestelling bij Umbranis, de webshop voor al uw multimedia!</p>
+				</body>
+				</html>";
+			
+			if(count($this->errors) == 0 && !MailSender::sendMail($_POST['email'], "Bestel", $msg, true)){
+				$this->errors[] = "De bevestigings mail kon niet verstuurd worden!";
+			}
+			
+			if(count($this->errors) == 0){
 				
-				if(!MailSender::sendMail($row['email'], "Bestel", $msg, true)){
-					$this->errors[] = "De bevestigings mail kon niet verstuurd worden!";
-				}
-				
+<<<<<<< HEAD
 				if(count($this->errors) == 0){
 					
 					$total = 0;
@@ -47,33 +73,65 @@
 								DB::$db->query("UPDATE products SET sales = sales + (1 *".$row['amount'].", stock = stock - (1 *".$row['amount']." WHERE product_id =".$row2['prod_id']."");
 							}
 							DB::$db->query("DELETE FROM winkelwagen WHERE user_id=".$row1['user_id']."");
+=======
+				$res = DB::$db->query("INSERT INTO order (user_id, firstname, lastname, zipcode, city, street, house_number, email)
+					VALUES (
+						" . $this->escape('name') . ",
+						" . $this->escape('lastname') . ",
+						" . DB::$db->quote($_POST['zip1'] . strtoupper($_POST['zip2'])) . ",
+						" . $this->escape('city') . ",
+						" . $this->escape('street') . ",
+						" . $this->escape('housenr') . ",
+						" . $this->escape('email') . "
+					)");
+				$res0 = DB::$db->query("SELECT id FROM users WHERE username='".$this->user->username."' LIMIT 1");
+				if($res0 && $row0 = $res0->fetch()){
+					$res1 = DB::$db->query("SELECT * FROM winkelwagen where user_id =". $row0['id']);
+					while($res1 && $row1 = $res1->fetch()){
+						//builds up the individual's shopping list
+						$res2 = DB::$db->query("SELECT * FROM products where product_id = ".$row1['prod_id']);
+						if($res2 && $row2 = $res2->fetch()){	
+							DB::$db->query("INSERT INTO order_products VALUES ".$row1['prod_id'].",".$row2['price'].",".$row1['amount']."");
+							DB::$db->query("DELETE FROM winkelwagen WHERE prod_id=".$row1['prod_id'].", user_id = ".$row1['user_id']."");
+>>>>>>> 074c9afad9a6c407e2710f79d7d1fd5e6bb9850e
 						}
 					}
-					$res0 = DB::$db->query("SELECT id FROM users WHERE username='".$_SESSION['username']."' LIMIT 1");
-					$row0 = $res0->fetch();	
-						$resorderid = DB::$db->query("SELECT order_id FROM orders WHERE user_id='". $row0['id']."' LIMIT 1");
-						$roworderid = $resorderid->fetch();
-						
-					DB::$db->query("UPDATE orders 
-						SET total_price=".$total."
-						WHERE order_id =".$roworderid['order_id']."");
-					if($res0 || $res1 || $res2){
-						$this->errors[] = "Er is een fout in de database opgetreden!";
-						return;
-					}
 				}
-				$this->posted = true;
+				if(!$res || $res0 || $res1 || $res2){
+					$this->errors[] = "Er is een fout in de database opgetreden!";
+					return;
+				}
+			}
+		}
+		
+		private function valueLoad($item){		
+			if($item == "zip2"){
+				echo (isset($_POST[$item])) ? strtoupper($_POST[$item]) : "";
+			}else{
+				echo (isset($_POST[$item])) ? $_POST[$item] : "";
+			}
+		}
+		
+		private function escape($item){
+			if(isset($_POST[$item])){
+				if($item != "username" && $item != "email"){
+					return DB::$db->quote(ucfirst($_POST[$item]));
+				}else{
+					return DB::$db->quote($_POST[$item]);
+				}
+			}else{
+				return "''";
 			}
 		}
 	
 		public function buildPage(){
 ?>
 <div id="contentcontainer">
-	<h2>Bestelling gegevens</h2>
+	<h2>Bestelling</h2>
 	<div id="contentboxsmall">
 <?php	
 			if(!$this->posted || count($this->errors) != 0){
-				echo "<b>Controleer goed of alles klopt!</b>";
+				echo "<p>Vul hier uw adresgegevens in.</p>";
 			}else{
 				echo "<p>Bestelling geplaatst!</p>";
 			}
@@ -92,107 +150,88 @@
 					$_POST['gender'] = null;
 				}
 			}
-			else{
-				$resgegevens = DB::$db->query("SELECT * FROM users WHERE username =" . DB::$db->quote($_SESSION['username'])."");
-				if(!$resgegevens || ($resgegevens->rowCount() == 1)) {
-					if(!$resgegevens)$row = null;
-					else $row = $resgegevens->fetch();
+			if(!$this->posted || count($this->errors) != 0){
 ?>
-					<table>
-						<tr>
-							<td>Voornaam</td>
-							<td><?php echo ": ". $row['firstname'];?></td>
-						</tr>
-						<tr>
-							<td>Achternaam</td>
-							<td><?php echo ": ". $row['lastname'];?></td>
-						</tr>
-						<tr>
-								<td>Postcode</td>
-								<td><?php echo ": ". $row['zipcode'];?></td>
-						</tr>
-						<tr>
-							<td>Plaats</td>
-							<td><?php echo ": ". $row['city'];?></td>
-						</tr>
-						<tr>
-							<td>Straat</td>
-							<td><?php echo ": ". $row['street'];?></td>
-						</tr>
-						<tr>
-							<td>Huisnummer</td>
-							<td><?php echo ": ". $row['house_number'];?></td>
-						</tr>
-						<tr>
-							<td>Telefoon 1</td>
-							<td><?php echo ": ". $row['tel1'];?></td>
-						</tr>
-						<tr>
-							<td>Telefoon 2</td>
-							<td><?php echo ": ". $row['tel2'];?></td>
-						</tr>
-						<tr>
-							<td>Email adress</td>
-							<td><?php echo ": ". $row['email'];?></td>
-						</tr>
-					</table>
-					<br />
-					</div>
-				</div>
+		<form action="#" method="post">
+			<table>
+				<tr>
+					<td>
+						Naam:
+					</td>
+					<td>
+						<input type="text" name="name" maxlength="25" value="<?php $this->valueLoad('name'); ?>" />*
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Achternaam:
+					</td>
+					<td>
+						<input type="text" name="lastname" maxlength="25" value="<?php $this->valueLoad('lastname'); ?>" />*
+					</td>
+				</tr>
+				<tr>
+				<td colspan="2" class="spacer"></td>
+				</tr>
+				<tr>
+					<td>
+						Postcode:
+					</td>
+					<td>
+						<input type="text" name="zip1" maxlength="4" id="zip1" value="<?php $this->valueLoad('zip1'); ?>" />
+						<input type="text" name="zip2" maxlength="2" id="zip2" value="<?php $this->valueLoad('zip2'); ?>" />*
+					</td>
+				</tr>
+				<tr>
+					<td>
+					Plaats:
+					</td>
+					<td>
+						<input type="text" name="city" maxlength="25" value="<?php $this->valueLoad('city'); ?>" />*
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Straat:
+					</td>
+					<td>
+						<input type="text" name="street" maxlength="25" value="<?php $this->valueLoad('street'); ?>" />*
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Huisnummer:
+					</td>
+					<td>
+						<input type="text" name="housenr" maxlength="5" value="<?php $this->valueLoad('housenr'); ?>" />*
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="spacer"></td>
+				</tr>
+				<tr>
+					<td>
+						Emailadres:
+					</td>
+					<td>
+						<input type="text" name="email" maxlength="50" value="<?php $this->valueLoad('email'); ?>" />*
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="spacer"></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>
+						<input class="submit" type="submit" name="submit" value="Bestel" />
+					</td>
+				</tr>
+			</table>
+		</form>
+		<br />
+	</div>
+</div>
 <?php
-			 
-					echo '
-					<div id="contentcontainer">
-					<table border="1" cellpadding = "2" width="520px">
-					<tr>
-					<th>Product naam</th>
-					<th>Prijs</th>
-					<th>Aantal</th>
-					</tr>';
-					$totalcost = 0;
-					$carsize = 0;
-					$res0 = DB::$db->query("SELECT id FROM users WHERE username='".$this->user->username."' LIMIT 1");
-					if($res0 && $row0 = $res0->fetch()){
-						$res1 = DB::$db->query("SELECT * FROM winkelwagen where user_id =". $row0['id']);
-						while($res1 && $row1 = $res1->fetch()){
-							//builds up the individual's shopping list
-							$res2 = DB::$db->query("SELECT * FROM products where product_id = ".$row1['prod_id']);
-							if($res2 && $row2 = $res2->fetch()){
-								echo '
-									<tr>
-									<th>'.$row2['product_name'].'</th>
-									<th>'.$row2['price'].'</th>
-									<th align="center">'.$row1['amount'].'</th>
-									</tr>
-								';
-								$totalcost += ($row2['price'] * $row1['amount']);
-								$carsize += 1;
-							}
-						}
-					}
-					echo '
-					<tr style="border-top:2px solid black;">
-					<td>Totale prijs:</td>
-					<th colspan="2">&euro;'.$totalcost.'</th>
-					</tr>
-					</table>
-					</div>';
-?>
-					<div id="contentcontainer">
-						<form action="?p=bestelling" method="post">
-							<table width="400px">
-								<tr align="center">
-									<td>
-									<input class="submit" type="submit" name="submit" value="Bevestigen"/>
-									</td>
-									<td>
-									<input type="button" name="annuleren" onClick="location.href='?p=winkelwagen'" value="Annuleren" />
-									</td>
-								</tr>
-							</table>
-						</form>
-<?php
-				}
 			}
 		}
 	}

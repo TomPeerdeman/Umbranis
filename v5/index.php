@@ -3,7 +3,7 @@
 	session_start();
 	define("INDEX", true);
 	
-	/* Error handler vervangen zodat deze naar een file schrijft ipv naar het scherm */
+	//Error handler vervangen zodat deze naar een file schrijft ipv naar het scherm
 	/*
 	set_error_handler(function($errno, $errstr, $errfile, $errline){
 		$file = fopen("log/log_" . date("d-m-Y") . ".txt", "a+");

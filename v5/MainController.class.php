@@ -6,7 +6,6 @@
 		private $controller;
 		private $page;
 		private $cssfile;
-		private $type;
 		//Pagina's die zijn toegestaan om te laden
 		private $allowedPages = array("account", 
 			"activatie", 
@@ -27,8 +26,7 @@
 			"registreer", 
 			"zoek", 
 			"winkelwagen",
-			"result",
-			"adressgegevens", 
+			"result", 
 			"admin/admin",
 			"admin/addcategorie", 
 			"admin/addproduct", 
@@ -40,19 +38,13 @@
 			"admin/klantoverzicht");
 	
 		public function __construct(){	
-			if(isset($_GET['type'])){
-				switch($_GET['type']){
-					case 'body':
-						$this->type = 'body';
-						break;
-					case 'head':
-						$this->type = 'head';
-						break;
-					default:
-						$this->type = 'full';
-				}
+			//Type pagina aanvraag bepalen
+			if(isset($_GET['type']) && $_GET['type'] == "body"){
+				//Alleen de body voor ajax calls
+				$type = 'body';
 			}else{
-				$this->type = 'full';
+				//Volledige pagina
+				$type = 'full';
 			}
 		
 			//Bijbehorende controller zoeken, als geen pagina aangegeven is dan de home gebruiken
@@ -63,24 +55,22 @@
 			}
 			
 			if(!in_array($this->page, $this->allowedPages)){
-?>
-<?xml version="1.0"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title>Access denied</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta http-equiv="refresh" content="3;url=?p=home" />
-	</head>
-	<body>
-		<p><strong>Access denied!</strong></p>
-	</body>
-</html>
-<?php
+				echo '<?xml version="1.0"?>
+					<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+					<html xmlns="http://www.w3.org/1999/xhtml">
+						<head>
+							<title>Access denied</title>
+							<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+							<meta http-equiv="refresh" content="3;url=?p=home" />
+						</head>
+						<body>
+							<p><strong>Access denied!</strong></p>
+						</body>
+					</html>';
 				exit();
 			}
 			
-			if(HTTPS && (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != 'on') && $this->type == "full"){
+			if(HTTPS && (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != 'on') && $type == "full"){
 				//Als https aan staat redirecten als https:// nog niet gebruikt wordt
 				header("Location: https://" . SITE_ROOT . "?p=" . $this->page);
 				exit();
@@ -114,103 +104,82 @@
 				$this->controller->handleForm();
 			}
 			
-			if($this->type == "full"){
+			if($type == "full"){
 				//Pagina beginnen
 				$this->beginPage();
 			}
-			
-			if($this->type == "head"){
-				$this->buildHead();
-			}
 
-			if($this->type != "head"){
-				//Controller de pagina laten bouwen
-				$this->controller->buildPage();
-			}
+			//Controller de pagina laten bouwen
+			$this->controller->buildPage();
 			
-			if($this->type == "full"){
+			if($type == "full"){
 				//Pagina beeindigen
 				$this->endPage();
 			}
 		}
 	
 		private function beginPage(){
-?>
-<?xml version="1.0"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<?php
-				$this->buildHead();
-?>
-</head>
-<body>
-<div id="container">
-<div id="header"><h1>Umbranis multimedia webshop</h1></div>
-<div id="menu">
-<?php 
-			//menu bouwen
-			$o = new MenuController();
-			$o->buildMenu();
- ?>
-</div>		
-<div id="content">
-<div id="sidebar">
-<?php
-			$o = new TopsalesController($this->page);
-			$o->buildTopsales();
-?>
-</div>
-<div id="maincontent">
-<?php
-		}
-		
-		private function buildHead(){
-?>
-<title>
-<?php
+			echo '<?xml version="1.0"?>
+				<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+				<html xmlns="http://www.w3.org/1999/xhtml">
+				<head>
+				<title>';
 			echo $this->controller->getTitle();
-?>
-</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="style/base.css" type="text/css" />
-<?php
+			echo '</title>
+				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="stylesheet" href="style/base.css" type="text/css" />';
+				
 			if(file_exists("style/" . $this->cssfile . ".css")){
 				echo "<link rel=\"stylesheet\" href=\"style/" . $this->cssfile . ".css\" type=\"text/css\" />\n";
 			}
 			if(file_exists("javascript/" . $this->cssfile . ".js")){
 				echo "<script src=\"javascript/" . $this->cssfile . ".js\" type=\"text/javascript\"></script>\n";
 			}
-?>
-<script src="javascript/AJAX.js" type="text/javascript"></script>
-<script src="http://widgets.twimg.com/j/2/widget.js" type="text/javascript"></script>
-<?php
+			echo '<script src="javascript/AJAX.js" type="text/javascript"></script>
+				<script src="http://widgets.twimg.com/j/2/widget.js" type="text/javascript"></script>
+				</head>
+				<body>
+				<div id="container">
+				<div id="header"><h1>Umbranis multimedia webshop</h1></div>
+				<div id="menu">';
+			
+			//menu bouwen
+			$o = new MenuController();
+			$o->buildMenu();
+			
+				echo '</div>		
+				<div id="content">
+				<div id="sidebar">';
+				
+			$o = new TopsalesController($this->page);
+			$o->buildTopsales();
+			
+			echo '</div>
+				<div id="maincontent">';
 		}
 	
 		private function endPage(){
-?>
-</div>
-<br />
-<br />
-<br />
-<div id="contentclear"></div>
-</div>
-<div id="loginbox">
-<?php
+			echo '</div>
+				<br />
+				<br />
+				<br />
+				<div id="contentclear"></div>
+				</div>
+				<div id="loginbox">';
+				
 			$o = new LoginboxController();
 			$o->buildLoginbox($this->controller->user);
-?>
-</div>
-<div id="footer">
-<?php
+			
+			echo '</div>
+				<div id="footer">';
+				
 			$o = new FooterController();
 			$o->buildFooter();
-?>
-</div>
-</div>
-</body>
-</html>
-<?php
+			
+			echo '</div>
+				</div>
+				</body>
+				</html>';
 		}
 		
 		private function formPosted(){
