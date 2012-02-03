@@ -196,7 +196,7 @@
 							}
 							
 						
-						echo'</table></div><br />';
+						echo'</table><br />';
 						if($this->user->is_member()){
 							$i = 10;
 							echo'
@@ -232,6 +232,7 @@
 								</form>
 								';
 						}
+						echo '</div>';
 ?>
 </div>
 						
