@@ -1,0 +1,11 @@
+#lijstvklant{
+	border-collapse: collapse;
+}
+
+#lijstvklant td, #lijstvklant th{
+	padding: 0px 5px;
+	border: 1px solid black;
+}
+#lijstvklant td.leeg{
+	border: 0;
+}

@@ -1,0 +1,111 @@
+.even, .uneven{
+	width: 400px;
+	padding-left: 5px;
+}
+
+.even{
+	background-color: #FFD65C;
+}
+
+.evencomment, .unevencomment{
+	padding-left: 5px;
+	padding-right: 20px;
+}
+
+.evencomment{
+	border-top: solid 2px black;
+	background-color: #FFD65C;
+}
+
+.shadow{
+	background: url(http://umbranis.nl/img/shadow.png) no-repeat bottom right;
+}
+
+#productbox{
+	background-color: #FFE599;
+	margin: 20px;
+	border: solid 2px black;
+	text-align: left;
+	padding: 7px;
+}
+
+#propertiesbox, .shadow{
+  position: relative;
+}
+
+#propertiesbox{
+	border: solid 1px #000;
+	background-color: #FFE599;
+	bottom: 6px;
+	right: 7px;
+	width: 400px;
+}
+
+#propertiescontainer{
+	width: 400px;
+	margin: 20px;
+	float: left;
+}
+
+#picturecontainer{
+	margin: 10px 0px 20px 20px;
+	float: left;
+}
+
+#picturecontainer img{
+	max-width: 250px;
+	max-height: 250px;
+}
+
+#descriptioncontainer{
+	clear: both;
+}
+
+#commentbox{
+	border: double 1px black;
+	background-color: #FFE599;
+	bottom: 6px;
+	right: 7px;
+	width: 700px;
+}
+
+#cartcontainer{
+	width: 220px;
+	height: 25px;
+	bottom: 6px;
+	right: 150px;
+}
+/*tabs*/
+
+#tabContent{
+	padding:10px;
+	background-color:#FFE599;
+	border:1px solid black;
+}
+#productTabs{
+	list-style:none;
+	display:block;
+	overflow:hidden;
+	margin:0;
+	padding:0px;
+	position:relative;
+	top:1px;
+	clear:both;
+}
+#productTabs li{
+	float:left;
+	background-color:#FFD65C;
+	border:1px solid black;
+	padding:5px;
+	cursor:pointer;
+	border-bottom:none;
+	margin-right:10px;
+	font-family:verdana;
+	font-size:.8em;
+	font-weight:bold;
+
+}
+#productTabs .selected{
+	background-color:#FFE599;
+	cursor:default;
+}
