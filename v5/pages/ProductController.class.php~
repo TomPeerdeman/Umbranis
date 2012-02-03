@@ -190,7 +190,7 @@
 										</tr>
 										<tr>
 											<td class="unevencomment">
-												<br />' . strip_tags($row2['message'], '<b><u><i><font><hr>') . '<br /><br />
+												<br />' . strip_tags($row2['message'], '<b><u><i><font><ol><il><hr><th><td><tr>') . '<br /><br />
 											</td>
 										</tr>';
 							}
