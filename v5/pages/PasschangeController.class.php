@@ -103,8 +103,22 @@
 							</tr>
 							<tr>
 								<td>Nieuw wachtwoord:</td>
-								<td><input type="password" name="newpass1" maxlength="32" /></td>
+								<td><input type="password" name="newpass1" maxlength="32" onkeyup="checkStrength(this.value)" /></td>
 							</tr>
+							<tr>
+					<td>
+					&nbsp;
+					</td>
+					<td>
+						<div id="strength" style="margin-top: 5px;">
+							<div style="width: 150px; border: grey 1px solid;">
+								<div id="progress" style="height: 5px;"></div>
+							</div>
+							<span id="text" style=" font-size: 10px; color: grey;">Geen</span>
+							<input type="hidden" name="id" id="id" value="1" />
+						</div>
+					</td>
+				</tr>
 							<tr>
 								<td>Wachtwoord herhalen:&nbsp;</td>
 								<td><input type="password" name="newpass2" maxlength="32" /></td>
