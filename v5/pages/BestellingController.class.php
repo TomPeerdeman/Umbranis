@@ -29,7 +29,11 @@
 									'".$row2['price']."',
 									'".$row1['amount']."'
 								)");
-								DB::$db->query("UPDATE products SET stock = stock - " . $row1['amount'] . " WHERE product_id =".$row2['product_id']."");
+								$res = DB::$db->query("SELECT stock FROM products WHERE product_id =".$row2['product_id']."");
+								$stock = $res->fetch();
+								$x = $stock['stock'] - $row1['amount'];
+								if($x < 0)$x = 0;
+								DB::$db->query("UPDATE products SET stock = " . $x . " WHERE product_id =".$row2['product_id']."");
 							}
 							DB::$db->query("DELETE FROM winkelwagen WHERE user_id=".$row1['user_id']."");
 						}
