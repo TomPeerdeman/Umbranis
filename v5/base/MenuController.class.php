@@ -33,8 +33,8 @@
 					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "\" onclick=\"return page_load('producten', 'cat=" . $subcat['cat_id'] . "');\">" . $subcat['cat_name'] . "</a>";
 					echo "<ul>";
 					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "\" onclick=\"return page_load('producten', 'cat=" . $subcat['cat_id'] . "');\">alle " . lcfirst($category['cat_name']) . "</a></li>";
-					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "&amp;spec=new\" onclick=\"return page_load('producten', 'cat=" . $subcat['cat_id'] . "&spec=new');\">nieuwe " . lcfirst($category['cat_name']) . "</a></li>";
-					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "&amp;spec=action\" onclick=\"return page_load('producten', 'cat=" . $subcat['cat_id'] . "&spec=action');\">aanbiedingen</a></li>";
+					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "&amp;spec=new\" onclick=\"return page_load('producten', 'cat=" . $subcat['cat_id'] . "&amp;spec=new');\">nieuwe " . lcfirst($category['cat_name']) . "</a></li>";
+					echo "<li><a href=\"?p=producten&amp;cat=" . $subcat['cat_id'] . "&amp;spec=action\" onclick=\"return page_load('producten', 'cat=" . $subcat['cat_id'] . "&amp;spec=action');\">aanbiedingen</a></li>";
 					echo "</ul></li>";
 				}
 				echo "</ul>";

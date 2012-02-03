@@ -313,6 +313,7 @@
 					<td>
 						<input type="password" name="pass1" onkeyup="checkStrength(this.value)" maxlength="25" />*
 					</td>
+				</tr>
 				<tr>
 					<td>
 					&nbsp;
@@ -322,7 +323,7 @@
 							<div style="width: 150px; border: grey 1px solid;">
 								<div id="progress" style="height: 5px;"></div>
 							</div>
-							<span id="text" style=" font-size: 10px; color: grey;">Geen</span>
+							<span id="text" style=" font-size: 10px; color: gray;">Geen</span>
 							<input type="hidden" name="id" id="id" value="1" />
 						</div>
 					</td>

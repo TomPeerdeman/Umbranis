@@ -60,7 +60,7 @@
 									<br />";
 									 //oude prijs in rood + doorstrepen en nieuwe prijs in groen
 									if ($row['price'] < $row['normal_price']){ 
-										echo "<span style=\"color: red;\" ><s>&euro;" . $this->price($row['normal_price']) . "</s></span>";
+										echo "<span style=\"color: red; text-decoration: line-through;\" >&euro;" . $this->price($row['normal_price']) . "</span>";
 										echo "<br /><span style=\"color: green;\" > &euro;" . $this->price($row['price']) . "</span>";
 									}
 									
@@ -92,7 +92,7 @@
 						echo "<td>&nbsp;</td>";
 					}
 				}
-				if($teller % 3 == 0)
+				if($teller % 3 == 0  && $res2->rowCount() != $teller)
 					echo "</tr><tr>";
 				}
 				echo "</tr></table>";

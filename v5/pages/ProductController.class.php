@@ -158,7 +158,7 @@
 							echo '	
 										<tr>
 											<td>
-												<i><u><b>';
+												<i><span style="text-decoration: underline;"><b>';
 												if($count == 0){
 													echo 'Er zijn nog geen cijfers aan dit product gegeven.';
 												}
@@ -167,7 +167,7 @@
 												
 												echo number_format($avg, 1);
 												}
-												echo '</b></u></i><br /> <br />
+												echo '</b></span></i><br /> <br />
 											</td>
 										</tr>';
 							
@@ -178,13 +178,13 @@
 								$row3 = $res3->fetch();
 								echo '
 										<tr>
-											<td class="evencomment" width="500px">
+											<td class="evencomment">
 												<b>' . $row3['username'] . ' heeft om ' . $row2['time'] . ' gepost:</b>
 											</td>
-											<td class="evencomment" width="100px" align="right">
+											<td class="evencomment" align="right">
 												Cijfer:
 											</td>
-											<td class="evencomment" width="100px">
+											<td class="evencomment">
 												' . $row2['rating'] . '
 											</td>
 										</tr>

@@ -26,6 +26,7 @@
 			"registreer", 
 			"zoek", 
 			"winkelwagen",
+			"adressgegevens", 
 			"result", 
 			"admin/admin",
 			"admin/addcategorie", 
